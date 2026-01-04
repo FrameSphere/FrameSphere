@@ -1,0 +1,166 @@
+╔════════════════════════════════════════════════════════════════╗
+║                  FRAMESPHERE - FIX CHECKLISTE                  ║
+╚════════════════════════════════════════════════════════════════╝
+
+📅 Datum: Heute
+🎯 Ziel: FrameSpell Account Verbindung zum Laufen bringen
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ SCHRITT 1: SCRIPTS VORBEREITEN                               ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+□ Terminal öffnen
+□ cd /Users/karol/Desktop/Laufende_Projekte/FrameSphere
+□ chmod +x fix-account-connection.sh start-services.sh stop-services.sh
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ SCHRITT 2: FEHLER BEHEBEN                                    ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+□ ./fix-account-connection.sh ausführen
+□ Warte auf "Fehlerbehebung abgeschlossen!" Meldung
+□ Prüfe ob PostgreSQL läuft (brew services list | grep postgresql)
+□ Falls nicht: brew services start postgresql
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ SCHRITT 3: SERVICES STARTEN                                  ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+□ ./start-services.sh ausführen
+□ Warte bis "Services gestartet!" erscheint
+□ Neues Terminal öffnen
+□ cd /Users/karol/Desktop/Laufende_Projekte/Rechtschreibe_API/webapp/backend
+□ uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ SCHRITT 4: SERVICES PRÜFEN                                   ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+Öffne im Browser oder curl:
+
+□ http://localhost:3000              → FrameSphere Frontend
+□ http://localhost:3001/health       → FrameSphere Backend ✓
+□ http://localhost:8000/health       → FrameSpell Backend ✓
+
+Erwartetes Ergebnis: Alle laden ohne Fehler
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ SCHRITT 5: FRAMESPELL API KEY HOLEN                          ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+□ Neues Terminal öffnen
+□ User registrieren:
+  
+  curl -X POST http://localhost:8000/register \
+    -H "Content-Type: application/json" \
+    -d '{"email":"test@example.com","password":"test123"}'
+
+□ Token aus Antwort kopieren
+□ User-Info abrufen:
+
+  curl http://localhost:8000/me \
+    -H "Authorization: Bearer DEIN_TOKEN"
+
+□ api_key aus Antwort kopieren und aufschreiben!
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ SCHRITT 6: ACCOUNT VERBINDEN                                 ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+□ Browser öffnen: http://localhost:3000
+□ Anmelden (oder neuen FrameSphere User registrieren)
+□ Klick auf "Account verbinden" oder gehe zu /dashboard/connect-accounts
+□ Klick auf "FrameSpell API" Karte
+□ Eingeben:
+  - Account-Name: "Mein FrameSpell Account"
+  - API Key: [Der Key aus Schritt 5]
+□ Klick auf "Account verbinden"
+□ Warte auf grüne Erfolgsmeldung
+□ Automatische Weiterleitung zum Dashboard
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ SCHRITT 7: FUNKTIONALITÄT TESTEN                             ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+□ Dashboard zeigt verbundenen FrameSpell Account
+□ Keine Fehler in Browser Console (F12 drücken)
+□ Backend Log prüfen: tail -f backend.log
+□ Keine 500 Fehler sichtbar
+□ Account-Karte zeigt "Verbunden" Status
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ✅ ERFOLG! ALLES FUNKTIONIERT!                               ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+═══════════════════════════════════════════════════════════════
+
+                    TROUBLESHOOTING
+
+Falls etwas nicht funktioniert:
+
+❌ Backend startet nicht
+   → Prüfe: lsof -i:3001
+   → Lösung: kill $(lsof -t -i:3001) && ./start-services.sh
+
+❌ Frontend startet nicht
+   → Prüfe: lsof -i:3000
+   → Lösung: kill $(lsof -t -i:3000) && ./start-services.sh
+
+❌ Database error (500)
+   → Lösung: psql -h localhost -p 5432 -U framesphere_user \
+              -d framesphere -f backend/scripts/reset-connected-accounts.sql
+
+❌ "Service not found" (404)
+   → FrameSpell Service fehlt in DB
+   → Lösung: Siehe FEHLERBEHEBUNG_ANLEITUNG.md Abschnitt 4
+
+❌ CORS error
+   → ./fix-account-connection.sh nochmal ausführen
+   → Backend neu starten
+
+❌ "Invalid API Key"
+   → API Key falsch oder User existiert nicht in FrameSpell
+   → Neuen User in FrameSpell anlegen (Schritt 5)
+   → Sicherstellen dass FrameSpell läuft (Port 8000)
+
+═══════════════════════════════════════════════════════════════
+
+                    PORT ÜBERSICHT
+
+┌──────────────────────┬──────┬────────────────────────────┐
+│ Service              │ Port │ URL                        │
+├──────────────────────┼──────┼────────────────────────────┤
+│ FrameSphere Frontend │ 3000 │ http://localhost:3000      │
+│ FrameSphere Backend  │ 3001 │ http://localhost:3001      │
+│ FrameSpell Backend   │ 8000 │ http://localhost:8000      │
+│ FrameSpell Frontend  │ 8080 │ http://localhost:8080      │
+│ PostgreSQL           │ 5432 │ localhost:5432             │
+└──────────────────────┴──────┴────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+
+                WICHTIGE DATEIEN & BEFEHLE
+
+📁 Dokumentation:
+   - README_QUICK_FIX.md                ← Diese Datei (visuell)
+   - WAS_DU_JETZT_MACHEN_MUSST.md       ← Ausführliche Anleitung
+   - FEHLERBEHEBUNG_ANLEITUNG.md        ← Problemlösungen
+   - SCHNELLSTART.md                     ← Quick Reference
+
+🔧 Scripts:
+   - ./fix-account-connection.sh         ← Behebt alle Fehler
+   - ./start-services.sh                 ← Startet alles
+   - ./stop-services.sh                  ← Stoppt alles
+
+📝 Logs:
+   - tail -f backend.log                 ← Backend Logs
+   - tail -f frontend.log                ← Frontend Logs
+
+🗄️  Datenbank:
+   - backend/scripts/reset-connected-accounts.sql  ← DB Fix
+
+═══════════════════════════════════════════════════════════════
+
+Viel Erfolg! 🚀
+
+Bei weiteren Fragen siehe: WAS_DU_JETZT_MACHEN_MUSST.md

@@ -1,0 +1,114 @@
+center justify-between mb-3">
+              <span className="text-gray-400 text-sm">API Calls (30 Tage)</span>
+              <Activity className="w-5 h-5 text-blue-400" />
+            </div>
+            <p className="text-3xl font-bold text-white">
+              {(account.stats?.apiCalls || 0).toLocaleString()}
+            </p>
+            <p className="text-xs text-green-400 mt-2">+12.5% vs. letzten Monat</p>
+          </div>
+
+          <div className="glass-effect rounded-lg p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-gray-400 text-sm">Tokens Verbraucht</span>
+              <TrendingUp className="w-5 h-5 text-purple-400" />
+            </div>
+            <p className="text-3xl font-bold text-white">
+              {(account.stats?.tokensUsed || 0).toLocaleString()}
+            </p>
+            <p className="text-xs text-green-400 mt-2">+8.2% vs. letzten Monat</p>
+          </div>
+
+          <div className="glass-effect rounded-lg p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-gray-400 text-sm">Gesamtkosten</span>
+              <DollarSign className="w-5 h-5 text-green-400" />
+            </div>
+            <p className="text-3xl font-bold text-white">
+              €{(account.stats?.totalCost || 0).toFixed(2)}
+            </p>
+            <p className="text-xs text-red-400 mt-2">+15.3% vs. letzten Monat</p>
+          </div>
+
+          <div className="glass-effect rounded-lg p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-gray-400 text-sm">Durchschn. Latenz</span>
+              <Clock className="w-5 h-5 text-orange-400" />
+            </div>
+            <p className="text-3xl font-bold text-white">
+              {account.stats?.avgLatency || 0}ms
+            </p>
+            <p className="text-xs text-green-400 mt-2">-5ms vs. letzten Monat</p>
+          </div>
+        </div>
+
+        {/* Usage Timeline */}
+        <div className="mb-8">
+          <h3 className="text-lg font-bold text-white mb-4 flex items-center">
+            <Calendar className="w-5 h-5 mr-2 text-primary-400" />
+            Nutzung letzte 7 Tage
+          </h3>
+          <div className="glass-effect rounded-lg p-6">
+            <div className="h-48 flex items-end justify-between space-x-2">
+              {[65, 78, 52, 90, 71, 85, 95].map((value, index) => (
+                <div key={index} className="flex-1 flex flex-col items-center">
+                  <div 
+                    className="w-full bg-gradient-to-t from-primary-500 to-purple-500 rounded-t transition-all hover:opacity-80"
+                    style={{ height: `${value}%` }}
+                  ></div>
+                  <span className="text-xs text-gray-500 mt-2">
+                    {['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'][index]}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Account Info */}
+        <div className="glass-effect rounded-lg p-6">
+          <h3 className="text-lg font-bold text-white mb-4">Account Informationen</h3>
+          <div className="space-y-3">
+            <div className="flex justify-between">
+              <span className="text-gray-400">Account ID:</span>
+              <span className="text-white font-mono text-sm">{account.accountId || 'N/A'}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Verbunden seit:</span>
+              <span className="text-white">{new Date(account.connectedAt).toLocaleDateString()}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Letzter Sync:</span>
+              <span className="text-white">
+                {account.lastSyncAt ? new Date(account.lastSyncAt).toLocaleString() : 'Noch nicht synchronisiert'}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Status:</span>
+              <span className="text-green-400 font-semibold">✓ Aktiv</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex gap-4 mt-6">
+          <button
+            onClick={onClose}
+            className="flex-1 btn-secondary"
+          >
+            Schließen
+          </button>
+          <Link
+            to={`/products/${account.productId}`}
+            className="flex-1 btn-primary inline-flex items-center justify-center space-x-2"
+          >
+            <ExternalLink className="w-4 h-4" />
+            <span>Zum Produkt</span>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ManageAccounts;
