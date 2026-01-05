@@ -22,55 +22,24 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Security middleware
-app.use(helmet());
+// Security middleware - Disable for CORS debugging
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
 
-// CORS configuration - More permissive for Vercel deployment
-const allowedOrigins = [
-  process.env.CORS_ORIGIN,
-  process.env.FRONTEND_URL,
-  'http://localhost:3000',
-  'http://localhost:5173',
-  'http://localhost:3001'
-].filter(Boolean);
-
-console.log('🔒 CORS Allowed Origins:', allowedOrigins);
-
+// CORS - ALLOW ALL (temporarily for debugging)
+console.log('🔓 CORS: ALLOWING ALL ORIGINS (DEBUG MODE)');
 app.use(cors({
-  origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps, curl, Postman)
-    if (!origin) return callback(null, true);
-    
-    // Check if origin is allowed
-    if (allowedOrigins.length === 0) {
-      // If no origins configured, allow all (useful for initial setup)
-      console.warn('⚠️  No CORS origins configured - allowing all origins');
-      return callback(null, true);
-    }
-    
-    // Check exact match or wildcard match for Vercel preview deployments
-    const isAllowed = allowedOrigins.some(allowedOrigin => {
-      if (allowedOrigin === origin) return true;
-      // Allow all vercel.app subdomains if main domain is allowed
-      if (allowedOrigin.includes('vercel.app') && origin.includes('vercel.app')) return true;
-      return false;
-    });
-    
-    if (isAllowed) {
-      callback(null, true);
-    } else {
-      console.warn('❌ CORS blocked origin:', origin);
-      console.warn('   Allowed origins:', allowedOrigins);
-      callback(null, true); // Still allow it but log warning for debugging
-    }
-  },
+  origin: true, // Allow ALL origins
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  exposedHeaders: ['Content-Range', 'X-Content-Range']
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 
-// Handle OPTIONS preflight requests explicitly
+// Handle OPTIONS explicitly
 app.options('*', cors());
 
 // Body parser middleware
@@ -78,15 +47,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Logging middleware
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-} else {
-  app.use(morgan('combined'));
-}
+app.use(morgan('combined'));
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
   max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
   message: 'Too many requests from this IP, please try again later.',
   standardHeaders: true,
@@ -101,7 +66,8 @@ app.get('/health', (req, res) => {
     success: true,
     message: 'FrameSphere API is running',
     timestamp: new Date().toISOString(),
-    version: '1.0.0'
+    version: '1.0.0',
+    cors: 'all-origins-allowed'
   });
 });
 
@@ -118,6 +84,7 @@ app.get('/', (req, res) => {
     success: true,
     message: 'FrameSphere API',
     version: '1.0.0',
+    cors: 'all-origins-allowed',
     documentation: '/api/docs',
     endpoints: {
       health: '/health',
@@ -141,6 +108,7 @@ app.listen(PORT, () => {
   console.log('================================');
   console.log(`📍 Server running on port ${PORT}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔓 CORS: ALL ORIGINS ALLOWED (DEBUG MODE)`);
   console.log(`🔗 API URL: http://localhost:${PORT}`);
   console.log(`💚 Health check: http://localhost:${PORT}/health`);
   console.log('================================\n');
@@ -149,7 +117,6 @@ app.listen(PORT, () => {
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
   console.error('❌ Unhandled Promise Rejection:', err);
-  // Close server & exit process
   process.exit(1);
 });
 
