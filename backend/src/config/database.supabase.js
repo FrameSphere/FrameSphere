@@ -5,7 +5,7 @@ dotenv.config();
 
 const { Pool } = pg;
 
-// Database configuration (Supabase compatible)
+// Supabase Database configuration
 const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
   port: parseInt(process.env.DB_PORT || '5432'),
@@ -17,7 +17,7 @@ const dbConfig = {
   connectionTimeoutMillis: 2000,
   // SSL configuration for Supabase (required in production)
   ssl: process.env.NODE_ENV === 'production' ? {
-    rejectUnauthorized: false
+    rejectUnauthorized: false // Supabase uses self-signed certificates
   } : false
 };
 

@@ -25,45 +25,16 @@ const PORT = process.env.PORT || 5000;
 // Security middleware
 app.use(helmet());
 
-// CORS configuration - More permissive for Vercel deployment
-const allowedOrigins = [
-  process.env.CORS_ORIGIN,
-  process.env.FRONTEND_URL,
-  'http://localhost:3000',
-  'http://localhost:5173',
-  'http://localhost:3001'
-].filter(Boolean);
+// CORS configuration - TEMPORARY: Allow all origins for debugging
+console.log('🔒 CORS Configuration:', {
+  NODE_ENV: process.env.NODE_ENV,
+  CORS_ORIGIN: process.env.CORS_ORIGIN,
+  FRONTEND_URL: process.env.FRONTEND_URL
+});
 
-console.log('🔒 CORS Allowed Origins:', allowedOrigins);
-
+// Simplified CORS - allow all origins temporarily
 app.use(cors({
-  origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps, curl, Postman)
-    if (!origin) return callback(null, true);
-    
-    // Check if origin is allowed
-    if (allowedOrigins.length === 0) {
-      // If no origins configured, allow all (useful for initial setup)
-      console.warn('⚠️  No CORS origins configured - allowing all origins');
-      return callback(null, true);
-    }
-    
-    // Check exact match or wildcard match for Vercel preview deployments
-    const isAllowed = allowedOrigins.some(allowedOrigin => {
-      if (allowedOrigin === origin) return true;
-      // Allow all vercel.app subdomains if main domain is allowed
-      if (allowedOrigin.includes('vercel.app') && origin.includes('vercel.app')) return true;
-      return false;
-    });
-    
-    if (isAllowed) {
-      callback(null, true);
-    } else {
-      console.warn('❌ CORS blocked origin:', origin);
-      console.warn('   Allowed origins:', allowedOrigins);
-      callback(null, true); // Still allow it but log warning for debugging
-    }
-  },
+  origin: true, // Allow all origins
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
@@ -98,7 +69,9 @@ app.get('/health', (req, res) => {
     success: true,
     message: 'FrameSphere API is running',
     timestamp: new Date().toISOString(),
-    version: '1.0.0'
+    version: '1.0.0',
+    environment: process.env.NODE_ENV,
+    cors: 'enabled-all-origins'
   });
 });
 
