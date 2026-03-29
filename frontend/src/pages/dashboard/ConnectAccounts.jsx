@@ -1,320 +1,162 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  Sparkles,
-  Brain,
-  Code,
-  Home,
-  Network,
-  ArrowRight,
-  CheckCircle,
-  AlertCircle,
-  Loader,
-  Link2,
-  Shield,
-  Key,
-  ChevronRight,
-  Info,
-  ExternalLink
-} from 'lucide-react';
+import { Sparkles, Brain, Shield, Code, Home, Network, Search, Globe, ArrowRight, CheckCircle, AlertCircle, Loader, Link2, Key, ChevronRight, Info, ExternalLink } from 'lucide-react';
 import api from '../../utils/api';
+
+const products = [
+  { id: 'framespell', name: 'FrameSpell API', description: 'KI-Rechtschreibprüfung', icon: <Sparkles className="w-7 h-7" />, color: 'from-blue-500 to-cyan-500', status: 'Live', connectionFields: ['apiKey', 'accountName'], docsUrl: 'https://framespell.pages.dev/' },
+  { id: 'ratelimit-api', name: 'RateLimit API', description: 'API-Anfragen limitieren', icon: <Shield className="w-7 h-7" />, color: 'from-green-500 to-emerald-500', status: 'Live', connectionFields: ['apiKey', 'accountName'], docsUrl: 'https://ratelimit-api.pages.dev/' },
+  { id: 'frametrain', name: 'FrameTrain', description: 'KI-Modelle lokal trainieren', icon: <Brain className="w-7 h-7" />, color: 'from-purple-500 to-pink-500', status: 'Live', connectionFields: ['apiKey', 'accountName'], docsUrl: 'https://frame-train.vercel.app/' },
+  { id: 'corechain-api', name: 'CoreChain API', description: 'KI-Orchestrierung', icon: <Code className="w-7 h-7" />, color: 'from-cyan-500 to-blue-500', status: 'Bald', connectionFields: ['apiKey', 'accountName'], docsUrl: '/products/corechain-api' },
+  { id: 'keyword-engine', name: 'Keyword Engine', description: 'SEO Keyword-Analyse', icon: <Search className="w-7 h-7" />, color: 'from-yellow-500 to-orange-500', status: 'Bald', connectionFields: ['apiKey', 'accountName'], docsUrl: '/products/keyword-engine' },
+  { id: 'website-manager', name: 'Website Manager', description: 'Webseiten verwalten', icon: <Globe className="w-7 h-7" />, color: 'from-orange-500 to-red-500', status: 'Bald', connectionFields: ['apiKey', 'accountName'], docsUrl: '/products/website-manager' },
+];
 
 const ConnectAccounts = () => {
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [step, setStep] = useState(1); // 1: Select Product, 2: Connect Account
+  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [connectedAccounts, setConnectedAccounts] = useState([]);
-  const [connectionForm, setConnectionForm] = useState({
-    accountId: '',
-    apiKey: '',
-    accountName: ''
-  });
+  const [connectionForm, setConnectionForm] = useState({ accountId: '', apiKey: '', accountName: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const products = [
-    {
-      id: 'framespell',
-      name: 'FrameSpell API',
-      description: 'KI-gestützte Rechtschreib- und Grammatikprüfung',
-      icon: <Sparkles className="w-8 h-8" />,
-      color: 'from-blue-500 to-cyan-500',
-      status: 'Live',
-      requiresApiKey: true,
-      connectionFields: ['apiKey', 'accountName'],
-      documentationUrl: '/products/framespell'
-    },
-    {
-      id: 'corechain-ai',
-      name: 'CoreChain AI',
-      description: 'KI-Orchestrierung für komplexe Workflows',
-      icon: <Brain className="w-8 h-8" />,
-      color: 'from-purple-500 to-pink-500',
-      status: 'Live',
-      requiresApiKey: true,
-      connectionFields: ['accountId', 'apiKey', 'accountName'],
-      documentationUrl: '/products/corechain-ai'
-    },
-    {
-      id: 'corechain-api',
-      name: 'CoreChain API',
-      description: 'Entwickler-API für AI-Orchestrierung',
-      icon: <Code className="w-8 h-8" />,
-      color: 'from-green-500 to-emerald-500',
-      status: 'Live',
-      requiresApiKey: true,
-      connectionFields: ['apiKey', 'accountName'],
-      documentationUrl: '/products/corechain-api'
-    },
-    {
-      id: 'spherehub',
-      name: 'SphereHub',
-      description: 'Lokale AI-Modelle & Smart Home Integration',
-      icon: <Home className="w-8 h-8" />,
-      color: 'from-orange-500 to-red-500',
-      status: 'Beta',
-      requiresApiKey: true,
-      connectionFields: ['accountId', 'apiKey', 'accountName'],
-      documentationUrl: '/products/spherehub'
-    },
-    {
-      id: 'spherenet',
-      name: 'SphereNet',
-      description: 'Öffentliches Netzwerk von KI-Modellen',
-      icon: <Network className="w-8 h-8" />,
-      color: 'from-indigo-500 to-blue-500',
-      status: 'Coming Soon',
-      requiresApiKey: true,
-      connectionFields: ['accountId', 'apiKey', 'accountName'],
-      documentationUrl: '/products/spherenet'
-    }
-  ];
-
-  useEffect(() => {
-    fetchConnectedAccounts();
-  }, []);
+  useEffect(() => { fetchConnectedAccounts(); }, []);
 
   const fetchConnectedAccounts = async () => {
     try {
       const response = await api.get('/connected-accounts');
       setConnectedAccounts(response.data || []);
-    } catch (error) {
-      console.error('Error fetching connected accounts:', error);
-    }
+    } catch (e) {}
   };
 
+  const isConnected = (productId) => connectedAccounts.some(acc => acc.service_name === productId && acc.status === 'active');
+
   const handleProductSelect = (product) => {
-    if (product.status === 'Coming Soon') {
-      setError(`${product.name} ist noch nicht verfügbar. Wir informieren dich, sobald es live geht!`);
+    if (product.status === 'Bald') {
+      setError(`${product.name} ist noch nicht verfügbar.`);
+      return;
+    }
+    if (isConnected(product.id)) {
+      setError(`${product.name} ist bereits verbunden. Verwalte den Account unter "Accounts verwalten".`);
       return;
     }
     setSelectedProduct(product);
     setStep(2);
     setError('');
-    setSuccess('');
-    setConnectionForm({
-      accountId: '',
-      apiKey: '',
-      accountName: `Mein ${product.name} Account`
-    });
-  };
-
-  const handleInputChange = (e) => {
-    setConnectionForm({
-      ...connectionForm,
-      [e.target.name]: e.target.value
-    });
-    setError('');
+    setConnectionForm({ accountId: '', apiKey: '', accountName: `Mein ${product.name} Account` });
   };
 
   const handleConnect = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setSuccess('');
-
     try {
-      // Validate fields
-      if (!connectionForm.accountName.trim()) {
-        setError('Bitte gib einen Account-Namen ein');
-        setLoading(false);
-        return;
-      }
+      if (!connectionForm.accountName.trim()) { setError('Bitte gib einen Account-Namen ein'); setLoading(false); return; }
+      if (!connectionForm.apiKey.trim()) { setError('Bitte gib einen API Key ein'); setLoading(false); return; }
 
-      if (!connectionForm.apiKey.trim()) {
-        setError('Bitte gib einen API Key ein');
-        setLoading(false);
-        return;
-      }
-
-      if (selectedProduct.connectionFields.includes('accountId') && !connectionForm.accountId.trim()) {
-        setError('Bitte gib eine Account ID ein');
-        setLoading(false);
-        return;
-      }
-
-      // Call API to connect account
-      const response = await api.post('/connected-accounts', {
+      await api.post('/connected-accounts', {
         productId: selectedProduct.id,
         productName: selectedProduct.name,
-        accountId: connectionForm.accountId,
         apiKey: connectionForm.apiKey,
-        accountName: connectionForm.accountName
+        accountName: connectionForm.accountName,
       });
-
-      setSuccess(`${selectedProduct.name} Account erfolgreich verbunden!`);
-      
-      // Wait a bit to show success message
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 2000);
-
-    } catch (error) {
-      console.error('Error connecting account:', error);
-      setError(
-        error.response?.data?.message || 
-        'Fehler beim Verbinden des Accounts. Bitte überprüfe deine Zugangsdaten.'
-      );
+      setSuccess(`${selectedProduct.name} erfolgreich verbunden!`);
+      setTimeout(() => navigate('/dashboard'), 1800);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Fehler beim Verbinden. Bitte überprüfe deine Zugangsdaten.');
     } finally {
       setLoading(false);
     }
   };
 
-  const isAccountConnected = (productId) => {
-    return connectedAccounts.some(acc => acc.service_name === productId);
-  };
-
-  const getStatusBadge = (status) => {
-    const styles = {
-      'Live': 'bg-green-500/20 text-green-400 border-green-500/30',
-      'Beta': 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-      'Coming Soon': 'bg-gray-500/20 text-gray-400 border-gray-500/30'
-    };
-    return styles[status] || styles['Coming Soon'];
-  };
+  const getStatusStyle = (status) => status === 'Live'
+    ? 'bg-green-500/20 text-green-400 border-green-500/30'
+    : 'bg-gray-500/20 text-gray-400 border-gray-500/30';
 
   return (
     <div className="min-h-screen pt-20 px-4 pb-20">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
+
         {/* Breadcrumb */}
         <div className="flex items-center space-x-2 mb-6 text-sm">
-          <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">
-            Dashboard
-          </Link>
+          <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">Dashboard</Link>
           <ChevronRight className="w-4 h-4 text-gray-600" />
           <span className="text-white">Account verbinden</span>
         </div>
 
-        {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-3">
+          <h1 className="text-4xl font-bold text-white mb-2">
             {step === 1 ? 'Account verbinden' : `${selectedProduct?.name} verbinden`}
           </h1>
-          <p className="text-gray-400 text-lg">
-            {step === 1 
-              ? 'Verbinde deine FrameSphere Produkt-Accounts für einen zentralen Überblick'
-              : 'Gib deine Account-Details ein, um die Verbindung herzustellen'
-            }
+          <p className="text-gray-400">
+            {step === 1 ? 'Wähle ein Produkt aus und verbinde deinen Account für zentrale Verwaltung.' : 'Gib deinen API Key ein, um die Verbindung herzustellen.'}
           </p>
         </div>
 
         {/* Info Banner */}
-        <div className="card bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30 mb-8">
-          <div className="flex items-start space-x-4">
-            <div className="w-10 h-10 bg-primary-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-              <Info className="w-5 h-5 text-primary-400" />
-            </div>
+        <div className="card bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30 mb-6">
+          <div className="flex items-start space-x-3">
+            <Info className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
             <div>
-              <h3 className="text-white font-semibold mb-2">
-                Warum Accounts verbinden?
-              </h3>
-              <p className="text-gray-400 text-sm mb-3">
-                Verwalte alle deine FrameSphere Produkt-Accounts an einem zentralen Ort. 
-                Erhalte einen kompletten Überblick über Nutzung, Statistiken und Kosten.
+              <h3 className="text-white font-semibold mb-1">Warum verbinden?</h3>
+              <p className="text-gray-400 text-sm">
+                Verbinde deine Produkt-Accounts einmalig und verwalte API Keys, Statistiken und Einstellungen zentral über das Dashboard.
               </p>
-              <div className="flex flex-wrap gap-4 text-sm">
-                <div className="flex items-center text-green-400">
-                  <CheckCircle className="w-4 h-4 mr-1" />
-                  <span>Zentrale Übersicht</span>
-                </div>
-                <div className="flex items-center text-green-400">
-                  <CheckCircle className="w-4 h-4 mr-1" />
-                  <span>Echtzeitstatistiken</span>
-                </div>
-                <div className="flex items-center text-green-400">
-                  <CheckCircle className="w-4 h-4 mr-1" />
-                  <span>Kostenkontrolle</span>
-                </div>
-                <div className="flex items-center text-green-400">
-                  <CheckCircle className="w-4 h-4 mr-1" />
-                  <span>Sicher verschlüsselt</span>
-                </div>
+              <div className="flex flex-wrap gap-3 mt-2">
+                {['Zentrale Verwaltung', 'API Key Management', 'Nutzungsstatistiken', 'Verschlüsselt gespeichert'].map((item) => (
+                  <span key={item} className="flex items-center text-xs text-green-400">
+                    <CheckCircle className="w-3.5 h-3.5 mr-1" />{item}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Error/Success Messages */}
+        {/* Messages */}
         {error && (
-          <div className="card bg-red-500/10 border-red-500/30 mb-6">
-            <div className="flex items-start space-x-3">
-              <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
-              <p className="text-red-400">{error}</p>
-            </div>
+          <div className="card bg-red-500/10 border-red-500/30 mb-5 flex items-start space-x-3">
+            <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+            <p className="text-red-400 text-sm">{error}</p>
           </div>
         )}
-
         {success && (
-          <div className="card bg-green-500/10 border-green-500/30 mb-6">
-            <div className="flex items-start space-x-3">
-              <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-              <p className="text-green-400">{success}</p>
-            </div>
+          <div className="card bg-green-500/10 border-green-500/30 mb-5 flex items-start space-x-3">
+            <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+            <p className="text-green-400 text-sm">{success}</p>
           </div>
         )}
 
-        {/* Step 1: Product Selection */}
+        {/* Step 1: Produkt wählen */}
         {step === 1 && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {products.map((product) => {
-              const connected = isAccountConnected(product.id);
+              const connected = isConnected(product.id);
+              const disabled = product.status === 'Bald';
               return (
-                <button
-                  key={product.id}
-                  onClick={() => !connected && handleProductSelect(product)}
-                  disabled={connected}
-                  className={`card text-left transition-all duration-300 ${
-                    connected 
-                      ? 'opacity-60 cursor-not-allowed' 
-                      : 'hover:scale-105 cursor-pointer'
-                  }`}
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={`w-16 h-16 bg-gradient-to-br ${product.color} rounded-xl flex items-center justify-center text-white`}>
+                <button key={product.id} onClick={() => handleProductSelect(product)}
+                  className={`card text-left transition-all duration-300 ${connected || disabled ? 'opacity-60 cursor-not-allowed' : 'hover:scale-[1.03] cursor-pointer'}`}>
+                  <div className="flex items-start justify-between mb-3">
+                    <div className={`w-14 h-14 bg-gradient-to-br ${product.color} rounded-xl flex items-center justify-center text-white`}>
                       {product.icon}
                     </div>
-                    <span className={`px-2 py-1 rounded text-xs border ${getStatusBadge(product.status)}`}>
-                      {product.status}
-                    </span>
+                    <span className={`px-2 py-0.5 rounded text-xs border ${getStatusStyle(product.status)}`}>{product.status}</span>
                   </div>
-
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-400 text-sm mb-4">
-                    {product.description}
-                  </p>
-
+                  <h3 className="text-lg font-bold text-white mb-1">{product.name}</h3>
+                  <p className="text-gray-400 text-sm mb-4">{product.description}</p>
                   {connected ? (
-                    <div className="flex items-center text-green-400">
-                      <CheckCircle className="w-4 h-4 mr-2" />
-                      <span className="text-sm font-semibold">Verbunden</span>
+                    <div className="flex items-center text-green-400 text-sm">
+                      <CheckCircle className="w-4 h-4 mr-2" /><span>Verbunden</span>
+                    </div>
+                  ) : disabled ? (
+                    <div className="flex items-center text-gray-500 text-sm">
+                      <span>Noch nicht verfügbar</span>
                     </div>
                   ) : (
-                    <div className="flex items-center text-primary-400">
-                      <Link2 className="w-4 h-4 mr-2" />
-                      <span className="text-sm font-semibold">Verbinden</span>
+                    <div className="flex items-center text-primary-400 text-sm">
+                      <Link2 className="w-4 h-4 mr-2" /><span>Verbinden</span>
                       <ArrowRight className="w-4 h-4 ml-auto" />
                     </div>
                   )}
@@ -324,167 +166,71 @@ const ConnectAccounts = () => {
           </div>
         )}
 
-        {/* Step 2: Connection Form */}
+        {/* Step 2: Verbindungsformular */}
         {step === 2 && selectedProduct && (
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-xl mx-auto">
             <div className="card">
-              {/* Product Header */}
-              <div className="flex items-center space-x-4 mb-8 pb-8 border-b border-white/10">
-                <div className={`w-16 h-16 bg-gradient-to-br ${selectedProduct.color} rounded-xl flex items-center justify-center text-white`}>
+              {/* Produkt Header */}
+              <div className="flex items-center space-x-4 mb-6 pb-6 border-b border-white/10">
+                <div className={`w-14 h-14 bg-gradient-to-br ${selectedProduct.color} rounded-xl flex items-center justify-center text-white flex-shrink-0`}>
                   {selectedProduct.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-white mb-1">
-                    {selectedProduct.name}
-                  </h3>
-                  <p className="text-gray-400 text-sm">
-                    {selectedProduct.description}
-                  </p>
+                  <h3 className="text-xl font-bold text-white">{selectedProduct.name}</h3>
+                  <p className="text-gray-400 text-sm">{selectedProduct.description}</p>
                 </div>
-                <button
-                  onClick={() => setStep(1)}
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Zurück
-                </button>
+                <button onClick={() => { setStep(1); setError(''); }} className="text-gray-400 hover:text-white text-sm transition-colors">← Zurück</button>
               </div>
 
-              {/* Instructions */}
-              <div className="glass-effect rounded-lg p-4 mb-6 border border-blue-500/30">
+              {/* Anleitung */}
+              <div className="glass-effect rounded-lg p-4 mb-5 border border-blue-500/20">
                 <div className="flex items-start space-x-3">
-                  <Shield className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+                  <Info className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-white font-semibold mb-2">
-                      So findest du deine Zugangsdaten
-                    </h4>
-                    <ol className="text-sm text-gray-400 space-y-2">
-                      <li className="flex items-start">
-                        <span className="text-primary-400 mr-2">1.</span>
-                        <span>Logge dich in deinen {selectedProduct.name} Account ein</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-primary-400 mr-2">2.</span>
-                        <span>Gehe zu Account Settings oder API Settings</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-primary-400 mr-2">3.</span>
-                        <span>Kopiere deinen API Key und Account ID</span>
-                      </li>
+                    <h4 className="text-white font-semibold text-sm mb-2">API Key finden</h4>
+                    <ol className="text-sm text-gray-400 space-y-1">
+                      <li>1. Öffne die {selectedProduct.name} Website</li>
+                      <li>2. Gehe zu Account / API Settings</li>
+                      <li>3. Kopiere deinen API Key</li>
                     </ol>
-                    <Link
-                      to={selectedProduct.documentationUrl}
-                      className="inline-flex items-center text-sm text-primary-400 hover:text-primary-300 mt-3"
-                    >
-                      <span>Mehr Infos in der Dokumentation</span>
-                      <ExternalLink className="w-3 h-3 ml-1" />
-                    </Link>
+                    <a href={selectedProduct.docsUrl} target={selectedProduct.docsUrl.startsWith('http') ? '_blank' : '_self'}
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-xs text-primary-400 hover:text-primary-300 mt-2 transition-colors">
+                      <ExternalLink className="w-3 h-3 mr-1" />
+                      {selectedProduct.name} öffnen
+                    </a>
                   </div>
                 </div>
               </div>
 
-              {/* Connection Form */}
-              <form onSubmit={handleConnect} className="space-y-6">
-                {/* Account Name */}
+              <form onSubmit={handleConnect} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-semibold text-white mb-2">
-                    Account-Name
-                  </label>
-                  <input
-                    type="text"
-                    name="accountName"
-                    value={connectionForm.accountName}
-                    onChange={handleInputChange}
-                    placeholder="z.B. Mein FrameSpell Account"
+                  <label className="block text-sm font-semibold text-white mb-2">Account-Name</label>
+                  <input type="text" value={connectionForm.accountName}
+                    onChange={(e) => setConnectionForm({ ...connectionForm, accountName: e.target.value })}
                     className="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors"
-                    required
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Ein beschreibender Name für diesen Account
-                  </p>
+                    placeholder="z.B. Mein FrameSpell Account" required />
                 </div>
 
-                {/* Account ID (if required) */}
-                {selectedProduct.connectionFields.includes('accountId') && (
-                  <div>
-                    <label className="block text-sm font-semibold text-white mb-2">
-                      Account ID
-                    </label>
-                    <input
-                      type="text"
-                      name="accountId"
-                      value={connectionForm.accountId}
-                      onChange={handleInputChange}
-                      placeholder="z.B. acc_1234567890abcdef"
-                      className="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors font-mono"
-                      required
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Deine eindeutige Account ID von {selectedProduct.name}
-                    </p>
-                  </div>
-                )}
-
-                {/* API Key */}
                 <div>
                   <label className="block text-sm font-semibold text-white mb-2 flex items-center">
-                    <Key className="w-4 h-4 mr-2 text-primary-400" />
-                    API Key
+                    <Key className="w-4 h-4 mr-2 text-primary-400" />API Key
                   </label>
-                  <input
-                    type="password"
-                    name="apiKey"
-                    value={connectionForm.apiKey}
-                    onChange={handleInputChange}
-                    placeholder="sk_live_••••••••••••••••••••"
+                  <input type="password" value={connectionForm.apiKey}
+                    onChange={(e) => setConnectionForm({ ...connectionForm, apiKey: e.target.value })}
                     className="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors font-mono"
-                    required
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Dein API Key wird sicher verschlüsselt gespeichert
-                  </p>
+                    placeholder="sk_••••••••••••••••" required />
+                  <p className="text-xs text-gray-500 mt-1">Dein API Key wird verschlüsselt gespeichert.</p>
                 </div>
 
-                {/* Security Note */}
-                <div className="glass-effect rounded-lg p-4 border border-green-500/30">
-                  <div className="flex items-start space-x-3">
-                    <Shield className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="text-white font-semibold text-sm mb-1">
-                        Deine Daten sind sicher
-                      </h4>
-                      <p className="text-gray-400 text-xs">
-                        Alle Zugangsdaten werden verschlüsselt übertragen und gespeichert. 
-                        Wir verwenden deine API Keys ausschließlich, um Statistiken abzurufen.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-4 pt-4">
-                  <button
-                    type="button"
-                    onClick={() => setStep(1)}
-                    className="flex-1 px-6 py-3 glass-effect hover:bg-white/10 text-white font-semibold rounded-lg transition-all"
-                  >
+                <div className="flex gap-3 pt-2">
+                  <button type="button" onClick={() => { setStep(1); setError(''); }}
+                    className="flex-1 px-4 py-3 glass-effect hover:bg-white/10 text-white font-semibold rounded-lg transition-all text-sm">
                     Abbrechen
                   </button>
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="flex-1 btn-primary inline-flex items-center justify-center space-x-2"
-                  >
-                    {loading ? (
-                      <>
-                        <Loader className="w-5 h-5 animate-spin" />
-                        <span>Verbinde...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Link2 className="w-5 h-5" />
-                        <span>Account verbinden</span>
-                      </>
-                    )}
+                  <button type="submit" disabled={loading}
+                    className="flex-1 btn-primary inline-flex items-center justify-center space-x-2 text-sm disabled:opacity-50">
+                    {loading ? <><Loader className="w-4 h-4 animate-spin" /><span>Verbinde...</span></> : <><Link2 className="w-4 h-4" /><span>Verbinden</span></>}
                   </button>
                 </div>
               </form>

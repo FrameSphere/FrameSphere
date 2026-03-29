@@ -25,7 +25,7 @@ const dbConfig = {
 const connectionString = process.env.DATABASE_URL;
 
 // Create connection pool
-const pool = connectionString 
+const pool = connectionString
   ? new Pool({
       connectionString,
       ssl: process.env.NODE_ENV === 'production' ? {
@@ -66,17 +66,16 @@ export const getClient = async () => {
   const client = await pool.connect();
   const query = client.query.bind(client);
   const release = client.release.bind(client);
-  
-  // Set timeout of 5 seconds, after which we abort the transaction
+
   const timeout = setTimeout(() => {
     console.error('A client has been checked out for more than 5 seconds!');
   }, 5000);
-  
+
   client.release = () => {
     clearTimeout(timeout);
     client.release();
   };
-  
+
   return { query, release };
 };
 

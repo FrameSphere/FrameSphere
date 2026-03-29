@@ -1,432 +1,233 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Code,
-  Book,
-  Zap,
-  Key,
-  FileText,
-  Terminal,
-  CheckCircle,
-  ArrowRight,
-  Download,
-  Activity,
-  Shield,
-  Sparkles,
-  Brain,
-  Network,
-  Copy,
-  ExternalLink
-} from 'lucide-react';
+import { Code, BookOpen, Zap, Package, Activity, ArrowRight, CheckCircle, Terminal, Globe, Shield, Sparkles, Brain } from 'lucide-react';
 
 const DeveloperHub = () => {
-  const [copiedCode, setCopiedCode] = useState('');
-
-  const quickstartCode = `# Installiere das FrameSphere SDK
-pip install framesphere
-
-# Importiere und initialisiere
-from framesphere import FrameSpell
-
-# Setze deinen API Key
-client = FrameSpell(api_key="dein_api_key")
-
-# Erste Anfrage
-response = client.check_spelling(
-    text="Helo Welt, wie geths dir?"
-)
-
-print(response.corrected_text)
-# Output: "Hallo Welt, wie geht es dir?"`;
-
-  const products = [
+  const sections = [
     {
-      id: 'framespell',
-      name: 'FrameSpell API',
-      description: 'KI-gestützte Rechtschreibprüfung',
-      icon: <Sparkles className="w-8 h-8" />,
-      color: 'from-blue-500 to-cyan-500',
-      endpoint: 'https://api.framesphere.dev/v1/framespell',
-      docs: '/developers/docs/framespell',
-      features: ['Kontextbasierte Korrektur', 'Mehrsprachig', 'Stilanalyse']
+      icon: <Zap className="w-8 h-8" />,
+      title: 'Quickstart',
+      desc: 'In unter 10 Minuten zur ersten API-Integration. API Key holen, Beispielcode kopieren, fertig.',
+      path: '/developers/quickstart',
+      color: 'from-yellow-500 to-orange-500',
+      cta: 'Quickstart starten',
     },
     {
-      id: 'corechain-api',
-      name: 'CoreChain API',
-      description: 'AI-Orchestrierung via API',
-      icon: <Brain className="w-8 h-8" />,
-      color: 'from-purple-500 to-pink-500',
-      endpoint: 'https://api.framesphere.dev/v1/corechain',
-      docs: '/developers/docs/corechain',
-      features: ['Multi-Agent System', 'Task Routing', 'Ergebnis-Synthese']
-    },
-    {
-      id: 'spherenet',
-      name: 'SphereNet',
-      description: 'Zugriff auf KI-Modell-Netzwerk',
-      icon: <Network className="w-8 h-8" />,
-      color: 'from-indigo-500 to-blue-500',
-      endpoint: 'https://api.framesphere.dev/v1/spherenet',
-      docs: '/developers/docs/spherenet',
-      features: ['1000+ Modelle', 'Custom Chains', 'Multimodal']
-    }
-  ];
-
-  const quickLinks = [
-    {
-      title: 'Quickstart Guide',
-      description: 'In 5 Minuten zur ersten API-Anfrage',
-      icon: <Zap className="w-6 h-6" />,
-      link: '/developers/quickstart',
-      color: 'from-yellow-500 to-orange-500'
-    },
-    {
+      icon: <BookOpen className="w-8 h-8" />,
       title: 'API Dokumentation',
-      description: 'Vollständige Referenz aller Endpoints',
-      icon: <Book className="w-6 h-6" />,
-      link: '/developers/docs',
-      color: 'from-blue-500 to-cyan-500'
+      desc: 'Vollständige Referenz aller Endpunkte, Parameter, Response-Formate und Fehlercodes.',
+      path: '/developers/docs',
+      color: 'from-blue-500 to-indigo-500',
+      cta: 'Docs öffnen',
     },
     {
+      icon: <Package className="w-8 h-8" />,
       title: 'SDKs & Libraries',
-      description: 'Offizielle SDKs für alle Sprachen',
-      icon: <Code className="w-6 h-6" />,
-      link: '/developers/sdks',
-      color: 'from-green-500 to-emerald-500'
+      desc: 'Offizielle SDKs für JavaScript, Python, PHP und mehr. Schneller integrieren, weniger Boilerplate.',
+      path: '/developers/sdks',
+      color: 'from-green-500 to-emerald-500',
+      cta: 'SDKs ansehen',
     },
     {
-      title: 'API Keys',
-      description: 'Verwalte deine API-Zugriffsschlüssel',
-      icon: <Key className="w-6 h-6" />,
-      link: '/dashboard',
-      color: 'from-purple-500 to-pink-500'
-    },
-    {
+      icon: <Code className="w-8 h-8" />,
       title: 'Tutorials',
-      description: 'Schritt-für-Schritt Anleitungen',
-      icon: <FileText className="w-6 h-6" />,
-      link: '/developers/tutorials',
-      color: 'from-red-500 to-orange-500'
+      desc: 'Schritt-für-Schritt Guides für die häufigsten Anwendungsfälle — mit vollständigen Code-Beispielen.',
+      path: '/developers/tutorials',
+      color: 'from-purple-500 to-pink-500',
+      cta: 'Tutorials ansehen',
     },
     {
-      title: 'Status & Uptime',
-      description: 'Aktuelle API-Verfügbarkeit',
-      icon: <Activity className="w-6 h-6" />,
-      link: '/developers/status',
-      color: 'from-indigo-500 to-purple-500'
-    }
+      icon: <Activity className="w-8 h-8" />,
+      title: 'API Status',
+      desc: 'Live-Status aller FrameSphere APIs und Dienste. Ausfallzeiten, Wartungen und Incident-Reports.',
+      path: '/developers/status',
+      color: 'from-teal-500 to-cyan-500',
+      cta: 'Status prüfen',
+    },
   ];
 
-  const languages = [
-    { name: 'Python', icon: '🐍', docs: '#python' },
-    { name: 'JavaScript', icon: '📜', docs: '#javascript' },
-    { name: 'Java', icon: '☕', docs: '#java' },
-    { name: 'Go', icon: '🔷', docs: '#go' },
-    { name: 'PHP', icon: '🐘', docs: '#php' },
-    { name: 'C#', icon: '#️⃣', docs: '#csharp' },
-    { name: 'R', icon: '📊', docs: '#r' },
-    { name: 'cURL', icon: '🌐', docs: '#curl' }
+  const apis = [
+    {
+      icon: <Sparkles className="w-5 h-5" />,
+      name: 'FrameSpell API',
+      baseUrl: 'api.framespell.dev',
+      color: 'text-blue-400',
+      endpoints: [
+        { method: 'POST', path: '/check', desc: 'Text prüfen und korrigieren' },
+        { method: 'POST', path: '/check/batch', desc: 'Mehrere Texte gleichzeitig' },
+        { method: 'GET', path: '/languages', desc: 'Verfügbare Sprachen abrufen' },
+        { method: 'GET', path: '/usage', desc: 'API-Nutzung & Limits abfragen' },
+      ],
+    },
+    {
+      icon: <Shield className="w-5 h-5" />,
+      name: 'RateLimit API',
+      baseUrl: 'ratelimit-api.pages.dev/api',
+      color: 'text-green-400',
+      endpoints: [
+        { method: 'POST', path: '/check', desc: 'Rate-Limit eines Clients prüfen' },
+        { method: 'POST', path: '/reset', desc: 'Counter eines Clients zurücksetzen' },
+        { method: 'GET', path: '/stats', desc: 'Statistiken & Analytics abrufen' },
+        { method: 'POST', path: '/blacklist', desc: 'IP zur Blacklist hinzufügen' },
+      ],
+    },
   ];
 
-  const copyCode = (code) => {
-    navigator.clipboard.writeText(code);
-    setCopiedCode(code);
-    setTimeout(() => setCopiedCode(''), 2000);
+  const methodColors = {
+    GET: 'bg-green-500/20 text-green-400 border-green-500/30',
+    POST: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+    DELETE: 'bg-red-500/20 text-red-400 border-red-500/30',
+    PUT: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
   };
 
   return (
-    <div className="min-h-screen pt-20 pb-20">
-      {/* Hero Section */}
-      <section className="relative px-4 py-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500 rounded-full filter blur-3xl animate-float"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
-        </div>
+    <div className="min-h-screen pt-20 pb-20 px-4">
+      <div className="max-w-7xl mx-auto">
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center space-x-2 glass-effect px-4 py-2 rounded-full mb-6">
-              <Terminal className="w-5 h-5 text-primary-400" />
-              <span className="text-primary-400 font-semibold">Developer Hub</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Build with <span className="gradient-text">FrameSphere</span>
-            </h1>
-            
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-10">
-              Leistungsstarke APIs für KI-Orchestrierung, Textkorrektur und mehr. 
-              Integriere in Minuten, skaliere ohne Limits.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/register" className="btn-primary inline-flex items-center justify-center space-x-2">
-                <span>Kostenlos starten</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link to="/developers/docs" className="btn-secondary inline-flex items-center justify-center space-x-2">
-                <Book className="w-5 h-5" />
-                <span>Zur Dokumentation</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="card text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">99.9%</div>
-              <div className="text-sm text-gray-400">Uptime SLA</div>
-            </div>
-            <div className="card text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">&lt;50ms</div>
-              <div className="text-sm text-gray-400">Avg. Latency</div>
-            </div>
-            <div className="card text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">8</div>
-              <div className="text-sm text-gray-400">SDKs</div>
-            </div>
-            <div className="card text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">24/7</div>
-              <div className="text-sm text-gray-400">Support</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Start Code */}
-      <section className="px-4 py-20 bg-gradient-to-b from-dark-900 to-dark-800">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Start in 30 Sekunden
-            </h2>
-            <p className="text-xl text-gray-400">
-              Von der Installation bis zur ersten API-Anfrage
-            </p>
-          </div>
-
-          <div className="card">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                <span className="ml-4 text-gray-400 text-sm">quickstart.py</span>
-              </div>
-              <button
-                onClick={() => copyCode(quickstartCode)}
-                className="flex items-center space-x-2 px-4 py-2 glass-effect rounded-lg hover:bg-white/10 transition-colors"
-              >
-                {copiedCode === quickstartCode ? (
-                  <>
-                    <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-green-400 text-sm">Kopiert!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4" />
-                    <span className="text-sm">Kopieren</span>
-                  </>
-                )}
-              </button>
-            </div>
-            <pre className="bg-dark-900 rounded-lg p-6 overflow-x-auto">
-              <code className="text-sm text-gray-300 font-mono whitespace-pre">
-                {quickstartCode}
-              </code>
-            </pre>
-          </div>
-
-          <div className="text-center mt-6">
-            <Link to="/developers/quickstart" className="text-primary-400 hover:text-primary-300 inline-flex items-center space-x-2">
-              <span>Vollständigen Quickstart Guide ansehen</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Products/APIs */}
-      <section className="px-4 py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Unsere APIs
-            </h2>
-            <p className="text-xl text-gray-400">
-              Wähle die passende API für dein Projekt
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {products.map((product) => (
-              <div key={product.id} className="card group hover:scale-105 transition-all duration-300">
-                <div className={`w-16 h-16 bg-gradient-to-br ${product.color} rounded-xl flex items-center justify-center mb-4 text-white`}>
-                  {product.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  {product.name}
-                </h3>
-                <p className="text-gray-400 mb-4">
-                  {product.description}
-                </p>
-                
-                <div className="mb-4">
-                  <div className="text-xs text-gray-500 mb-1">Endpoint:</div>
-                  <code className="text-xs text-primary-400 font-mono">
-                    {product.endpoint}
-                  </code>
-                </div>
-
-                <ul className="space-y-2 mb-6">
-                  {product.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-gray-400">
-                      <CheckCircle className="w-4 h-4 text-green-400 mr-2 flex-shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  to={product.docs}
-                  className="btn-secondary w-full inline-flex items-center justify-center space-x-2"
-                >
-                  <Book className="w-4 h-4" />
-                  <span>Dokumentation</span>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Links */}
-      <section className="px-4 py-20 bg-gradient-to-b from-dark-900 to-dark-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Ressourcen für Entwickler
-            </h2>
-            <p className="text-xl text-gray-400">
-              Alles was du brauchst, um durchzustarten
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {quickLinks.map((link, index) => (
-              <Link
-                key={index}
-                to={link.link}
-                className="card group hover:scale-105 transition-all duration-300"
-              >
-                <div className={`w-12 h-12 bg-gradient-to-br ${link.color} rounded-lg flex items-center justify-center mb-4 text-white`}>
-                  {link.icon}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">
-                  {link.title}
-                </h3>
-                <p className="text-gray-400 text-sm mb-4">
-                  {link.description}
-                </p>
-                <div className="flex items-center text-primary-400 group-hover:text-primary-300">
-                  <span className="text-sm font-semibold">Mehr erfahren</span>
-                  <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Language SDKs */}
-      <section className="px-4 py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              SDKs & Code-Beispiele
-            </h2>
-            <p className="text-xl text-gray-400">
-              Offizielle SDKs für deine Lieblings-Programmiersprache
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-            {languages.map((lang, index) => (
-              <Link
-                key={index}
-                to={`/developers/sdks${lang.docs}`}
-                className="card text-center group hover:scale-105 transition-all duration-300"
-              >
-                <div className="text-4xl mb-3">{lang.icon}</div>
-                <div className="text-sm font-semibold text-white group-hover:text-primary-400 transition-colors">
-                  {lang.name}
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="text-center mt-8">
-            <Link to="/developers/sdks" className="btn-primary inline-flex items-center space-x-2">
-              <Download className="w-5 h-5" />
-              <span>Alle SDKs ansehen</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Security & Compliance */}
-      <section className="px-4 py-20 bg-gradient-to-b from-dark-900 to-dark-800">
-        <div className="max-w-4xl mx-auto text-center">
-          <Shield className="w-16 h-16 text-primary-400 mx-auto mb-6" />
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Enterprise-Grade Security
-          </h2>
-          <p className="text-xl text-gray-400 mb-8">
-            Deine Daten sind sicher. Wir nehmen Sicherheit ernst.
+        {/* Header */}
+        <div className="text-center mb-16">
+          <span className="text-primary-400 text-sm font-semibold uppercase tracking-widest mb-3 block">Developer Hub</span>
+          <h1 className="text-5xl font-bold mb-4">
+            <span className="gradient-text">Alles für Entwickler</span>
+          </h1>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+            Dokumentation, SDKs, Quickstart-Guides und API-Referenz — alles an einem Ort.
           </p>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="card">
-              <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-3" />
-              <h3 className="font-semibold text-white mb-2">DSGVO-konform</h3>
-              <p className="text-sm text-gray-400">100% europäische Server</p>
-            </div>
-            <div className="card">
-              <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-3" />
-              <h3 className="font-semibold text-white mb-2">Verschlüsselt</h3>
-              <p className="text-sm text-gray-400">End-to-End TLS 1.3</p>
-            </div>
-            <div className="card">
-              <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-3" />
-              <h3 className="font-semibold text-white mb-2">SOC 2 Type II</h3>
-              <p className="text-sm text-gray-400">Zertifiziert & geprüft</p>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/developers/quickstart" className="btn-primary inline-flex items-center space-x-2">
+              <Zap className="w-5 h-5" />
+              <span>Quickstart</span>
+            </Link>
+            <Link to="/developers/docs" className="btn-secondary inline-flex items-center space-x-2">
+              <BookOpen className="w-5 h-5" />
+              <span>API Docs</span>
+            </Link>
           </div>
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="card text-center bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30">
-            <Code className="w-16 h-16 text-primary-400 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Bereit zum Entwickeln?
-            </h2>
-            <p className="text-xl text-gray-400 mb-8">
-              Erstelle deinen Account und erhalte sofort Zugriff auf alle APIs
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/register" className="btn-primary inline-flex items-center justify-center space-x-2">
-                <span>Kostenlos registrieren</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link to="/pricing" className="btn-secondary inline-flex items-center justify-center space-x-2">
-                <span>Preise ansehen</span>
-              </Link>
-            </div>
+        {/* Sections */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {sections.map((s, i) => (
+            <Link key={i} to={s.path} className="card group hover:scale-[1.03] transition-all duration-300 flex flex-col">
+              <div className={`w-14 h-14 bg-gradient-to-br ${s.color} rounded-xl flex items-center justify-center text-white mb-4`}>{s.icon}</div>
+              <h3 className="text-xl font-bold text-white mb-2">{s.title}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed flex-1 mb-4">{s.desc}</p>
+              <div className="flex items-center text-primary-400 text-sm font-medium group-hover:text-primary-300 transition-colors">
+                <span>{s.cta}</span>
+                <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* API Übersicht */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold text-white mb-8 text-center">API-Endpunkte Übersicht</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {apis.map((api, i) => (
+              <div key={i} className="card">
+                <div className="flex items-center space-x-3 mb-5 pb-4 border-b border-white/10">
+                  <span className={api.color}>{api.icon}</span>
+                  <div>
+                    <h3 className="font-bold text-white">{api.name}</h3>
+                    <code className="text-xs text-gray-500">{api.baseUrl}</code>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {api.endpoints.map((ep, j) => (
+                    <div key={j} className="flex items-center space-x-3">
+                      <span className={`text-xs px-2 py-0.5 rounded border font-mono flex-shrink-0 ${methodColors[ep.method]}`}>{ep.method}</span>
+                      <code className="text-xs text-gray-300 flex-shrink-0">{ep.path}</code>
+                      <span className="text-xs text-gray-500 truncate">{ep.desc}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
+
+        {/* Auth Info */}
+        <div className="card mb-16 bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30">
+          <h2 className="text-2xl font-bold text-white mb-4">Authentifizierung</h2>
+          <p className="text-gray-400 mb-6">
+            Alle FrameSphere APIs nutzen API-Key-Authentifizierung via HTTP Header. Erstelle deinen Key im Dashboard.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <div className="text-sm text-gray-300 font-semibold mb-2">Request Header</div>
+              <pre className="bg-dark-900 rounded-lg p-4 text-sm font-mono text-gray-300 overflow-x-auto">
+{`X-API-Key: fs_dein_api_key
+
+// oder alternativ
+Authorization: Bearer fs_dein_api_key`}
+              </pre>
+            </div>
+            <div>
+              <div className="text-sm text-gray-300 font-semibold mb-2">Fehler-Response</div>
+              <pre className="bg-dark-900 rounded-lg p-4 text-sm font-mono text-gray-300 overflow-x-auto">
+{`{
+  "error": "Unauthorized",
+  "message": "Invalid API Key",
+  "code": 401
+}`}
+              </pre>
+            </div>
+          </div>
+          <div className="mt-4 flex gap-4">
+            <Link to="/register" className="btn-primary text-sm inline-flex items-center space-x-2">
+              <span>API Key erstellen</span><ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link to="/developers/docs" className="btn-secondary text-sm">Vollständige Docs</Link>
+          </div>
+        </div>
+
+        {/* Rate Limits Info */}
+        <div className="card mb-16">
+          <h2 className="text-2xl font-bold text-white mb-6">Rate Limits</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-white/10">
+                  <th className="text-left py-3 px-4 text-gray-400">Produkt</th>
+                  <th className="text-center py-3 px-4 text-gray-400">Kostenlos</th>
+                  <th className="text-center py-3 px-4 text-gray-400">Professional</th>
+                  <th className="text-center py-3 px-4 text-gray-400">Enterprise</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['FrameSpell API', '20 Req/Min', '100 Req/Min', 'Unbegrenzt'],
+                  ['RateLimit API', '50 Req/Min', '500 Req/Min', 'Unbegrenzt'],
+                  ['FrameTrain', 'Lokal (kein Limit)', '—', '—'],
+                ].map((row, i) => (
+                  <tr key={i} className="border-b border-white/5 hover:bg-white/2">
+                    <td className="py-3 px-4 text-white font-medium">{row[0]}</td>
+                    <td className="py-3 px-4 text-center text-green-400">{row[1]}</td>
+                    <td className="py-3 px-4 text-center text-primary-400">{row[2]}</td>
+                    <td className="py-3 px-4 text-center text-purple-400">{row[3]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="card text-center bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30">
+          <Terminal className="w-12 h-12 text-primary-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-white mb-3">Bereit zum Entwickeln?</h2>
+          <p className="text-gray-400 mb-6">Erstelle deinen kostenlosen API Key und leg direkt los.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/register" className="btn-primary inline-flex items-center space-x-2">
+              <span>Kostenlosen API Key holen</span><ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link to="/developers/quickstart" className="btn-secondary inline-flex items-center space-x-2">
+              <Zap className="w-5 h-5" /><span>Quickstart Guide</span>
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
