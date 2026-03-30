@@ -1,10 +1,33 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  Menu, X, Zap, LogIn, UserPlus, ChevronDown,
+  Menu, X, LogIn, UserPlus, ChevronDown,
   Sparkles, Shield, Brain, Network, Home, Code,
   Search, Globe, Gamepad2, FileText, RotateCcw, Flag, User
 } from 'lucide-react';
+
+/* ─── FrameSphere Logo Icon ─────────────────────────────────────────────────── */
+// Exakt gleicher Hintergrund wie das bisherige Navbar-Icon:
+// bg-gradient-to-br from-primary-500(#0ea5e9) to-purple-600(#9333ea)
+// – Zap ersetzt durch "FS" mit etwas letter-spacing für luftiges, nicht gequetschtes Bild
+const FrameSphereLogoIcon = ({ className = '' }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
+    width="36" height="36" fill="none" className={className}>
+    <defs>
+      <linearGradient id="fslogo-g" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#0ea5e9" />
+        <stop offset="100%" stopColor="#9333ea" />
+      </linearGradient>
+    </defs>
+    <rect width="32" height="32" rx="7" fill="url(#fslogo-g)" />
+    <text x="16" y="22"
+      fontFamily="Arial Black, Arial, sans-serif"
+      fontSize="13" fontWeight="800"
+      fill="white" textAnchor="middle"
+      letterSpacing="1">FS</text>
+  </svg>
+);
+
 import { useAuth } from '../context/AuthContext';
 
 const apiProducts = [
@@ -72,8 +95,8 @@ const Navbar = () => {
 
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group flex-shrink-0">
-            <div className="w-9 h-9 bg-gradient-to-br from-primary-500 to-purple-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-              <Zap className="w-5 h-5 text-white" />
+            <div className="transform group-hover:scale-110 transition-transform duration-300">
+              <FrameSphereLogoIcon />
             </div>
             <span className="text-lg font-bold gradient-text hidden sm:block">FrameSphere</span>
           </Link>

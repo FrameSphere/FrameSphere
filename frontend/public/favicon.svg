@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <defs>
-    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="fs-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0ea5e9"/>
-      <stop offset="50%" stop-color="#7c3aed"/>
-      <stop offset="100%" stop-color="#0284c7"/>
-    </linearGradient>
-    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="100%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#9333ea"/>
     </linearGradient>
   </defs>
-  <!-- Rounded square background -->
-  <rect width="32" height="32" rx="7" fill="url(#g1)"/>
-  <!-- Inner glow overlay -->
-  <rect width="32" height="32" rx="7" fill="url(#g2)" opacity="0.18"/>
-  <!-- FS letters -->
-  <text x="16" y="22.5" font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="900" fill="white" text-anchor="middle" letter-spacing="-0.5">FS</text>
+  <!-- Hintergrund identisch zum Navbar-Icon: rounded-lg Gradient primary-500 → purple-600 -->
+  <rect width="32" height="32" rx="7" fill="url(#fs-bg)"/>
+  <!-- FS — etwas größer, mit leichtem letter-spacing damit es luftiger/länger wirkt, nicht gequetscht -->
+  <text
+    x="16" y="22"
+    font-family="Arial Black, Arial, sans-serif"
+    font-size="13"
+    font-weight="800"
+    fill="white"
+    text-anchor="middle"
+    letter-spacing="1">FS</text>
 </svg>
