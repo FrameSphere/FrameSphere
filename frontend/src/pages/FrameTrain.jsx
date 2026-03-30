@@ -6,24 +6,19 @@ import {
   ChevronDown, ChevronUp, BookOpen, Code, Globe, Star
 } from 'lucide-react';
 
-/* ─── Inline FrameTrain SVG Icon ──────────────────────────────────────────── */
+/* ─── Inline FrameTrain SVG Icon (exaktes Favicon) ───────────────────────── */
 const FrameTrainIcon = ({ size = 40 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width={size} height={size}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width={size} height={size} fill="none">
     <defs>
-      <linearGradient id="ft-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#7c3aed" />
-        <stop offset="50%" stopColor="#a855f7" />
-        <stop offset="100%" stopColor="#ec4899" />
+      <linearGradient id="ft-g1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#a855f7" />
+        <stop offset="50%" stopColor="#ec4899" />
+        <stop offset="100%" stopColor="#3b82f6" />
       </linearGradient>
     </defs>
-    <rect width="80" height="80" rx="18" fill="url(#ft-bg)" />
-    {/* Brain outline */}
-    <g fill="none" stroke="white" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M40 20c-8 0-14 5-14 12 0 3 1 6 3 8-2 2-3 4-3 7 0 5 4 9 10 10v5h8v-5c6-1 10-5 10-10 0-3-1-5-3-7 2-2 3-5 3-8 0-7-6-12-14-12z"/>
-      <line x1="40" y1="20" x2="40" y2="32"/>
-      <line x1="32" y1="30" x2="48" y2="30"/>
-      <line x1="29" y1="40" x2="51" y2="40"/>
-    </g>
+    <rect width="32" height="32" rx="8" fill="url(#ft-g1)" />
+    <text x="16" y="23" fontFamily="Arial, sans-serif" fontSize="18" fontWeight="900"
+      fill="white" textAnchor="middle">F</text>
   </svg>
 );
 
