@@ -1,0 +1,14 @@
+User-agent: *
+
+# Öffentliche Seiten indexieren
+Allow: /
+
+# Auth & Dashboard-Seiten nicht indexieren
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /billing
+
+# Sitemap
+Sitemap: https://frame-sphere.vercel.app/sitemap.xml
