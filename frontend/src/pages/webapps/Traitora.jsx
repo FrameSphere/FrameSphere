@@ -2,31 +2,7 @@ import React, { useState } from 'react';
 import { ExternalLink, CheckCircle, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
 
 /* ─── Traitora SVG Icon ───────────────────────────────────────────────────── */
-const TraitoraIcon = ({ size = 48 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <defs>
-      <linearGradient id="tr-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%"   stopColor="#6366f1" />
-        <stop offset="25%"  stopColor="#8b5cf6" />
-        <stop offset="50%"  stopColor="#ec4899" />
-        <stop offset="75%"  stopColor="#f59e0b" />
-        <stop offset="100%" stopColor="#10b981" />
-      </linearGradient>
-    </defs>
-    <circle cx="50" cy="50" r="48" fill="#1e293b"/>
-    <ellipse cx="50" cy="45" rx="28" ry="32" fill="url(#tr-grad)" opacity="0.9"/>
-    <g transform="translate(50, 45)">
-      <path d="M -12,-8 Q -18,-8 -18,-2 Q -18,4 -12,8 Q -8,10 -4,8 Q 0,6 0,0"
-        fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-      <path d="M 12,-8 Q 18,-8 18,-2 Q 18,4 12,8 Q 8,10 4,8 Q 0,6 0,0"
-        fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-      <path d="M -8,-2 Q -6,0 -8,2" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M 8,-2 Q 6,0 8,2"   fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-    </g>
-    <ellipse cx="50" cy="78" rx="32" ry="12" fill="url(#tr-grad)" opacity="0.7"/>
-    <circle cx="50" cy="50" r="45" fill="none" stroke="#6366f1" strokeWidth="2.5"/>
-  </svg>
-);
+import { TraitoraIcon } from '../../components/ProductIcons';
 
 /* ─── Trait Bar ───────────────────────────────────────────────────────────── */
 const TraitBar = ({ name, value, color }) => (

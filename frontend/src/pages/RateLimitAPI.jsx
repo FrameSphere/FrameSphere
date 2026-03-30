@@ -6,23 +6,7 @@ import {
   ChevronDown, ChevronUp, BookOpen, Database, Layers, Server
 } from 'lucide-react';
 
-/* ─── Inline RateLimit SVG Icon ───────────────────────────────────────────── */
-const RateLimitIcon = ({ size = 40 }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="rl-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#3b82f6" />
-        <stop offset="50%" stopColor="#8b5cf6" />
-        <stop offset="100%" stopColor="#ec4899" />
-      </linearGradient>
-    </defs>
-    <circle cx="32" cy="32" r="30" fill="url(#rl-bg)" />
-    <g stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none">
-      <path d="M32 14v4m0 24v4M18.64 18.64l2.83 2.83m17.06 17.06l2.83 2.83M14 32h4m24 0h4M18.64 45.36l2.83-2.83m17.06-17.06l2.83-2.83" />
-      <circle cx="32" cy="32" r="6" fill="white" />
-    </g>
-  </svg>
-);
+import { RateLimitIcon } from '../components/ProductIcons';
 
 /* ─── Code examples ───────────────────────────────────────────────────────── */
 const codeExamples = {

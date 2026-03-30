@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Shield, Brain, Code, Search, Globe, Home, Network, Zap, ArrowRight, ExternalLink, CheckCircle, Clock } from 'lucide-react';
+import { Code, Search, Globe, Home, Network, Zap, ArrowRight, ExternalLink, CheckCircle, Clock } from 'lucide-react';
+import { FrameSpellIcon, RateLimitIcon, FrameTrainIcon } from '../components/ProductIcons';
 
 const Products = () => {
 
@@ -10,8 +11,7 @@ const Products = () => {
       name: 'FrameSpell API',
       tagline: 'KI-Rechtschreibprüfung für Entwickler',
       description: 'Leistungsstarke KI-Rechtschreibprüfung API auf Basis des MT5-Modells. Echtzeit-Korrektur mit REST API, JSON Response. Unterstützt Deutsch, Englisch, Spanisch und Französisch.',
-      icon: <Sparkles className="w-10 h-10 text-white" />,
-      color: 'from-blue-500 to-cyan-500',
+      Icon: FrameSpellIcon,
       status: 'Live',
       externalUrl: 'https://framespell.pages.dev/',
       link: '/products/framespell',
@@ -24,8 +24,7 @@ const Products = () => {
       name: 'RateLimit API',
       tagline: 'API-Schutz auf Cloudflare Edge',
       description: 'Schütze deine APIs vor Missbrauch, DDoS und Überlastung. Token Bucket Algorithmus, IP-Filter und Echtzeit-Analytics auf dem Cloudflare Workers Edge Network.',
-      icon: <Shield className="w-10 h-10 text-white" />,
-      color: 'from-green-500 to-emerald-500',
+      Icon: RateLimitIcon,
       status: 'Live',
       externalUrl: 'https://ratelimit-api.pages.dev/',
       link: '/products/ratelimit-api',
@@ -38,8 +37,7 @@ const Products = () => {
       name: 'FrameTrain',
       tagline: 'KI-Modelle lokal trainieren',
       description: 'Desktop-Applikation zum Trainieren, Verbessern und Verwalten eigener KI-Modelle — vollständig lokal auf deinem Rechner. Keine Cloud, keine Datenübertragung, 100% Datenkontrolle.',
-      icon: <Brain className="w-10 h-10 text-white" />,
-      color: 'from-purple-500 to-pink-500',
+      Icon: FrameTrainIcon,
       status: 'Live',
       externalUrl: 'https://frame-train.vercel.app/',
       link: '/products/frametrain',
@@ -134,8 +132,9 @@ const Products = () => {
               <div key={product.id} className="card hover:scale-[1.01] transition-all duration-300">
                 <div className="grid md:grid-cols-3 gap-8">
                   <div className="md:col-span-1">
-                    <div className={`w-18 h-18 w-[72px] h-[72px] bg-gradient-to-br ${product.color} rounded-2xl flex items-center justify-center mb-4`}>
-                      {product.icon}
+                    {/* Echtes Favicon-Icon — kein gefärbter Wrapper */}
+                    <div className="mb-4 w-[72px]">
+                      <product.Icon size={72} />
                     </div>
                     <div className="flex items-center gap-2 mb-2">
                       <h3 className="text-2xl font-bold text-white">{product.name}</h3>

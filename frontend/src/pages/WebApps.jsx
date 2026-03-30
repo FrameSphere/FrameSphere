@@ -3,91 +3,10 @@ import { Link } from 'react-router-dom';
 import { ExternalLink, ArrowRight } from 'lucide-react';
 
 /* ─── Inline SVG Icons ────────────────────────────────────────────────────── */
-const WordifyIcon = ({ size = 40 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <rect width="100" height="100" fill="#6aaa64" rx="14"/>
-    <text x="50" y="72" fontFamily="Arial, sans-serif" fontSize="60" fontWeight="bold" fill="white" textAnchor="middle">W</text>
-  </svg>
-);
-
-const FlagGuessIcon = ({ size = 40 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <rect x="10" y="10" width="80" height="50" fill="#3b82f6" rx="4"/>
-    <rect x="10" y="30" width="80" height="20" fill="#ef4444"/>
-    <rect x="10" y="50" width="80" height="10" fill="#22c55e"/>
-    <rect x="8" y="10" width="4" height="80" fill="#1f2937" rx="2"/>
-  </svg>
-);
-
-const BrawlMysteryIcon = ({ size = 40 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <rect width="100" height="100" fill="#8B5CF6" rx="16"/>
-    <circle cx="50" cy="35" r="22" fill="#FCD34D" opacity="0.3"/>
-    <polygon points="50,15 55,30 70,30 58,40 63,55 50,45 37,55 42,40 30,30 45,30" fill="#FCD34D"/>
-    <path d="M 43 65 Q 43 58 50 58 Q 57 58 57 65 Q 57 72 50 76" fill="none" stroke="#FCD34D" strokeWidth="5" strokeLinecap="round"/>
-    <circle cx="50" cy="84" r="3" fill="#FCD34D"/>
-  </svg>
-);
-
-const SpinSelectorIcon = ({ size = 40 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <circle cx="50" cy="50" r="45" fill="#1e293b" stroke="#6366f1" strokeWidth="3"/>
-    <g transform="translate(50, 50)">
-      <path d="M 0,0 L 35,0 A 35,35 0 0,1 24.7,24.7 Z" fill="#ef4444" opacity="0.9"/>
-      <path d="M 0,0 L 24.7,24.7 A 35,35 0 0,1 0,35 Z" fill="#3b82f6" opacity="0.9"/>
-      <path d="M 0,0 L 0,35 A 35,35 0 0,1 -24.7,24.7 Z" fill="#22c55e" opacity="0.9"/>
-      <path d="M 0,0 L -24.7,24.7 A 35,35 0 0,1 -35,0 Z" fill="#f59e0b" opacity="0.9"/>
-      <path d="M 0,0 L -35,0 A 35,35 0 0,1 -24.7,-24.7 Z" fill="#8b5cf6" opacity="0.9"/>
-      <path d="M 0,0 L -24.7,-24.7 A 35,35 0 0,1 0,-35 Z" fill="#ec4899" opacity="0.9"/>
-      <path d="M 0,0 L 0,-35 A 35,35 0 0,1 24.7,-24.7 Z" fill="#06b6d4" opacity="0.9"/>
-      <path d="M 0,0 L 24.7,-24.7 A 35,35 0 0,1 35,0 Z" fill="#f97316" opacity="0.9"/>
-    </g>
-    <circle cx="50" cy="50" r="12" fill="#6366f1"/>
-    <circle cx="50" cy="50" r="8" fill="white"/>
-    <path d="M 50,5 L 45,15 L 55,15 Z" fill="#ef4444"/>
-  </svg>
-);
-
-const TraitoraIcon = ({ size = 40 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <defs>
-      <linearGradient id="wt-tr-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#6366f1"/>
-        <stop offset="50%" stopColor="#ec4899"/>
-        <stop offset="100%" stopColor="#10b981"/>
-      </linearGradient>
-    </defs>
-    <circle cx="50" cy="50" r="48" fill="#1e293b"/>
-    <ellipse cx="50" cy="45" rx="28" ry="32" fill="url(#wt-tr-grad)" opacity="0.9"/>
-    <g transform="translate(50, 45)">
-      <path d="M -12,-8 Q -18,-8 -18,-2 Q -18,4 -12,8 Q -8,10 -4,8 Q 0,6 0,0" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-      <path d="M 12,-8 Q 18,-8 18,-2 Q 18,4 12,8 Q 8,10 4,8 Q 0,6 0,0" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-    </g>
-    <ellipse cx="50" cy="78" rx="32" ry="12" fill="url(#wt-tr-grad)" opacity="0.7"/>
-    <circle cx="50" cy="50" r="45" fill="none" stroke="#6366f1" strokeWidth="2"/>
-  </svg>
-);
-
-const FileFlyrIcon = ({ size = 40 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <defs>
-      <linearGradient id="wt-ff-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#6366f1"/>
-        <stop offset="100%" stopColor="#8b5cf6"/>
-      </linearGradient>
-    </defs>
-    <rect width="100" height="100" fill="url(#wt-ff-bg)" rx="20"/>
-    <g transform="translate(50, 50)">
-      <rect x="-32" y="-20" width="20" height="28" fill="white" opacity="0.9" rx="2"/>
-      <path d="M -7,-3 L 0,-3" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M -2,-6 L 2,-3 L -2,0" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M 7,3 L 0,3" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M 2,6 L -2,3 L 2,0" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-      <rect x="12" y="-20" width="20" height="28" fill="white" opacity="0.9" rx="2"/>
-    </g>
-    <path d="M 70,25 L 65,32 L 68,32 L 66,39 L 71,32 L 68,32 Z" fill="white" opacity="0.8"/>
-  </svg>
-);
+import {
+  WordifyIcon, FlagGuessIcon, BrawlMysteryIcon,
+  SpinSelectorIcon, TraitoraIcon, FileFlyrIcon
+} from '../components/ProductIcons';
 
 /* ─── App Data ────────────────────────────────────────────────────────────── */
 const webApps = [

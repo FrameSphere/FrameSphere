@@ -5,22 +5,7 @@ import {
   Shield, ExternalLink, Zap, BarChart3, Package, Sparkles,
   ChevronDown, ChevronUp, BookOpen, Code, Globe, Star
 } from 'lucide-react';
-
-/* ─── Inline FrameTrain SVG Icon (exaktes Favicon) ───────────────────────── */
-const FrameTrainIcon = ({ size = 40 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width={size} height={size} fill="none">
-    <defs>
-      <linearGradient id="ft-g1" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#a855f7" />
-        <stop offset="50%" stopColor="#ec4899" />
-        <stop offset="100%" stopColor="#3b82f6" />
-      </linearGradient>
-    </defs>
-    <rect width="32" height="32" rx="8" fill="url(#ft-g1)" />
-    <text x="16" y="23" fontFamily="Arial, sans-serif" fontSize="18" fontWeight="900"
-      fill="white" textAnchor="middle">F</text>
-  </svg>
-);
+import { FrameTrainIcon } from '../components/ProductIcons';
 
 /* ─── FAQ data ────────────────────────────────────────────────────────────── */
 const faqs = [

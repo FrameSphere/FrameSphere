@@ -6,28 +6,7 @@ import {
   BarChart3, Key, RefreshCw, ChevronDown, ChevronUp
 } from 'lucide-react';
 
-/* ─── Inline FrameSpell SVG Icon ──────────────────────────────────────────── */
-const FrameSpellIcon = ({ size = 40 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <defs>
-      <linearGradient id="fs-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#6366f1" />
-        <stop offset="55%" stopColor="#a855f7" />
-        <stop offset="100%" stopColor="#ec4899" />
-      </linearGradient>
-    </defs>
-    <rect width="100" height="100" rx="22" ry="22" fill="url(#fs-bg)" />
-    <rect x="19" y="29" width="46" height="9" rx="4.5" fill="rgba(255,255,255,0.92)" />
-    <rect x="19" y="43" width="37" height="9" rx="4.5" fill="rgba(255,255,255,0.92)" />
-    <rect x="19" y="57" width="28" height="9" rx="4.5" fill="rgba(255,255,255,0.92)" />
-    <rect x="19" y="70" width="9" height="4" rx="2" fill="rgba(244,114,182,0.85)" />
-    <rect x="31" y="70" width="9" height="4" rx="2" fill="rgba(244,114,182,0.85)" />
-    <rect x="43" y="70" width="6" height="4" rx="2" fill="rgba(244,114,182,0.85)" />
-    <circle cx="74" cy="74" r="18" fill="rgba(244,114,182,0.22)" />
-    <circle cx="74" cy="74" r="14.5" fill="white" />
-    <polyline points="65.5,74.5  71.5,80.5  82.5,67.5" fill="none" stroke="#6366f1" strokeWidth="4.2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+import { FrameSpellIcon } from '../components/ProductIcons';
 
 /* ─── Code tabs ───────────────────────────────────────────────────────────── */
 const codeExamples = {

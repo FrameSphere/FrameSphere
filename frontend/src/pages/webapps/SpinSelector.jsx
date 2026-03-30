@@ -2,24 +2,7 @@ import React from 'react';
 import { ExternalLink, CheckCircle, ArrowRight, Zap } from 'lucide-react';
 
 /* ─── SpinSelector SVG Icon ───────────────────────────────────────────────── */
-const SpinSelectorIcon = ({ size = 48 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <circle cx="50" cy="50" r="45" fill="#1e293b" stroke="#6366f1" strokeWidth="3"/>
-    <g transform="translate(50, 50)">
-      <path d="M 0,0 L 35,0 A 35,35 0 0,1 24.7,24.7 Z" fill="#ef4444" opacity="0.9"/>
-      <path d="M 0,0 L 24.7,24.7 A 35,35 0 0,1 0,35 Z" fill="#3b82f6" opacity="0.9"/>
-      <path d="M 0,0 L 0,35 A 35,35 0 0,1 -24.7,24.7 Z" fill="#22c55e" opacity="0.9"/>
-      <path d="M 0,0 L -24.7,24.7 A 35,35 0 0,1 -35,0 Z" fill="#f59e0b" opacity="0.9"/>
-      <path d="M 0,0 L -35,0 A 35,35 0 0,1 -24.7,-24.7 Z" fill="#8b5cf6" opacity="0.9"/>
-      <path d="M 0,0 L -24.7,-24.7 A 35,35 0 0,1 0,-35 Z" fill="#ec4899" opacity="0.9"/>
-      <path d="M 0,0 L 0,-35 A 35,35 0 0,1 24.7,-24.7 Z" fill="#06b6d4" opacity="0.9"/>
-      <path d="M 0,0 L 24.7,-24.7 A 35,35 0 0,1 35,0 Z" fill="#f97316" opacity="0.9"/>
-    </g>
-    <circle cx="50" cy="50" r="12" fill="#6366f1"/>
-    <circle cx="50" cy="50" r="8" fill="white"/>
-    <path d="M 50,5 L 45,15 L 55,15 Z" fill="#ef4444"/>
-  </svg>
-);
+import { SpinSelectorIcon } from '../../components/ProductIcons';
 
 /* ─── Use Case Card ───────────────────────────────────────────────────────── */
 const UseCaseCard = ({ emoji, title, desc, examples }) => (

@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 import { ExternalLink, CheckCircle, Globe, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
 
 /* ─── FlagGuess SVG Icon ──────────────────────────────────────────────────── */
-const FlagGuessIcon = ({ size = 48 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <rect x="10" y="10" width="80" height="50" fill="#3b82f6" rx="4"/>
-    <rect x="10" y="30" width="80" height="20" fill="#ef4444"/>
-    <rect x="10" y="50" width="80" height="10" fill="#22c55e"/>
-    <rect x="8" y="10" width="4" height="80" fill="#1f2937" rx="2"/>
-  </svg>
-);
+import { FlagGuessIcon } from '../../components/ProductIcons';
 
 /* ─── Difficulty Badge ────────────────────────────────────────────────────── */
 const DiffBadge = ({ label, color, attempts, desc }) => (

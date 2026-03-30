@@ -2,32 +2,7 @@ import React from 'react';
 import { ExternalLink, CheckCircle, Lock, Zap, FileText, ArrowRight } from 'lucide-react';
 
 /* ─── FileFlyr SVG Icon ───────────────────────────────────────────────────── */
-const FileFlyrIcon = ({ size = 48 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}>
-    <defs>
-      <linearGradient id="ff-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#6366f1" />
-        <stop offset="100%" stopColor="#8b5cf6" />
-      </linearGradient>
-    </defs>
-    <rect width="100" height="100" fill="url(#ff-bg)" rx="20"/>
-    <g transform="translate(50, 50)">
-      <rect x="-32" y="-20" width="20" height="28" fill="white" opacity="0.9" rx="2"/>
-      <line x1="-28" y1="-14" x2="-16" y2="-14" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="-28" y1="-9" x2="-16" y2="-9" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="-28" y1="-4" x2="-20" y2="-4" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M -7,-3 L 0,-3" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M -2,-6 L 2,-3 L -2,0" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M 7,3 L 0,3" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M 2,6 L -2,3 L 2,0" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-      <rect x="12" y="-20" width="20" height="28" fill="white" opacity="0.9" rx="2"/>
-      <line x1="16" y1="-14" x2="28" y2="-14" stroke="#8b5cf6" strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="16" y1="-9" x2="28" y2="-9" stroke="#8b5cf6" strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="16" y1="-4" x2="24" y2="-4" stroke="#8b5cf6" strokeWidth="1.5" strokeLinecap="round"/>
-    </g>
-    <path d="M 70,25 L 65,32 L 68,32 L 66,39 L 71,32 L 68,32 Z" fill="white" opacity="0.8"/>
-  </svg>
-);
+import { FileFlyrIcon } from '../../components/ProductIcons';
 
 const FileFlyr = () => {
 
