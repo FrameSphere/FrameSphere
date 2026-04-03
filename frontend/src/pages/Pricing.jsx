@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, X, ArrowRight, Sparkles, Shield, Brain, Zap, Globe } from 'lucide-react';
+import { CheckCircle, X, ArrowRight, Sparkles, Shield, Brain, Zap, Globe, Search, LayoutDashboard } from 'lucide-react';
+import { KeyScopeIcon, SiteControlIcon } from '../components/ProductIcons';
 
 const products = [
-  { id: 'framespell', name: 'FrameSpell API', icon: <Sparkles className="w-4 h-4" /> },
-  { id: 'ratelimit', name: 'RateLimit API', icon: <Shield className="w-4 h-4" /> },
-  { id: 'frametrain', name: 'FrameTrain', icon: <Brain className="w-4 h-4" /> },
-  { id: 'webapps', name: 'Web Apps', icon: <Globe className="w-4 h-4" /> },
+  { id: 'framespell',    name: 'FrameSpell API',  icon: <Sparkles className="w-4 h-4" /> },
+  { id: 'ratelimit',     name: 'RateLimit API',   icon: <Shield className="w-4 h-4" /> },
+  { id: 'frametrain',   name: 'FrameTrain',       icon: <Brain className="w-4 h-4" /> },
+  { id: 'keyscope',     name: 'KeyScope',         icon: <Search className="w-4 h-4" /> },
+  { id: 'sitecontrol',  name: 'SiteControl',      icon: <LayoutDashboard className="w-4 h-4" /> },
+  { id: 'webapps',      name: 'Web Apps',         icon: <Globe className="w-4 h-4" /> },
 ];
 
 const PricingCard = ({ plan }) => (
@@ -66,14 +69,39 @@ const Pricing = () => {
         cta: 'Jetzt herunterladen'
       },
       {
-        name: 'Pro', price: '€49', period: '/Einmalig', badge: 'Lifetime', highlighted: true,
-        features: ['Alles aus Free', 'Erweiterte Modell-Architekturen', 'GPU-Optimierung', 'Batch-Training', 'Prioritäts-Support', 'Lifetime Updates'],
-        cta: 'Pro kaufen'
+        name: 'Pro', price: '€1,99', period: '/Einmalig', badge: 'Early Access', highlighted: true,
+        features: ['Alles aus Free', 'HuggingFace-Integration', 'LoRA & QLoRA', 'GPU-Beschleunigung', 'Alle Updates inklusive', 'Community Support'],
+        cta: 'Jetzt starten'
+      },
+    ],
+    keyscope: [
+      {
+        name: 'Free', price: '€0', period: '/Monat', highlighted: false,
+        features: ['20 Analysen / Tag', 'Bis zu 10 Keywords + 10 Longtails', '3 Keyword-Profile', '5 Sprachen (DE, EN, FR, ES, IT)', 'Pre-built Templates', 'REST API Zugang', 'Training bis 20 Dokumente'],
+        notIncluded: ['AI Model Mode', 'Vollständiger Verlauf', 'Prioritäts-Support'],
+        note: 'Keine Kreditkarte nötig',
+        cta: 'Kostenlos starten',
       },
       {
-        name: 'Team', price: '€149', period: '/Einmalig',
-        features: ['Alles aus Pro', 'Bis zu 5 Nutzer', 'Shared Model Library', 'Team-Dashboard', 'Dedizierter Support'],
-        highlighted: false, cta: 'Team-Lizenz kaufen'
+        name: 'Pro', price: '€9', period: '/Monat', badge: 'Beliebt', highlighted: true,
+        features: ['500 Analysen / Tag', 'Bis zu 50 Keywords + 50 Longtails', '50 Profile', '5 Sprachen', 'REST API Zugang', 'Training bis 200 Dokumente', 'AI Model Mode (HuggingFace)', 'Vollständiger Verlauf', 'Prioritäts-Support'],
+        note: 'Jährlich: €7,49/Mo (−20%)',
+        cta: 'Pro starten',
+      },
+    ],
+    sitecontrol: [
+      {
+        name: 'Free', price: '€0', period: 'für immer', highlighted: false,
+        features: ['Bis zu 3 Websites', 'Dashboard & KPI-Überblick', 'Todo-Management', 'Benachrichtigungen', 'Basic Analytics', '1 Benutzer'],
+        notIncluded: ['Blog-Verwaltung', 'Changelog-System', 'Support-Tickets', 'AdSense & GSC-Widgets'],
+        note: 'Keine Kreditkarte nötig',
+        cta: 'Kostenlos starten',
+      },
+      {
+        name: 'Pro', price: '€19', period: 'pro Monat', badge: '⭐ Empfohlen', highlighted: true,
+        features: ['Unbegrenzte Websites', 'Alles aus Free', 'Blog-Verwaltung (mehrsprachig)', 'Changelog-System', 'Support-Ticket-System', 'Vollständige Analytics', 'AdSense & GSC-Widgets', 'Bis zu 5 Teammitglieder', 'Prioritäts-Support'],
+        note: '14 Tage kostenlos testen',
+        cta: '14 Tage gratis testen',
       },
     ],
     webapps: [

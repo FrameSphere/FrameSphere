@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Zap, ArrowRight, CheckCircle, Search, Globe, Code,
+  Zap, ArrowRight, CheckCircle, Code,
   ExternalLink, TrendingUp, Users, Rocket, Gamepad2, Lock, Brain,
 } from 'lucide-react';
 import {
   FrameSpellIcon, RateLimitIcon, FrameTrainIcon,
+  KeyScopeIcon, SiteControlIcon,
   WordifyIcon, FlagGuessIcon, BrawlMysteryIcon,
   SpinSelectorIcon, TraitoraIcon, FileFlyrIcon,
 } from '../components/ProductIcons';
@@ -37,6 +38,22 @@ const Home = () => {
       externalLink: 'https://frame-train.vercel.app/',
       stat: '100% lokal & privat',
     },
+    {
+      name: 'KeyScope',
+      description: 'TF-IDF + AI Keyword-Extraction als SaaS. Analysiere Texte, erhalte gerankte Keywords, Longtail-Phrases & Meta Descriptions — via UI oder REST API.',
+      Icon: KeyScopeIcon,
+      link: '/products/keyword-engine',
+      externalLink: 'https://keyscope.pages.dev/',
+      stat: '5 Sprachen · 20/Tag kostenlos',
+    },
+    {
+      name: 'SiteControl',
+      description: 'Alle deine Websites. Ein Dashboard. Blog-Posts, Changelogs, Support-Tickets, Todos und Analytics zentral verwalten — Next.js + Supabase.',
+      Icon: SiteControlIcon,
+      link: '/products/website-manager',
+      externalLink: 'https://app.sitecontrol.app/',
+      stat: 'Free bis 3 Websites',
+    },
   ];
 
   const webApps = [
@@ -49,10 +66,8 @@ const Home = () => {
   ];
 
   const comingProducts = [
-    { name: 'CoreChain API',    desc: 'KI-Orchestrierung für komplexe Workflows', icon: <Code className="w-4 h-4" />,   color: 'text-cyan-400'   },
-    { name: 'Keyword Engine',   desc: 'SEO Keyword-Analyse & Ranking-Tracking',   icon: <Search className="w-4 h-4" />, color: 'text-yellow-400' },
-    { name: 'Website Manager',  desc: 'Multi-Site Dashboard & Monitoring',         icon: <Globe className="w-4 h-4" />,  color: 'text-orange-400' },
-    { name: 'SphereNet',        desc: 'Öffentliches KI-Modell-Netzwerk',           icon: <Zap className="w-4 h-4" />,   color: 'text-indigo-400' },
+    { name: 'CoreChain API', desc: 'KI-Orchestrierung für komplexe Workflows', icon: <Code className="w-4 h-4" />, color: 'text-cyan-400' },
+    { name: 'SphereNet',     desc: 'Öffentliches KI-Modell-Netzwerk',          icon: <Zap className="w-4 h-4" />,  color: 'text-indigo-400' },
   ];
 
   const whyUs = [
@@ -65,10 +80,10 @@ const Home = () => {
   ];
 
   const stats = [
-    { value: '3',         label: 'Live APIs'  },
-    { value: '6',         label: 'Web Apps'   },
-    { value: '99.9%',     label: 'Uptime'     },
-    { value: 'Kostenlos', label: 'starten'    },
+    { value: '5',         label: 'Live Produkte' },
+    { value: '6',         label: 'Web Apps'      },
+    { value: '99.9%',     label: 'Uptime'        },
+    { value: 'Kostenlos', label: 'starten'       },
   ];
 
   return (
@@ -84,7 +99,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <div className="inline-block mb-6">
             <span className="glass-effect px-4 py-2 rounded-full text-sm text-primary-400 border border-primary-500/30">
-              🚀 3 Live-Produkte · 6 Web-Apps · mehr in Entwicklung
+              🚀 5 Live-Produkte · 6 Web-Apps · mehr in Entwicklung
             </span>
           </div>
 
@@ -132,13 +147,13 @@ const Home = () => {
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               <span className="text-green-400 text-sm font-semibold uppercase tracking-widest">Live & nutzbar</span>
             </div>
-            <h2 className="text-4xl font-bold text-white mb-4">API-Produkte</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">Produkte</h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Drei produktionsreife APIs — jede mit kostenlosem Startplan, sofort integrierbar.
+              Fünf produktionsreife Tools & APIs — jede mit kostenlosem Startplan, sofort nutzbar.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
             {liveProducts.map((p, i) => (
               <div key={i} className="card flex flex-col group hover:scale-[1.03] transition-all duration-300">
                 {/* Echtes Favicon-Icon */}
@@ -261,7 +276,7 @@ const Home = () => {
               <div className="border-t border-white/10 pt-4">
                 <div className="text-sm text-gray-400 mb-3">Bereits live:</div>
                 <div className="flex flex-wrap gap-2">
-                  {['FrameSpell API', 'RateLimit API', 'FrameTrain', 'Wordify', 'FlagGuess', 'BrawlMystery', 'SpinSelector', 'Traitora', 'FileFlyr'].map((name) => (
+                  {['FrameSpell API', 'RateLimit API', 'FrameTrain', 'KeyScope', 'SiteControl', 'Wordify', 'FlagGuess', 'BrawlMystery', 'SpinSelector', 'Traitora', 'FileFlyr'].map((name) => (
                     <span key={name} className="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded border border-green-500/20">{name}</span>
                   ))}
                 </div>

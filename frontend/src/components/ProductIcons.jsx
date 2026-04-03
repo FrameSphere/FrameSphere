@@ -65,6 +65,59 @@ export const FrameTrainIcon = ({ size = 56, className = '' }) => (
   </svg>
 );
 
+/* ── KeyScope (Keyword Engine) ─────────────────────────────────────────────── */
+export const KeyScopeIcon = ({ size = 56, className = '' }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+    width={size} height={size} className={className}>
+    <defs>
+      <linearGradient id="ks-a" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stopColor="#2563EB" />
+        <stop offset="100%" stopColor="#7C3AED" />
+      </linearGradient>
+      <linearGradient id="ks-b" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stopColor="#D946EF" />
+        <stop offset="100%" stopColor="#7C3AED" />
+      </linearGradient>
+    </defs>
+    <rect width="64" height="64" rx="14" fill="url(#ks-a)" />
+    <circle cx="26" cy="32" r="12" stroke="white" strokeWidth="3.5" fill="none" opacity="0.95" />
+    <circle cx="26" cy="32" r="4"  fill="url(#ks-b)" opacity="0.9" />
+    <line x1="35" y1="32" x2="52" y2="32" stroke="white" strokeWidth="3" strokeLinecap="round" opacity="0.9" />
+    <line x1="44" y1="32" x2="44" y2="38" stroke="white" strokeWidth="3" strokeLinecap="round" opacity="0.9" />
+    <line x1="49" y1="32" x2="49" y2="36" stroke="white" strokeWidth="3" strokeLinecap="round" opacity="0.9" />
+  </svg>
+);
+
+/* ── SiteControl (Website Manager) ────────────────────────────────────────── */
+export const SiteControlIcon = ({ size = 56, className = '' }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+    width={size} height={size} className={className}>
+    <defs>
+      <linearGradient id="sc-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stopColor="#5b6af6" />
+        <stop offset="100%" stopColor="#a78bfa" />
+      </linearGradient>
+    </defs>
+    <rect width="64" height="64" rx="14" fill="url(#sc-bg)" />
+    {/* Sidebar strip */}
+    <rect x="10" y="10" width="13" height="44" rx="4" fill="rgba(255,255,255,0.18)" />
+    {/* Sidebar nav dots */}
+    <rect x="13" y="15" width="7" height="3" rx="1.5" fill="white" opacity="0.9" />
+    <rect x="13" y="21" width="7" height="3" rx="1.5" fill="white" opacity="0.6" />
+    <rect x="13" y="27" width="7" height="3" rx="1.5" fill="white" opacity="0.6" />
+    <rect x="13" y="33" width="7" height="3" rx="1.5" fill="white" opacity="0.6" />
+    {/* Main content area */}
+    <rect x="27" y="10" width="27" height="10" rx="3" fill="rgba(255,255,255,0.22)" />
+    {/* KPI grid */}
+    <rect x="27" y="24" width="12" height="8" rx="3" fill="rgba(255,255,255,0.75)" />
+    <rect x="42" y="24" width="12" height="8" rx="3" fill="rgba(255,255,255,0.55)" />
+    {/* List rows */}
+    <rect x="27" y="36" width="27" height="3" rx="1.5" fill="rgba(255,255,255,0.45)" />
+    <rect x="27" y="42" width="21" height="3" rx="1.5" fill="rgba(255,255,255,0.30)" />
+    <rect x="27" y="48" width="17" height="3" rx="1.5" fill="rgba(255,255,255,0.20)" />
+  </svg>
+);
+
 /* ── WEB APPS ──────────────────────────────────────────────────────────────── */
 
 export const WordifyIcon = ({ size = 48, className = '' }) => (
