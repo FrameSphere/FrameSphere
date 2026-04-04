@@ -11,6 +11,37 @@ import {
   SpinSelectorIcon, TraitoraIcon, FileFlyrIcon,
 } from '../components/ProductIcons';
 
+/* ── Reusable product card ──────────────────────────────────── */
+function ProductCard({ p }) {
+  return (
+    <div className="card flex flex-col group hover:scale-[1.03] transition-all duration-300">
+      <div className="mb-5 flex-shrink-0">
+        <p.Icon size={56} />
+      </div>
+      <h3 className="text-xl font-bold text-white mb-2">{p.name}</h3>
+      <p className="text-gray-400 text-sm leading-relaxed mb-3 flex-1">{p.description}</p>
+      <div className="text-xs text-primary-400 font-medium mb-5">✓ {p.stat}</div>
+      <div className="flex gap-2 mt-auto">
+        <Link
+          to={p.link}
+          className="flex-1 btn-primary text-sm py-2.5 inline-flex items-center justify-center space-x-1"
+        >
+          <span>Details</span><ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+        <a
+          href={p.externalLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-secondary px-3 py-2.5 inline-flex items-center"
+          title="Live öffnen"
+        >
+          <ExternalLink className="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
 const Home = () => {
 
   const liveProducts = [
@@ -57,12 +88,12 @@ const Home = () => {
   ];
 
   const webApps = [
-    { name: 'Wordify',       desc: 'Tägliches 5-Buchstaben Worträtsel in 5 Sprachen',    Icon: WordifyIcon,       path: '/webapps/wordify',       url: 'https://wordify.pages.dev/',       color: 'text-emerald-400' },
-    { name: 'FlagGuess',     desc: 'Flaggen-Quiz mit 195+ Ländern & 3 Schwierigkeitsstufen', Icon: FlagGuessIcon,  path: '/webapps/flagguess',     url: 'https://flaggues.pages.dev/',      color: 'text-blue-400'    },
-    { name: 'BrawlMystery',  desc: 'Brawl Stars Ratespiel mit 4 Spielmodi täglich',         Icon: BrawlMysteryIcon,path: '/webapps/brawlmystery',  url: 'https://brawlmystery.pages.dev/', color: 'text-orange-400'  },
-    { name: 'SpinSelector',  desc: 'Online-Glücksrad für Zufallsentscheidungen aller Art',  Icon: SpinSelectorIcon,path: '/webapps/spinselector',  url: 'https://spinselector.pages.dev/', color: 'text-pink-400'    },
-    { name: 'Traitora',      desc: 'Adaptiver Persönlichkeitstest auf Basis von IRT',        Icon: TraitoraIcon,    path: '/webapps/traitora',      url: 'https://traitora.pages.dev/',     color: 'text-violet-400'  },
-    { name: 'FileFlyr',      desc: '40+ Dateikonverter — 100% privat, kein Upload',          Icon: FileFlyrIcon,    path: '/webapps/fileflyr',      url: 'https://fileflyr.pages.dev/',     color: 'text-cyan-400'    },
+    { name: 'Wordify',       desc: 'Tägliches 5-Buchstaben Worträtsel in 5 Sprachen',     Icon: WordifyIcon,      path: '/webapps/wordify',      url: 'https://wordify.pages.dev/',      color: 'text-emerald-400' },
+    { name: 'FlagGuess',     desc: 'Flaggen-Quiz mit 195+ Ländern & 3 Schwierigkeitsstufen', Icon: FlagGuessIcon,  path: '/webapps/flagguess',    url: 'https://flaggues.pages.dev/',     color: 'text-blue-400'    },
+    { name: 'BrawlMystery',  desc: 'Brawl Stars Ratespiel mit 4 Spielmodi täglich',         Icon: BrawlMysteryIcon,path: '/webapps/brawlmystery', url: 'https://brawlmystery.pages.dev/',color: 'text-orange-400'  },
+    { name: 'SpinSelector',  desc: 'Online-Glücksrad für Zufallsentscheidungen aller Art',  Icon: SpinSelectorIcon,path: '/webapps/spinselector', url: 'https://spinselector.pages.dev/',color: 'text-pink-400'    },
+    { name: 'Traitora',      desc: 'Adaptiver Persönlichkeitstest auf Basis von IRT',        Icon: TraitoraIcon,    path: '/webapps/traitora',     url: 'https://traitora.pages.dev/',    color: 'text-violet-400'  },
+    { name: 'FileFlyr',      desc: '40+ Dateikonverter — 100% privat, kein Upload',         Icon: FileFlyrIcon,    path: '/webapps/fileflyr',     url: 'https://fileflyr.pages.dev/',    color: 'text-cyan-400'    },
   ];
 
   const comingProducts = [
@@ -71,12 +102,12 @@ const Home = () => {
   ];
 
   const whyUs = [
-    { icon: <Lock className="w-5 h-5" />,      title: 'Datenschutz by Design',  desc: 'DSGVO-konform, EU-Server, und wo möglich 100% lokale Verarbeitung ohne Cloud.' },
-    { icon: <Zap className="w-5 h-5" />,        title: 'Sofort einsatzbereit',   desc: 'API Key holen und loslegen — kein komplexes Onboarding, keine langen Wartezeiten.' },
-    { icon: <Code className="w-5 h-5" />,       title: 'Entwicklerfreundlich',   desc: 'REST APIs, JSON Responses, klare Dokumentation und SDKs für alle Sprachen.' },
-    { icon: <TrendingUp className="w-5 h-5" />, title: 'Fair skalieren',         desc: 'Kostenlose Einstiegspläne für alle Produkte. Zahle nur, was du wirklich nutzt.' },
-    { icon: <Users className="w-5 h-5" />,      title: 'Ein Account, alles',     desc: 'Registriere dich einmal und verwalte alle FrameSphere-Produkte zentral.' },
-    { icon: <Brain className="w-5 h-5" />,      title: 'Echte Produkte',         desc: 'Keine Demo-Projekte — alle Produkte sind produktionsreif und aktiv genutzt.' },
+    { icon: <Lock className="w-5 h-5" />,       title: 'Datenschutz by Design',  desc: 'DSGVO-konform, EU-Server, und wo möglich 100% lokale Verarbeitung ohne Cloud.' },
+    { icon: <Zap className="w-5 h-5" />,         title: 'Sofort einsatzbereit',   desc: 'API Key holen und loslegen — kein komplexes Onboarding, keine langen Wartezeiten.' },
+    { icon: <Code className="w-5 h-5" />,        title: 'Entwicklerfreundlich',   desc: 'REST APIs, JSON Responses, klare Dokumentation und SDKs für alle Sprachen.' },
+    { icon: <TrendingUp className="w-5 h-5" />,  title: 'Fair skalieren',         desc: 'Kostenlose Einstiegspläne für alle Produkte. Zahle nur, was du wirklich nutzt.' },
+    { icon: <Users className="w-5 h-5" />,       title: 'Ein Account, alles',     desc: 'Registriere dich einmal und verwalte alle FrameSphere-Produkte zentral.' },
+    { icon: <Brain className="w-5 h-5" />,       title: 'Echte Produkte',         desc: 'Keine Demo-Projekte — alle Produkte sind produktionsreif und aktiv genutzt.' },
   ];
 
   const stats = [
@@ -89,7 +120,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
 
-      {/* ── HERO ─────────────────────────────────────────────── */}
+      {/* ── HERO ────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-24 px-4 overflow-hidden">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500 rounded-full filter blur-3xl animate-float" />
@@ -139,7 +170,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── LIVE APIs ─────────────────────────────────────────── */}
+      {/* ── LIVE APIs ───────────────────────────────────────────── */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
@@ -153,32 +184,23 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {liveProducts.map((p, i) => (
-              <div key={i} className="card flex flex-col group hover:scale-[1.03] transition-all duration-300">
-                {/* Echtes Favicon-Icon */}
-                <div className="mb-5 flex-shrink-0">
-                  <p.Icon size={56} />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{p.name}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-3 flex-1">{p.description}</p>
-                <div className="text-xs text-primary-400 font-medium mb-5">✓ {p.stat}</div>
-                <div className="flex gap-2 mt-auto">
-                  <Link to={p.link} className="flex-1 btn-primary text-sm py-2.5 inline-flex items-center justify-center space-x-1">
-                    <span>Details</span><ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                  <a href={p.externalLink} target="_blank" rel="noopener noreferrer"
-                    className="btn-secondary px-3 py-2.5 inline-flex items-center" title="Live öffnen">
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
+          {/* Row 1: 3 cards */}
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
+            {liveProducts.slice(0, 3).map((p, i) => (
+              <ProductCard key={i} p={p} />
+            ))}
+          </div>
+
+          {/* Row 2: 2 cards, visually centered */}
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {liveProducts.slice(3).map((p, i) => (
+              <ProductCard key={i + 3} p={p} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── WEB APPS ──────────────────────────────────────────── */}
+      {/* ── WEB APPS ────────────────────────────────────────────── */}
       <section className="py-20 px-4 bg-gradient-to-b from-transparent to-dark-800/40">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
@@ -192,7 +214,6 @@ const Home = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
             {webApps.map((app, i) => (
               <div key={i} className="card flex items-start space-x-4 group hover:scale-[1.02] transition-all duration-300">
-                {/* Echtes Favicon-Icon */}
                 <div className="flex-shrink-0 rounded-xl overflow-hidden">
                   <app.Icon size={44} />
                 </div>
@@ -222,7 +243,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── WAS IST FRAMESPHERE ───────────────────────────────── */}
+      {/* ── WAS IST FRAMESPHERE ─────────────────────────────────── */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -258,7 +279,6 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Coming Soon Sidebar */}
             <div className="card">
               <div className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">🔧 Als nächstes kommt</div>
               <div className="space-y-3 mb-6">
@@ -286,7 +306,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── WARUM FRAMESPHERE ─────────────────────────────────── */}
+      {/* ── WARUM FRAMESPHERE ───────────────────────────────────── */}
       <section className="py-20 px-4 bg-gradient-to-b from-transparent to-dark-800/40">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
@@ -308,7 +328,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── FOR DEVS SECTION ──────────────────────────────────── */}
+      {/* ── FOR DEVS ────────────────────────────────────────────── */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -334,33 +354,35 @@ const Home = () => {
                 <div className="w-3 h-3 rounded-full bg-red-500" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500" />
                 <div className="w-3 h-3 rounded-full bg-green-500" />
-                <span className="text-gray-500 text-xs ml-2">framespell-example.js</span>
+                <span className="text-gray-500 text-xs ml-2">keyscope-example.js</span>
               </div>
               <pre className="text-sm text-gray-300 font-mono leading-relaxed overflow-x-auto">
                 <code>{`const res = await fetch(
-  'https://api.framespell.dev/check',
+  'https://keyscope-worker.karol-paschek.workers.dev/analyze',
   {
     method: 'POST',
     headers: {
-      'X-API-Key': 'fs_your_key',
+      'Authorization': 'Bearer ks_your_key',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      text: 'Helo Welt!',
-      language: 'de'
+      title: 'SEO Strategien 2025',
+      content: 'Suchmaschinenoptimierung...',
+      lang: 'de',
+      keyword_count: 10
     })
   }
 );
 
-// { corrected: "Hallo Welt!" }
-const { corrected } = await res.json();`}</code>
+// { keywords: [...], longtailKeywords: [...] }
+const data = await res.json();`}</code>
               </pre>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── CTA ───────────────────────────────────────────────── */}
+      {/* ── CTA ─────────────────────────────────────────────────── */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="card text-center bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30">

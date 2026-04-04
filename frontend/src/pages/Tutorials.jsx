@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Code, Clock, ChevronRight } from 'lucide-react';
+import { ArrowRight, Clock, ChevronRight } from 'lucide-react';
 
 const levelColors = {
-  'Einsteiger':    'bg-green-500/20 text-green-400 border-green-500/30',
+  'Einsteiger':      'bg-green-500/20 text-green-400 border-green-500/30',
   'Fortgeschritten': 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-  'Experte':       'bg-red-500/20 text-red-400 border-red-500/30',
+  'Experte':         'bg-red-500/20 text-red-400 border-red-500/30',
 };
 
 const tutorials = [
@@ -17,34 +17,86 @@ const tutorials = [
       {
         title: 'Rechtschreibprüfung in React einbauen',
         desc: 'API-Key sicher kapseln, Backend-Route, Custom Hook und Textarea-Komponente mit Korrektur-UI.',
-        duration: '10 Min',
-        level: 'Einsteiger',
+        duration: '10 Min', level: 'Einsteiger',
         path: '/developers/tutorials/framespell-in-react',
         tags: ['React', 'Next.js', 'fetch'],
       },
       {
         title: 'Live-Korrektur in einem Texteditor',
         desc: 'Debounced Real-Time-Check, Word-Level Diff, Inline-Highlighting und Click-to-Accept-Korrekturen.',
-        duration: '20 Min',
-        level: 'Fortgeschritten',
+        duration: '20 Min', level: 'Fortgeschritten',
         path: '/developers/tutorials/framespell-live-korrektur',
         tags: ['Debounce', 'Diff', 'contentEditable'],
       },
       {
         title: 'Batch-Verarbeitung großer Texte',
-        desc: 'Hunderte Dokumente parallel korrigieren — mit Concurrency-Limit, Retry-Logik, Cache und Fortschrittsanzeige.',
-        duration: '15 Min',
-        level: 'Fortgeschritten',
+        desc: 'Hunderte Dokumente parallel korrigieren — mit Concurrency-Limit, Retry-Logik und Cache.',
+        duration: '15 Min', level: 'Fortgeschritten',
         path: '/developers/tutorials/framespell-batch',
         tags: ['Node.js', 'Python', 'Concurrency'],
       },
       {
         title: 'CMS-Integration (WordPress / Strapi)',
-        desc: 'WordPress Plugin mit pre_publish Hook, Strapi Lifecycle Hook, Custom Controller und universelles Webhook-Pattern.',
-        duration: '25 Min',
-        level: 'Experte',
+        desc: 'WordPress Plugin mit pre_publish Hook, Strapi Lifecycle Hook und universelles Webhook-Pattern.',
+        duration: '25 Min', level: 'Experte',
         path: '/developers/tutorials/framespell-cms',
         tags: ['WordPress', 'Strapi', 'Webhook', 'PHP'],
+      },
+    ],
+  },
+  {
+    category: 'KeyScope',
+    color: 'from-yellow-500 to-orange-500',
+    icon: '🔍',
+    items: [
+      {
+        title: 'Quickstart: Erste Keyword-Analyse',
+        desc: 'Account erstellen, API Key generieren und erste Keywords aus einem Text extrahieren — in 5 Minuten.',
+        duration: '5 Min', level: 'Einsteiger',
+        path: '/developers/tutorials/keyscope-quickstart',
+        tags: ['REST API', 'curl', 'JavaScript'],
+      },
+      {
+        title: 'Profile trainieren',
+        desc: 'TF-IDF auf deinen eigenen Texten trainieren. Domänenspezifische Keywords mit bis zu 4x besserer Präzision.',
+        duration: '15 Min', level: 'Fortgeschritten',
+        path: '/developers/tutorials/keyscope-profiles',
+        tags: ['TF-IDF', 'Training', 'Profile'],
+      },
+      {
+        title: 'Vollständige API-Referenz',
+        desc: 'Alle Endpunkte: Analyze, Profiles, Weights, Ignore-Listen, History und API Key Management.',
+        duration: 'Referenz', level: 'Fortgeschritten',
+        path: '/developers/tutorials/keyscope-api',
+        tags: ['API', 'REST', 'Referenz'],
+      },
+    ],
+  },
+  {
+    category: 'SiteControl',
+    color: 'from-indigo-500 to-violet-500',
+    icon: '🌐',
+    items: [
+      {
+        title: 'Setup: Website in 10 Minuten einrichten',
+        desc: 'Account anlegen, erste Website hinzufügen, Todos erstellen und Pro-Features kennenlernen.',
+        duration: '10 Min', level: 'Einsteiger',
+        path: '/developers/tutorials/sitecontrol-quickstart',
+        tags: ['Supabase', 'Next.js', 'Setup'],
+      },
+      {
+        title: 'Analytics-Snippet einbinden',
+        desc: 'Pageviews, Referrer und Fehler tracken — in HTML, Next.js, React SPA und WordPress.',
+        duration: '10 Min', level: 'Einsteiger',
+        path: '/developers/tutorials/sitecontrol-tracking',
+        tags: ['Analytics', 'Tracking', 'DSGVO'],
+      },
+      {
+        title: 'Vollständige API-Referenz',
+        desc: 'Sites, Todos, Blog, Changelog, Support-Tickets und Public Tracking — alle Endpunkte dokumentiert.',
+        duration: 'Referenz', level: 'Fortgeschritten',
+        path: '/developers/tutorials/sitecontrol-api',
+        tags: ['API', 'Supabase', 'Next.js', 'Referenz'],
       },
     ],
   },
@@ -56,8 +108,7 @@ const tutorials = [
       {
         title: 'Rate-Limiting in Express.js einrichten',
         desc: 'RateLimit API als Express Middleware — wenige Zeilen Code, sofort produktionsreif.',
-        duration: '10 Min',
-        level: 'Einsteiger',
+        duration: '10 Min', level: 'Einsteiger',
         path: '/developers/tutorials',
         tags: ['Express', 'Node.js', 'Middleware'],
         comingSoon: true,
@@ -65,17 +116,15 @@ const tutorials = [
       {
         title: 'IP-Blacklisting für Abuse-Prevention',
         desc: 'Automatisch schädliche IPs erkennen, Blacklists aufbauen und verwalten.',
-        duration: '15 Min',
-        level: 'Fortgeschritten',
+        duration: '15 Min', level: 'Fortgeschritten',
         path: '/developers/tutorials',
         tags: ['Security', 'IP-Filter', 'Dashboard'],
         comingSoon: true,
       },
       {
-        title: 'Analytics Dashboard auslesen',
+        title: 'Analytics-Dashboard auslesen',
         desc: 'Request-Logs, Top-IPs und Blockierungsraten per API abrufen und visualisieren.',
-        duration: '20 Min',
-        level: 'Fortgeschritten',
+        duration: '20 Min', level: 'Fortgeschritten',
         path: '/developers/tutorials',
         tags: ['Analytics', 'Chart.js', 'API'],
         comingSoon: true,
@@ -89,9 +138,8 @@ const tutorials = [
     items: [
       {
         title: 'Erstes eigenes Modell trainieren',
-        desc: 'Von der Installation bis zum ersten Training — Schritt für Schritt mit HuggingFace-Modell.',
-        duration: '30 Min',
-        level: 'Einsteiger',
+        desc: 'Von der Installation bis zum ersten Training — mit HuggingFace-Modell und LoRA.',
+        duration: '30 Min', level: 'Einsteiger',
         path: '/developers/tutorials',
         tags: ['FrameTrain', 'HuggingFace', 'LoRA'],
         comingSoon: true,
@@ -99,99 +147,87 @@ const tutorials = [
       {
         title: 'Modell exportieren und einbinden',
         desc: 'Trainiertes Modell als SafeTensors oder GGUF exportieren und in eigene App integrieren.',
-        duration: '15 Min',
-        level: 'Fortgeschritten',
+        duration: '15 Min', level: 'Fortgeschritten',
         path: '/developers/tutorials',
         tags: ['Export', 'GGUF', 'Integration'],
-        comingSoon: true,
-      },
-      {
-        title: 'Custom Trainingsdaten vorbereiten',
-        desc: 'Eigene Datensätze im JSONL-Format aufbereiten, tokenisieren und für Fine-Tuning optimieren.',
-        duration: '20 Min',
-        level: 'Experte',
-        path: '/developers/tutorials',
-        tags: ['Dataset', 'JSONL', 'Tokenizer'],
         comingSoon: true,
       },
     ],
   },
 ];
 
+const TutorialCard = ({ tut }) => (
+  <Link
+    to={tut.comingSoon ? '#' : tut.path}
+    className={`card group flex flex-col transition-all duration-200 ${
+      tut.comingSoon
+        ? 'opacity-55 cursor-default hover:scale-100'
+        : 'hover:scale-[1.02] hover:border-primary-500/50'
+    }`}
+    onClick={e => tut.comingSoon && e.preventDefault()}
+  >
+    <div className="flex items-start justify-between gap-3 mb-3">
+      <h3 className={`font-semibold text-white leading-snug ${!tut.comingSoon ? 'group-hover:text-primary-400 transition-colors' : ''}`}>
+        {tut.title}
+      </h3>
+      {tut.comingSoon
+        ? <span className="flex-shrink-0 text-xs px-2 py-0.5 bg-gray-500/20 text-gray-500 rounded-full border border-gray-500/30">Bald</span>
+        : <ChevronRight className="flex-shrink-0 w-4 h-4 text-gray-500 group-hover:text-primary-400 transition-colors mt-0.5" />
+      }
+    </div>
+    <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1">{tut.desc}</p>
+    <div className="flex flex-wrap gap-1.5 mb-4">
+      {tut.tags.map(tag => (
+        <span key={tag} className="text-xs px-2 py-0.5 bg-white/5 text-gray-500 rounded font-mono">{tag}</span>
+      ))}
+    </div>
+    <div className="flex items-center gap-3 mt-auto">
+      <span className="flex items-center gap-1 text-xs text-gray-500">
+        <Clock className="w-3 h-3" /> {tut.duration}
+      </span>
+      <span className={`text-xs px-2 py-0.5 rounded-full border ${levelColors[tut.level]}`}>
+        {tut.level}
+      </span>
+    </div>
+  </Link>
+);
+
 const Tutorials = () => (
   <div className="min-h-screen pt-20 pb-20 px-4">
     <div className="max-w-5xl mx-auto">
-
       <div className="text-center mb-12">
         <span className="text-primary-400 text-sm font-semibold uppercase tracking-widest mb-3 block">Schritt für Schritt</span>
         <h1 className="text-5xl font-bold text-white mb-4">Tutorials</h1>
         <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-          Praxisnahe Anleitungen für die häufigsten Anwendungsfälle — mit vollständigen Code-Beispielen.
+          Praxisnahe Anleitungen für FrameSpell, KeyScope, SiteControl und RateLimit API.
         </p>
       </div>
 
       <div className="space-y-12 mb-12">
         {tutorials.map((cat, i) => (
           <div key={i}>
-            {/* Category header */}
             <div className="flex items-center gap-4 mb-6">
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center text-xl`}>{cat.icon}</div>
+              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center text-xl flex-shrink-0`}>
+                {cat.icon}
+              </div>
               <div>
                 <h2 className="text-xl font-bold text-white">{cat.category}</h2>
-                <p className="text-gray-500 text-sm">{cat.items.length} Tutorials</p>
+                <p className="text-gray-500 text-sm">
+                  {cat.items.filter(t => !t.comingSoon).length} verfügbar
+                  {cat.items.filter(t => t.comingSoon).length > 0 && ` · ${cat.items.filter(t => t.comingSoon).length} in Kürze`}
+                </p>
               </div>
             </div>
-
             <div className="grid md:grid-cols-2 gap-4">
-              {cat.items.map((tut, j) => (
-                <Link
-                  key={j}
-                  to={tut.comingSoon ? '#' : tut.path}
-                  className={`card group flex flex-col transition-all duration-200 ${
-                    tut.comingSoon
-                      ? 'opacity-60 cursor-default hover:scale-100'
-                      : 'hover:scale-[1.02] hover:border-primary-500/50'
-                  }`}
-                  onClick={e => tut.comingSoon && e.preventDefault()}
-                >
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <h3 className={`font-semibold text-white leading-snug ${!tut.comingSoon ? 'group-hover:text-primary-400 transition-colors' : ''}`}>
-                      {tut.title}
-                    </h3>
-                    {tut.comingSoon
-                      ? <span className="flex-shrink-0 text-xs px-2 py-0.5 bg-gray-500/20 text-gray-500 rounded-full border border-gray-500/30">Bald</span>
-                      : <ChevronRight className="flex-shrink-0 w-4 h-4 text-gray-500 group-hover:text-primary-400 transition-colors mt-0.5" />
-                    }
-                  </div>
-
-                  <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1">{tut.desc}</p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {tut.tags.map(tag => (
-                      <span key={tag} className="text-xs px-2 py-0.5 bg-white/5 text-gray-500 rounded font-mono">{tag}</span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center gap-3 mt-auto">
-                    <span className="flex items-center gap-1 text-xs text-gray-500">
-                      <Clock className="w-3 h-3" /> {tut.duration}
-                    </span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full border ${levelColors[tut.level]}`}>
-                      {tut.level}
-                    </span>
-                  </div>
-                </Link>
-              ))}
+              {cat.items.map((tut, j) => <TutorialCard key={j} tut={tut} />)}
             </div>
           </div>
         ))}
       </div>
 
       <div className="card text-center bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30">
-        <Code className="w-10 h-10 text-primary-400 mx-auto mb-3" />
         <h2 className="text-xl font-bold text-white mb-2">Fehlendes Tutorial?</h2>
-        <p className="text-gray-400 mb-5 text-sm">Teile uns mit, welche Tutorials du dir wünschst — wir erstellen sie gerne.</p>
+        <p className="text-gray-400 mb-5 text-sm">Sag uns, welche Guides du dir wünschst — wir erstellen sie gerne.</p>
         <Link to="/contact" className="btn-primary text-sm inline-flex items-center space-x-2">
           <span>Tutorial anfragen</span><ArrowRight className="w-4 h-4" />
         </Link>

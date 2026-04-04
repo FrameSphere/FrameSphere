@@ -45,11 +45,21 @@ import SDKs from './pages/SDKs';
 import Tutorials from './pages/Tutorials';
 import Status from './pages/Status';
 
-// Tutorial Sub-Pages
+// FrameSpell Tutorials
 import TutorialFrameSpellReact from './pages/tutorials/FrameSpellReact';
 import TutorialLiveKorrektur from './pages/tutorials/FrameSpellLiveKorrektur';
 import TutorialBatch from './pages/tutorials/FrameSpellBatch';
 import TutorialCMS from './pages/tutorials/FrameSpellCMS';
+
+// KeyScope Tutorials
+import KeyScopeQuickstart from './pages/tutorials/KeyScopeQuickstart';
+import KeyScopeApi from './pages/tutorials/KeyScopeApi';
+import KeyScopeProfiles from './pages/tutorials/KeyScopeProfiles';
+
+// SiteControl Tutorials
+import SiteControlQuickstart from './pages/tutorials/SiteControlQuickstart';
+import SiteControlTracking from './pages/tutorials/SiteControlTracking';
+import SiteControlApi from './pages/tutorials/SiteControlApi';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -136,11 +146,23 @@ function App() {
             <Route path="/developers/quickstart" element={<Quickstart />} />
             <Route path="/developers/sdks" element={<SDKs />} />
             <Route path="/developers/tutorials" element={<Tutorials />} />
+            <Route path="/developers/status" element={<Status />} />
+
+            {/* FrameSpell Tutorials */}
             <Route path="/developers/tutorials/framespell-in-react" element={<TutorialFrameSpellReact />} />
             <Route path="/developers/tutorials/framespell-live-korrektur" element={<TutorialLiveKorrektur />} />
             <Route path="/developers/tutorials/framespell-batch" element={<TutorialBatch />} />
             <Route path="/developers/tutorials/framespell-cms" element={<TutorialCMS />} />
-            <Route path="/developers/status" element={<Status />} />
+
+            {/* KeyScope Tutorials */}
+            <Route path="/developers/tutorials/keyscope-quickstart" element={<KeyScopeQuickstart />} />
+            <Route path="/developers/tutorials/keyscope-api" element={<KeyScopeApi />} />
+            <Route path="/developers/tutorials/keyscope-profiles" element={<KeyScopeProfiles />} />
+
+            {/* SiteControl Tutorials */}
+            <Route path="/developers/tutorials/sitecontrol-quickstart" element={<SiteControlQuickstart />} />
+            <Route path="/developers/tutorials/sitecontrol-tracking" element={<SiteControlTracking />} />
+            <Route path="/developers/tutorials/sitecontrol-api" element={<SiteControlApi />} />
 
             {/* Legal */}
             <Route path="/legal/imprint" element={<PlaceholderPage title="Impressum" />} />

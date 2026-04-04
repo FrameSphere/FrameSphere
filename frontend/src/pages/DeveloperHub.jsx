@@ -1,83 +1,81 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Code, BookOpen, Zap, Package, Activity, ArrowRight, CheckCircle, Terminal, Globe, Shield, Sparkles, Brain } from 'lucide-react';
+import {
+  Code, BookOpen, Zap, Package, Activity, ArrowRight,
+  Terminal, Shield, Sparkles, Brain, Search, Globe,
+} from 'lucide-react';
 
 const DeveloperHub = () => {
   const sections = [
-    {
-      icon: <Zap className="w-8 h-8" />,
-      title: 'Quickstart',
-      desc: 'In unter 10 Minuten zur ersten API-Integration. API Key holen, Beispielcode kopieren, fertig.',
-      path: '/developers/quickstart',
-      color: 'from-yellow-500 to-orange-500',
-      cta: 'Quickstart starten',
-    },
-    {
-      icon: <BookOpen className="w-8 h-8" />,
-      title: 'API Dokumentation',
-      desc: 'Vollständige Referenz aller Endpunkte, Parameter, Response-Formate und Fehlercodes.',
-      path: '/developers/docs',
-      color: 'from-blue-500 to-indigo-500',
-      cta: 'Docs öffnen',
-    },
-    {
-      icon: <Package className="w-8 h-8" />,
-      title: 'SDKs & Libraries',
-      desc: 'Offizielle SDKs für JavaScript, Python, PHP und mehr. Schneller integrieren, weniger Boilerplate.',
-      path: '/developers/sdks',
-      color: 'from-green-500 to-emerald-500',
-      cta: 'SDKs ansehen',
-    },
-    {
-      icon: <Code className="w-8 h-8" />,
-      title: 'Tutorials',
-      desc: 'Schritt-für-Schritt Guides für die häufigsten Anwendungsfälle — mit vollständigen Code-Beispielen.',
-      path: '/developers/tutorials',
-      color: 'from-purple-500 to-pink-500',
-      cta: 'Tutorials ansehen',
-    },
-    {
-      icon: <Activity className="w-8 h-8" />,
-      title: 'API Status',
-      desc: 'Live-Status aller FrameSphere APIs und Dienste. Ausfallzeiten, Wartungen und Incident-Reports.',
-      path: '/developers/status',
-      color: 'from-teal-500 to-cyan-500',
-      cta: 'Status prüfen',
-    },
+    { icon: <Zap className="w-8 h-8" />,      title: 'Quickstart',         desc: 'In unter 10 Minuten zur ersten API-Integration. API Key holen, Code kopieren, fertig.',             path: '/developers/quickstart', color: 'from-yellow-500 to-orange-500', cta: 'Quickstart starten' },
+    { icon: <BookOpen className="w-8 h-8" />,  title: 'API Dokumentation',  desc: 'Vollständige Referenz aller Endpunkte, Parameter, Response-Formate und Fehlercodes.',              path: '/developers/docs',        color: 'from-blue-500 to-indigo-500',  cta: 'Docs öffnen' },
+    { icon: <Package className="w-8 h-8" />,   title: 'SDKs & Libraries',   desc: 'Offizielle SDKs für JavaScript, Python, PHP und mehr. Schneller integrieren, weniger Boilerplate.', path: '/developers/sdks',        color: 'from-green-500 to-emerald-500',cta: 'SDKs ansehen' },
+    { icon: <Code className="w-8 h-8" />,      title: 'Tutorials',          desc: 'Schritt-für-Schritt Guides für FrameSpell, KeyScope, SiteControl und RateLimit API.',              path: '/developers/tutorials',   color: 'from-purple-500 to-pink-500',  cta: 'Tutorials ansehen' },
+    { icon: <Activity className="w-8 h-8" />,  title: 'API Status',         desc: 'Live-Status aller FrameSphere APIs. Ausfallzeiten, Wartungen und Incident-Reports.',               path: '/developers/status',      color: 'from-teal-500 to-cyan-500',    cta: 'Status prüfen' },
   ];
 
+  // Per-product endpoint summary
   const apis = [
     {
       icon: <Sparkles className="w-5 h-5" />,
       name: 'FrameSpell API',
-      baseUrl: 'api.framespell.dev',
+      base: 'api.framespell.dev',
       color: 'text-blue-400',
+      badge: null,
       endpoints: [
-        { method: 'POST', path: '/check', desc: 'Text prüfen und korrigieren' },
+        { method: 'POST', path: '/check',       desc: 'Text prüfen und korrigieren' },
         { method: 'POST', path: '/check/batch', desc: 'Mehrere Texte gleichzeitig' },
-        { method: 'GET', path: '/languages', desc: 'Verfügbare Sprachen abrufen' },
-        { method: 'GET', path: '/usage', desc: 'API-Nutzung & Limits abfragen' },
+        { method: 'GET',  path: '/languages',   desc: 'Verfügbare Sprachen abrufen' },
+        { method: 'GET',  path: '/usage',       desc: 'API-Nutzung abfragen' },
       ],
     },
     {
       icon: <Shield className="w-5 h-5" />,
       name: 'RateLimit API',
-      baseUrl: 'ratelimit-api.pages.dev/api',
+      base: 'ratelimit-api.karol-paschek.workers.dev',
       color: 'text-green-400',
+      badge: null,
       endpoints: [
-        { method: 'POST', path: '/check', desc: 'Rate-Limit eines Clients prüfen' },
-        { method: 'POST', path: '/reset', desc: 'Counter eines Clients zurücksetzen' },
-        { method: 'GET', path: '/stats', desc: 'Statistiken & Analytics abrufen' },
-        { method: 'POST', path: '/blacklist', desc: 'IP zur Blacklist hinzufügen' },
+        { method: 'POST', path: '/check',          desc: 'Rate-Limit prüfen' },
+        { method: 'POST', path: '/api/keys',       desc: 'API Key erstellen' },
+        { method: 'GET',  path: '/api/analytics',  desc: 'Analytics abrufen' },
+        { method: 'POST', path: '/api/filters',    desc: 'IP-Filter verwalten' },
+      ],
+    },
+    {
+      icon: <Search className="w-5 h-5" />,
+      name: 'KeyScope',
+      base: 'keyscope-worker.karol-paschek.workers.dev',
+      color: 'text-yellow-400',
+      badge: 'Neu',
+      endpoints: [
+        { method: 'POST', path: '/analyze',        desc: 'Keywords & Longtails extrahieren' },
+        { method: 'POST', path: '/weights/train',  desc: 'Profil trainieren' },
+        { method: 'GET',  path: '/profiles',       desc: 'Analyse-Profile abrufen' },
+        { method: 'POST', path: '/ignore',         desc: 'Ignore-Liste verwalten' },
+      ],
+    },
+    {
+      icon: <Globe className="w-5 h-5" />,
+      name: 'SiteControl',
+      base: 'site-control-nine.vercel.app/api',
+      color: 'text-indigo-400',
+      badge: 'Neu',
+      endpoints: [
+        { method: 'GET',   path: '/sites',     desc: 'Websites abrufen' },
+        { method: 'POST',  path: '/blog',      desc: 'Blog-Posts erstellen (Pro)' },
+        { method: 'POST',  path: '/changelog', desc: 'Changelog-Einträge (Pro)' },
+        { method: 'POST',  path: '/track',     desc: 'Analytics-Events senden' },
       ],
     },
   ];
 
   const methodColors = {
-    GET: 'bg-green-500/20 text-green-400 border-green-500/30',
-    POST: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+    GET:    'bg-green-500/20 text-green-400 border-green-500/30',
+    POST:   'bg-blue-500/20 text-blue-400 border-blue-500/30',
     DELETE: 'bg-red-500/20 text-red-400 border-red-500/30',
-    PUT: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+    PUT:    'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+    PATCH:  'bg-amber-500/20 text-amber-400 border-amber-500/30',
   };
 
   return (
@@ -91,21 +89,19 @@ const DeveloperHub = () => {
             <span className="gradient-text">Alles für Entwickler</span>
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-            Dokumentation, SDKs, Quickstart-Guides und API-Referenz — alles an einem Ort.
+            Dokumentation, SDKs, Quickstart-Guides und API-Referenz für alle 4 FrameSphere APIs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/developers/quickstart" className="btn-primary inline-flex items-center space-x-2">
-              <Zap className="w-5 h-5" />
-              <span>Quickstart</span>
+              <Zap className="w-5 h-5" /><span>Quickstart</span>
             </Link>
             <Link to="/developers/docs" className="btn-secondary inline-flex items-center space-x-2">
-              <BookOpen className="w-5 h-5" />
-              <span>API Docs</span>
+              <BookOpen className="w-5 h-5" /><span>API Docs</span>
             </Link>
           </div>
         </div>
 
-        {/* Sections */}
+        {/* Nav Sections */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {sections.map((s, i) => (
             <Link key={i} to={s.path} className="card group hover:scale-[1.03] transition-all duration-300 flex flex-col">
@@ -113,27 +109,31 @@ const DeveloperHub = () => {
               <h3 className="text-xl font-bold text-white mb-2">{s.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed flex-1 mb-4">{s.desc}</p>
               <div className="flex items-center text-primary-400 text-sm font-medium group-hover:text-primary-300 transition-colors">
-                <span>{s.cta}</span>
-                <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
+                <span>{s.cta}</span><ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
           ))}
         </div>
 
-        {/* API Übersicht */}
+        {/* API Endpoint Overview — all 4 products */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">API-Endpunkte Übersicht</h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <h2 className="text-3xl font-bold text-white mb-8 text-center">API-Übersicht — alle Produkte</h2>
+          <div className="grid md:grid-cols-2 gap-6">
             {apis.map((api, i) => (
               <div key={i} className="card">
                 <div className="flex items-center space-x-3 mb-5 pb-4 border-b border-white/10">
                   <span className={api.color}>{api.icon}</span>
-                  <div>
-                    <h3 className="font-bold text-white">{api.name}</h3>
-                    <code className="text-xs text-gray-500">{api.baseUrl}</code>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-bold text-white">{api.name}</h3>
+                      {api.badge && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-green-500/15 text-green-400 border border-green-500/20">{api.badge}</span>
+                      )}
+                    </div>
+                    <code className="text-xs text-gray-500">{api.base}</code>
                   </div>
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {api.endpoints.map((ep, j) => (
                     <div key={j} className="flex items-center space-x-3">
                       <span className={`text-xs px-2 py-0.5 rounded border font-mono flex-shrink-0 ${methodColors[ep.method]}`}>{ep.method}</span>
@@ -147,34 +147,27 @@ const DeveloperHub = () => {
           </div>
         </div>
 
-        {/* Auth Info */}
+        {/* Auth */}
         <div className="card mb-16 bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30">
-          <h2 className="text-2xl font-bold text-white mb-4">Authentifizierung</h2>
-          <p className="text-gray-400 mb-6">
-            Alle FrameSphere APIs nutzen API-Key-Authentifizierung via HTTP Header. Erstelle deinen Key im Dashboard.
-          </p>
-          <div className="grid md:grid-cols-2 gap-6">
+          <h2 className="text-2xl font-bold text-white mb-4">Authentifizierung je Produkt</h2>
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div>
-              <div className="text-sm text-gray-300 font-semibold mb-2">Request Header</div>
-              <pre className="bg-dark-900 rounded-lg p-4 text-sm font-mono text-gray-300 overflow-x-auto">
-{`X-API-Key: fs_dein_api_key
-
-// oder alternativ
-Authorization: Bearer fs_dein_api_key`}
+              <div className="text-sm font-semibold text-white mb-2">FrameSpell / RateLimit / KeyScope</div>
+              <div className="text-xs text-gray-400 mb-2">Bearer Token im Authorization-Header:</div>
+              <pre className="bg-dark-900 rounded-lg p-3 text-sm font-mono text-gray-300 overflow-x-auto">
+{`Authorization: Bearer YOUR_API_KEY`}
               </pre>
             </div>
             <div>
-              <div className="text-sm text-gray-300 font-semibold mb-2">Fehler-Response</div>
-              <pre className="bg-dark-900 rounded-lg p-4 text-sm font-mono text-gray-300 overflow-x-auto">
-{`{
-  "error": "Unauthorized",
-  "message": "Invalid API Key",
-  "code": 401
-}`}
+              <div className="text-sm font-semibold text-white mb-2">SiteControl</div>
+              <div className="text-xs text-gray-400 mb-2">Supabase JWT Session Token:</div>
+              <pre className="bg-dark-900 rounded-lg p-3 text-sm font-mono text-gray-300 overflow-x-auto">
+{`Authorization: Bearer SUPABASE_JWT_TOKEN
+// Token via supabase.auth.getSession()`}
               </pre>
             </div>
           </div>
-          <div className="mt-4 flex gap-4">
+          <div className="flex gap-4">
             <Link to="/register" className="btn-primary text-sm inline-flex items-center space-x-2">
               <span>API Key erstellen</span><ArrowRight className="w-4 h-4" />
             </Link>
@@ -182,7 +175,7 @@ Authorization: Bearer fs_dein_api_key`}
           </div>
         </div>
 
-        {/* Rate Limits Info */}
+        {/* Rate Limits */}
         <div className="card mb-16">
           <h2 className="text-2xl font-bold text-white mb-6">Rate Limits</h2>
           <div className="overflow-x-auto">
@@ -190,22 +183,22 @@ Authorization: Bearer fs_dein_api_key`}
               <thead>
                 <tr className="border-b border-white/10">
                   <th className="text-left py-3 px-4 text-gray-400">Produkt</th>
-                  <th className="text-center py-3 px-4 text-gray-400">Kostenlos</th>
-                  <th className="text-center py-3 px-4 text-gray-400">Professional</th>
-                  <th className="text-center py-3 px-4 text-gray-400">Enterprise</th>
+                  <th className="text-center py-3 px-4 text-gray-400">Free</th>
+                  <th className="text-center py-3 px-4 text-gray-400">Pro</th>
                 </tr>
               </thead>
               <tbody>
                 {[
-                  ['FrameSpell API', '20 Req/Min', '100 Req/Min', 'Unbegrenzt'],
-                  ['RateLimit API', '50 Req/Min', '500 Req/Min', 'Unbegrenzt'],
-                  ['FrameTrain', 'Lokal (kein Limit)', '—', '—'],
+                  ['FrameSpell API', '20 Req/Min', '100 Req/Min'],
+                  ['RateLimit API', '10.000 Req/Mo', '500.000 Req/Mo'],
+                  ['KeyScope', '20 Analysen/Tag', '500 Analysen/Tag'],
+                  ['SiteControl', '3 Websites', 'Unbegrenzt'],
+                  ['FrameTrain', 'Lokal (kein Limit)', '—'],
                 ].map((row, i) => (
-                  <tr key={i} className="border-b border-white/5 hover:bg-white/2">
+                  <tr key={i} className="border-b border-white/5 hover:bg-white/[0.02]">
                     <td className="py-3 px-4 text-white font-medium">{row[0]}</td>
                     <td className="py-3 px-4 text-center text-green-400">{row[1]}</td>
                     <td className="py-3 px-4 text-center text-primary-400">{row[2]}</td>
-                    <td className="py-3 px-4 text-center text-purple-400">{row[3]}</td>
                   </tr>
                 ))}
               </tbody>
