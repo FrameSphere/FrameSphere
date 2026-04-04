@@ -52,55 +52,56 @@
   </url>
 
   <!-- ═══════════════════════════════════════════════════
-       PRODUKTE – API & TOOLS
+       PRODUKTE – API & TOOLS (5 Live)
   ════════════════════════════════════════════════════ -->
   <url>
     <loc>https://frame-sphere.vercel.app/products/framespell</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://frame-sphere.vercel.app/products/ratelimit-api</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://frame-sphere.vercel.app/products/frametrain</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-sphere.vercel.app/products/corechain-api</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://frame-sphere.vercel.app/products/spherehub</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://frame-sphere.vercel.app/products/spherenet</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://frame-sphere.vercel.app/products/keyword-engine</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://frame-sphere.vercel.app/products/website-manager</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+  <!-- In Entwicklung -->
+  <url>
+    <loc>https://frame-sphere.vercel.app/products/corechain-api</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://frame-sphere.vercel.app/products/spherehub</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://frame-sphere.vercel.app/products/spherenet</loc>
+    <lastmod>2026-04-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <!-- ═══════════════════════════════════════════════════

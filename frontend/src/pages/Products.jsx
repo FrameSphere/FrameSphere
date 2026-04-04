@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Code, Search, Globe, Home, Network, Zap, ArrowRight, ExternalLink, CheckCircle, Clock } from 'lucide-react';
-import { FrameSpellIcon, RateLimitIcon, FrameTrainIcon } from '../components/ProductIcons';
+import { Code, Home, Network, Zap, ArrowRight, ExternalLink, CheckCircle, Clock } from 'lucide-react';
+import {
+  FrameSpellIcon, RateLimitIcon, FrameTrainIcon,
+  KeyScopeIcon, SiteControlIcon,
+} from '../components/ProductIcons';
 
 const Products = () => {
 
@@ -12,12 +15,11 @@ const Products = () => {
       tagline: 'KI-Rechtschreibprüfung für Entwickler',
       description: 'Leistungsstarke KI-Rechtschreibprüfung API auf Basis des MT5-Modells. Echtzeit-Korrektur mit REST API, JSON Response. Unterstützt Deutsch, Englisch, Spanisch und Französisch.',
       Icon: FrameSpellIcon,
-      status: 'Live',
       externalUrl: 'https://framespell.pages.dev/',
       link: '/products/framespell',
-      features: ['MT5 Machine Learning Modell', 'REST API & JSON Response', '99.2% Genauigkeit', 'Unter 1000ms Antwortzeit', 'Deutsch, Englisch, Spanisch, Französisch', '20 kostenlose Anfragen/Min'],
+      features: ['MT5 Machine Learning Modell', 'REST API & JSON Response', '99.2% Genauigkeit', 'Unter 1000ms Antwortzeit', 'DE, EN, ES, FR', '20 kostenlose Anfragen/Min'],
       useCases: ['CMS & Blog-Systeme', 'E-Mail Clients', 'Chat-Anwendungen', 'Text-Editoren'],
-      pricing: 'Kostenlos bis 20 Req/Min',
+      pricing: 'Kostenlos bis 20 Req/Min · Pro ab €29/Mo',
     },
     {
       id: 'ratelimit',
@@ -25,12 +27,11 @@ const Products = () => {
       tagline: 'API-Schutz auf Cloudflare Edge',
       description: 'Schütze deine APIs vor Missbrauch, DDoS und Überlastung. Token Bucket Algorithmus, IP-Filter und Echtzeit-Analytics auf dem Cloudflare Workers Edge Network.',
       Icon: RateLimitIcon,
-      status: 'Live',
       externalUrl: 'https://ratelimit-api.pages.dev/',
       link: '/products/ratelimit-api',
-      features: ['Cloudflare Workers Edge', 'Token Bucket Algorithmus', 'IP-Blacklisting & Filter', 'Echtzeit-Analytics Dashboard', 'Sub-Millisekunden Latenz', 'Einfache API-Integration'],
-      useCases: ['API Schutz', 'DDoS Prevention', 'Traffic-Management', 'SaaS-Produkte'],
-      pricing: 'Kostenloser Einstieg',
+      features: ['Cloudflare Workers Edge', 'Token Bucket Algorithmus', 'IP-Blacklisting & Filter', 'Echtzeit-Analytics Dashboard', 'Sub-Millisekunden Latenz', 'Einfache Integration'],
+      useCases: ['API-Schutz & DDoS Prevention', 'Traffic-Management', 'SaaS-Produkte', 'Microservices'],
+      pricing: 'Kostenlos · Pro ab €19/Mo',
     },
     {
       id: 'frametrain',
@@ -38,12 +39,35 @@ const Products = () => {
       tagline: 'KI-Modelle lokal trainieren',
       description: 'Desktop-Applikation zum Trainieren, Verbessern und Verwalten eigener KI-Modelle — vollständig lokal auf deinem Rechner. Keine Cloud, keine Datenübertragung, 100% Datenkontrolle.',
       Icon: FrameTrainIcon,
-      status: 'Live',
       externalUrl: 'https://frame-train.vercel.app/',
       link: '/products/frametrain',
-      features: ['100% lokale Ausführung', 'Eigene Trainingsdaten nutzen', 'Modell-Export & Import', 'Kein Cloud-Abo notwendig', 'Datenschutz by Design', 'Für macOS, Windows & Linux'],
-      useCases: ['ML-Entwickler & Forscher', 'Unternehmen mit Datenschutz-Anforderungen', 'KI-Enthusiasten', 'Fine-Tuning eigener Modelle'],
-      pricing: 'Kostenloser Download',
+      features: ['100% lokale Ausführung', 'HuggingFace-Integration', 'LoRA & QLoRA Fine-Tuning', 'GPU-Beschleunigung (CUDA + Metal)', 'DSGVO-konform by Design', 'macOS, Windows & Linux'],
+      useCases: ['ML-Entwickler & Forscher', 'Datenschutzkritische Projekte', 'LLM Fine-Tuning', 'Offline-Training'],
+      pricing: '€1,99 einmalig · Early Access',
+    },
+    {
+      id: 'keyscope',
+      name: 'KeyScope',
+      tagline: 'SEO Keyword-Extraction as a Service',
+      description: 'TF-IDF-Algorithmus oder AI-Modell — KeyScope analysiert Texte und gibt gerankte Keywords, Longtail-Phrases und Meta Descriptions zurück. Via UI oder REST API, 5 Sprachen.',
+      Icon: KeyScopeIcon,
+      externalUrl: 'https://keyscope.pages.dev/',
+      link: '/products/keyword-engine',
+      features: ['TF-IDF + AI (HuggingFace) Modi', 'Longtail-Phrase-Generierung', 'Custom Profile & Training', 'REST API mit Bearer-Auth', '5 Sprachen (DE, EN, FR, ES, IT)', 'Meta Description Generator'],
+      useCases: ['SEO & Content-Teams', 'CMS-Pipelines', 'Blogger & Agenturen', 'Developer-Workflows'],
+      pricing: 'Kostenlos (20/Tag) · Pro ab €9/Mo',
+    },
+    {
+      id: 'sitecontrol',
+      name: 'SiteControl',
+      tagline: 'Alle deine Websites. Ein Dashboard.',
+      description: 'Blog-Posts, Changelogs, Support-Tickets, Todos und Analytics für alle deine Websites — zentral verwaltet. Next.js + Supabase, kostenlos bis 3 Sites, Pro für unbegrenzte Websites.',
+      Icon: SiteControlIcon,
+      externalUrl: 'https://app.sitecontrol.app/',
+      link: '/products/website-manager',
+      features: ['Multi-Site Dashboard & KPIs', 'Blog-CMS (mehrsprachig)', 'Changelog-System', 'Support-Ticket-Management', 'Analytics ohne externes Tool', 'AdSense & Google Search Console'],
+      useCases: ['Indie Developer & Freelancer', 'Web-Agenturen', 'SaaS-Gründer', 'Content Creator'],
+      pricing: 'Kostenlos bis 3 Sites · Pro €19/Mo',
     },
   ];
 
@@ -57,26 +81,6 @@ const Products = () => {
       color: 'from-cyan-500 to-blue-500',
       link: '/products/corechain-api',
       features: ['Multi-Model Orchestrierung', 'Automatische Task-Zerlegung', 'RESTful & WebSocket API', 'SDK für alle Sprachen'],
-    },
-    {
-      id: 'keyword-engine',
-      name: 'Keyword Engine',
-      tagline: 'SEO Keyword-Analyse & Tracking',
-      description: 'Finde die richtigen Keywords für deine Inhalte. Keyword-Recherche, Wettbewerbsanalyse, Suchvolumen-Tracking und SEO-Empfehlungen.',
-      icon: <Search className="w-10 h-10 text-white" />,
-      color: 'from-yellow-500 to-orange-500',
-      link: '/products/keyword-engine',
-      features: ['Keyword-Recherche & Clustering', 'Suchvolumen & Trends', 'Wettbewerbsanalyse', 'SEO-Score Tracking'],
-    },
-    {
-      id: 'website-manager',
-      name: 'Website Manager',
-      tagline: 'Webseiten zentral verwalten',
-      description: 'Verwalte, überwache und optimiere mehrere Webseiten von einem zentralen Dashboard aus. Uptime-Monitoring, Performance-Analyse und Content-Management.',
-      icon: <Globe className="w-10 h-10 text-white" />,
-      color: 'from-orange-500 to-red-500',
-      link: '/products/website-manager',
-      features: ['Multi-Site Dashboard', 'Uptime-Monitoring', 'Performance-Analyse', 'SEO-Übersicht'],
     },
     {
       id: 'spherehub',
@@ -100,11 +104,6 @@ const Products = () => {
     },
   ];
 
-  const getStatusStyle = (status) => {
-    if (status === 'Live') return 'bg-green-500/20 text-green-400 border-green-500/30';
-    return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
-  };
-
   return (
     <div className="min-h-screen pt-20 pb-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -116,48 +115,60 @@ const Products = () => {
             <span className="gradient-text">Alle Produkte</span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Von KI-APIs bis zu Desktop-Apps — jedes Produkt löst ein konkretes Problem. Kostenlos starten, fair skalieren.
+            Von KI-APIs bis zu Web-Dashboards — jedes Produkt löst ein konkretes Problem. Kostenlos starten, fair skalieren.
           </p>
+          <div className="flex items-center justify-center gap-6 mt-6 flex-wrap">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              <span className="text-green-400 text-sm font-semibold">5 Live-Produkte</span>
+            </div>
+            <div className="text-gray-600">·</div>
+            <span className="text-gray-400 text-sm">6 Web Apps</span>
+            <div className="text-gray-600">·</div>
+            <span className="text-gray-400 text-sm">3 in Entwicklung</span>
+          </div>
         </div>
 
-        {/* Live Produkte */}
+        {/* ── LIVE PRODUKTE ─────────────────────────────────────────────── */}
         <div className="mb-16">
           <div className="flex items-center space-x-3 mb-8">
             <div className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse" />
             <h2 className="text-2xl font-bold text-white">Live — Jetzt nutzbar</h2>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-6">
             {liveProducts.map((product) => (
-              <div key={product.id} className="card hover:scale-[1.01] transition-all duration-300">
+              <div key={product.id} className="card hover:scale-[1.005] transition-all duration-300">
                 <div className="grid md:grid-cols-3 gap-8">
+
+                  {/* Col 1: Icon + Name + Desc + CTAs */}
                   <div className="md:col-span-1">
-                    {/* Echtes Favicon-Icon — kein gefärbter Wrapper */}
-                    <div className="mb-4 w-[72px]">
-                      <product.Icon size={72} />
+                    <div className="mb-4">
+                      <product.Icon size={64} />
                     </div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="text-2xl font-bold text-white">{product.name}</h3>
-                      <span className={`px-2 py-0.5 rounded text-xs border ${getStatusStyle(product.status)}`}>{product.status}</span>
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      <h3 className="text-xl font-bold text-white">{product.name}</h3>
+                      <span className="px-2 py-0.5 rounded text-xs border bg-green-500/20 text-green-400 border-green-500/30">Live</span>
                     </div>
                     <p className="text-primary-400 font-semibold text-sm mb-3">{product.tagline}</p>
                     <p className="text-gray-400 text-sm mb-5 leading-relaxed">{product.description}</p>
-                    <div className="flex gap-2">
-                      <Link to={product.link} className="btn-primary text-sm inline-flex items-center space-x-1.5">
+                    <div className="flex gap-2 flex-wrap">
+                      <Link to={product.link} className="btn-primary text-sm inline-flex items-center space-x-1.5 py-2">
                         <span>Mehr erfahren</span>
                         <ArrowRight className="w-4 h-4" />
                       </Link>
                       {product.externalUrl && (
                         <a href={product.externalUrl} target="_blank" rel="noopener noreferrer"
-                          className="btn-secondary px-3 inline-flex items-center" title="Live öffnen">
+                          className="btn-secondary px-3 py-2 inline-flex items-center" title="Live öffnen">
                           <ExternalLink className="w-4 h-4" />
                         </a>
                       )}
                     </div>
                   </div>
 
+                  {/* Col 2: Features */}
                   <div className="md:col-span-1">
-                    <h4 className="text-sm font-semibold text-white mb-3 uppercase tracking-wider">Features</h4>
+                    <h4 className="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">Features</h4>
                     <ul className="space-y-2">
                       {product.features.map((f, i) => (
                         <li key={i} className="flex items-start text-gray-400 text-sm">
@@ -168,8 +179,9 @@ const Products = () => {
                     </ul>
                   </div>
 
+                  {/* Col 3: Use Cases + Pricing */}
                   <div className="md:col-span-1">
-                    <h4 className="text-sm font-semibold text-white mb-3 uppercase tracking-wider">Use Cases</h4>
+                    <h4 className="text-xs font-bold text-gray-500 mb-3 uppercase tracking-widest">Use Cases</h4>
                     <ul className="space-y-2 mb-5">
                       {product.useCases.map((uc, i) => (
                         <li key={i} className="text-gray-400 text-sm flex items-start">
@@ -179,26 +191,28 @@ const Products = () => {
                       ))}
                     </ul>
                     <div className="glass-effect rounded-lg p-3 border border-primary-500/20">
-                      <div className="text-xs text-gray-500 mb-1">Preise ab</div>
+                      <div className="text-xs text-gray-500 mb-1">Preise</div>
                       <div className="text-primary-400 font-semibold text-sm">{product.pricing}</div>
                     </div>
                   </div>
+
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Coming Soon */}
+        {/* ── COMING SOON ───────────────────────────────────────────────── */}
         <div>
           <div className="flex items-center space-x-3 mb-8">
             <Clock className="w-5 h-5 text-yellow-400" />
             <h2 className="text-2xl font-bold text-white">In Entwicklung — Bald verfügbar</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {comingProducts.map((product) => (
-              <Link key={product.id} to={product.link} className="card group hover:scale-[1.03] transition-all duration-300">
+              <Link key={product.id} to={product.link}
+                className="card group hover:scale-[1.03] transition-all duration-300">
                 <div className={`w-14 h-14 bg-gradient-to-br ${product.color} rounded-xl flex items-center justify-center mb-4 opacity-80 group-hover:opacity-100 transition-opacity`}>
                   {product.icon}
                 </div>
@@ -238,6 +252,7 @@ const Products = () => {
             </Link>
           </div>
         </div>
+
       </div>
     </div>
   );
