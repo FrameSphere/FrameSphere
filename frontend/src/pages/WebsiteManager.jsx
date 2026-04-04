@@ -285,14 +285,14 @@ const SiteControlPage = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="https://app.sitecontrol.app/signup" target="_blank" rel="noopener noreferrer"
+                <a href="https://sitecontrol.pages.dev/signup" target="_blank" rel="noopener noreferrer"
                   className="btn-primary inline-flex items-center justify-center gap-2"
                   style={{ background: 'linear-gradient(135deg, #5b6af6, #4346eb)', boxShadow: '0 8px 24px rgba(91,106,246,0.35)' }}>
                   <ExternalLink className="w-4 h-4" />
                   <span>Kostenlos starten</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
-                <a href="https://app.sitecontrol.app/" target="_blank" rel="noopener noreferrer"
+                <a href="https://sitecontrol.pages.dev/" target="_blank" rel="noopener noreferrer"
                   className="btn-secondary inline-flex items-center justify-center gap-2">
                   <Globe className="w-4 h-4" />
                   <span>App öffnen</span>
@@ -454,7 +454,7 @@ const SiteControlPage = () => {
                   ))}
                 </ul>
 
-                <a href={`https://app.sitecontrol.app/signup${plan.highlight ? '?plan=pro' : ''}`}
+                <a href={`https://sitecontrol.pages.dev/signup${plan.highlight ? '?plan=pro' : ''}`}
                   target="_blank" rel="noopener noreferrer"
                   className="block text-center py-3 rounded-lg font-bold text-sm transition-all"
                   style={plan.highlight
@@ -540,14 +540,14 @@ const SiteControlPage = () => {
                 Erstelle deinen Account in 30 Sekunden. Keine Kreditkarte, kein Risiko.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://app.sitecontrol.app/signup" target="_blank" rel="noopener noreferrer"
+                <a href="https://sitecontrol.pages.dev/signup" target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl text-white font-bold text-sm transition-all"
                   style={{ background: 'linear-gradient(135deg, #5b6af6, #4346eb)', boxShadow: '0 8px 24px rgba(91,106,246,0.35)' }}>
                   <ExternalLink className="w-4 h-4" />
                   Jetzt kostenlos starten
                   <ArrowRight className="w-4 h-4" />
                 </a>
-                <a href="https://app.sitecontrol.app/" target="_blank" rel="noopener noreferrer"
+                <a href="https://sitecontrol.pages.dev/" target="_blank" rel="noopener noreferrer"
                   className="btn-secondary inline-flex items-center justify-center gap-2">
                   <Globe className="w-4 h-4" />
                   App öffnen
