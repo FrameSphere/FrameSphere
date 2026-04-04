@@ -295,7 +295,7 @@ const SiteControlPage = () => {
                 <a href="https://app.sitecontrol.app/" target="_blank" rel="noopener noreferrer"
                   className="btn-secondary inline-flex items-center justify-center gap-2">
                   <Globe className="w-4 h-4" />
-                  <span>Live Demo</span>
+                  <span>App öffnen</span>
                 </a>
               </div>
             </div>
@@ -550,7 +550,7 @@ const SiteControlPage = () => {
                 <a href="https://app.sitecontrol.app/" target="_blank" rel="noopener noreferrer"
                   className="btn-secondary inline-flex items-center justify-center gap-2">
                   <Globe className="w-4 h-4" />
-                  Live Demo ansehen
+                  App öffnen
                 </a>
               </div>
             </div>

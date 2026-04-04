@@ -6,10 +6,6 @@ import {
   Search, Globe, Gamepad2, FileText, RotateCcw, Flag, User
 } from 'lucide-react';
 
-/* ─── FrameSphere Logo Icon ─────────────────────────────────────────────────── */
-// Exakt gleicher Hintergrund wie das bisherige Navbar-Icon:
-// bg-gradient-to-br from-primary-500(#0ea5e9) to-purple-600(#9333ea)
-// – Zap ersetzt durch "FS" mit etwas letter-spacing für luftiges, nicht gequetschtes Bild
 const FrameSphereLogoIcon = ({ className = '' }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
     width="36" height="36" fill="none" className={className}>
@@ -31,47 +27,111 @@ const FrameSphereLogoIcon = ({ className = '' }) => (
 import { useAuth } from '../context/AuthContext';
 
 const apiProducts = [
-  { name: 'FrameSpell API', desc: 'KI-Rechtschreibprüfung', path: '/products/framespell', icon: <Sparkles className="w-4 h-4" />, color: 'text-blue-400', status: 'Live' },
-  { name: 'RateLimit API', desc: 'API-Schutz & Throttling', path: '/products/ratelimit-api', icon: <Shield className="w-4 h-4" />, color: 'text-green-400', status: 'Live' },
-  { name: 'FrameTrain', desc: 'KI-Modelle lokal trainieren', path: '/products/frametrain', icon: <Brain className="w-4 h-4" />, color: 'text-purple-400', status: 'Live' },
-  { name: 'CoreChain API', desc: 'KI-Orchestrierung', path: '/products/corechain-api', icon: <Code className="w-4 h-4" />, color: 'text-cyan-400', status: 'Bald' },
-  { name: 'Keyword Engine', desc: 'SEO Keyword-Analyse', path: '/products/keyword-engine', icon: <Search className="w-4 h-4" />, color: 'text-yellow-400', status: 'Bald' },
-  { name: 'Website Manager', desc: 'Webseiten verwalten', path: '/products/website-manager', icon: <Globe className="w-4 h-4" />, color: 'text-orange-400', status: 'Bald' },
-  { name: 'SphereHub', desc: 'Lokaler AI-Butler', path: '/products/spherehub', icon: <Home className="w-4 h-4" />, color: 'text-red-400', status: 'Bald' },
-  { name: 'SphereNet', desc: 'KI-Modell-Netzwerk', path: '/products/spherenet', icon: <Network className="w-4 h-4" />, color: 'text-indigo-400', status: 'Bald' },
+  {
+    name: 'FrameSpell API',
+    desc: 'KI-Rechtschreibprüfung',
+    path: '/products/framespell',
+    icon: <Sparkles className="w-4 h-4" />,
+    color: 'text-blue-400',
+    status: 'Live',
+  },
+  {
+    name: 'RateLimit API',
+    desc: 'API-Schutz & Throttling',
+    path: '/products/ratelimit-api',
+    icon: <Shield className="w-4 h-4" />,
+    color: 'text-green-400',
+    status: 'Live',
+  },
+  {
+    name: 'FrameTrain',
+    desc: 'KI-Modelle lokal trainieren',
+    path: '/products/frametrain',
+    icon: <Brain className="w-4 h-4" />,
+    color: 'text-purple-400',
+    status: 'Live',
+  },
+  {
+    name: 'KeyScope',
+    desc: 'TF-IDF Keyword-Analyse & SEO',
+    path: '/products/keyword-engine',
+    icon: <Search className="w-4 h-4" />,
+    color: 'text-yellow-400',
+    status: 'Live',
+  },
+  {
+    name: 'SiteControl',
+    desc: 'Alle Websites. Ein Dashboard.',
+    path: '/products/website-manager',
+    icon: <Globe className="w-4 h-4" />,
+    color: 'text-indigo-400',
+    status: 'Live',
+  },
+  {
+    name: 'CoreChain API',
+    desc: 'KI-Orchestrierung',
+    path: '/products/corechain-api',
+    icon: <Code className="w-4 h-4" />,
+    color: 'text-cyan-400',
+    status: 'Bald',
+  },
+  {
+    name: 'SphereHub',
+    desc: 'Lokaler AI-Butler',
+    path: '/products/spherehub',
+    icon: <Home className="w-4 h-4" />,
+    color: 'text-red-400',
+    status: 'Bald',
+  },
+  {
+    name: 'SphereNet',
+    desc: 'KI-Modell-Netzwerk',
+    path: '/products/spherenet',
+    icon: <Network className="w-4 h-4" />,
+    color: 'text-indigo-400',
+    status: 'Bald',
+  },
 ];
 
 const webApps = [
-  { name: 'Wordify', desc: 'Tägliches 5-Buchstaben Worträtsel', path: '/webapps/wordify', icon: <Gamepad2 className="w-4 h-4" />, color: 'text-emerald-400' },
-  { name: 'FlagGuess', desc: 'Tägliches Flaggen-Quiz', path: '/webapps/flagguess', icon: <Flag className="w-4 h-4" />, color: 'text-blue-400' },
-  { name: 'BrawlMystery', desc: 'Brawl Stars Ratespiel', path: '/webapps/brawlmystery', icon: <Gamepad2 className="w-4 h-4" />, color: 'text-orange-400' },
-  { name: 'SpinSelector', desc: 'Online-Glücksrad & Zufallsentscheider', path: '/webapps/spinselector', icon: <RotateCcw className="w-4 h-4" />, color: 'text-pink-400' },
-  { name: 'Traitora', desc: 'Adaptiver Persönlichkeitstest', path: '/webapps/traitora', icon: <User className="w-4 h-4" />, color: 'text-violet-400' },
-  { name: 'FileFlyr', desc: '40+ Dateikonverter, 100% privat', path: '/webapps/fileflyr', icon: <FileText className="w-4 h-4" />, color: 'text-cyan-400' },
+  { name: 'Wordify',       desc: 'Tägliches 5-Buchstaben Worträtsel',              path: '/webapps/wordify',       icon: <Gamepad2  className="w-4 h-4" />, color: 'text-emerald-400' },
+  { name: 'FlagGuess',     desc: 'Tägliches Flaggen-Quiz',                          path: '/webapps/flagguess',     icon: <Flag      className="w-4 h-4" />, color: 'text-blue-400'    },
+  { name: 'BrawlMystery',  desc: 'Brawl Stars Ratespiel',                           path: '/webapps/brawlmystery',  icon: <Gamepad2  className="w-4 h-4" />, color: 'text-orange-400'  },
+  { name: 'SpinSelector',  desc: 'Online-Glücksrad & Zufallsentscheider',           path: '/webapps/spinselector',  icon: <RotateCcw className="w-4 h-4" />, color: 'text-pink-400'    },
+  { name: 'Traitora',      desc: 'Adaptiver Persönlichkeitstest',                   path: '/webapps/traitora',      icon: <User      className="w-4 h-4" />, color: 'text-violet-400'  },
+  { name: 'FileFlyr',      desc: '40+ Dateikonverter, 100% privat',                 path: '/webapps/fileflyr',      icon: <FileText  className="w-4 h-4" />, color: 'text-cyan-400'    },
 ];
 
 const StatusBadge = ({ status }) => {
-  if (status === 'Live') return <span className="text-xs px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded border border-green-500/20 flex-shrink-0">Live</span>;
-  if (status === 'Bald') return <span className="text-xs px-1.5 py-0.5 bg-gray-700 text-gray-400 rounded flex-shrink-0">Bald</span>;
+  if (status === 'Live') return (
+    <span className="text-xs px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded border border-green-500/20 flex-shrink-0">
+      Live
+    </span>
+  );
+  if (status === 'Bald') return (
+    <span className="text-xs px-1.5 py-0.5 bg-gray-700/80 text-gray-500 rounded flex-shrink-0">
+      Bald
+    </span>
+  );
   return null;
 };
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null); // 'products' | 'webapps'
+  const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
   const { user, logout } = useAuth();
   const dropdownRef = useRef(null);
 
   const navLinks = [
-    { name: 'Preise', path: '/pricing' },
-    { name: 'Entwickler', path: '/developers' },
-    { name: 'Über uns', path: '/about' },
+    { name: 'Preise',      path: '/pricing'    },
+    { name: 'Entwickler',  path: '/developers' },
+    { name: 'Über uns',    path: '/about'      },
   ];
 
-  const isActive = (path) => location.pathname === path;
+  const isActive         = (path) => location.pathname === path;
   const isProductsActive = location.pathname.startsWith('/products');
-  const isWebAppsActive = location.pathname.startsWith('/webapps');
+  const isWebAppsActive  = location.pathname.startsWith('/webapps');
 
   useEffect(() => {
     const handler = (e) => {
@@ -86,7 +146,11 @@ const Navbar = () => {
   const toggleDropdown = (name) => setActiveDropdown(prev => prev === name ? null : name);
 
   const dropdownBase = "absolute top-full mt-2 z-[200] rounded-xl shadow-2xl border border-white/10 overflow-hidden";
-  const dropdownBg = "bg-dark-800"; // solid, kein glass
+  const dropdownBg   = "bg-dark-800";
+
+  /* Split products into Live / Bald for a cleaner dropdown layout */
+  const liveProducts = apiProducts.filter(p => p.status === 'Live');
+  const soonProducts = apiProducts.filter(p => p.status === 'Bald');
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur-md border-b border-white/10">
@@ -119,10 +183,14 @@ const Navbar = () => {
               </button>
 
               {activeDropdown === 'products' && (
-                <div className={`${dropdownBase} ${dropdownBg} left-0 w-72`}>
+                <div className={`${dropdownBase} ${dropdownBg} left-0 w-80`}>
                   <div className="p-2">
-                    <div className="text-xs text-gray-500 uppercase tracking-wider px-3 py-2 font-semibold">APIs & Tools</div>
-                    {apiProducts.map((p) => (
+                    {/* Live products */}
+                    <div className="text-xs text-gray-500 uppercase tracking-wider px-3 py-2 font-semibold flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+                      Live & nutzbar
+                    </div>
+                    {liveProducts.map((p) => (
                       <Link key={p.path} to={p.path} onClick={() => setActiveDropdown(null)}
                         className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-white/5 transition-colors group">
                         <span className={`${p.color} flex-shrink-0`}>{p.icon}</span>
@@ -130,9 +198,30 @@ const Navbar = () => {
                           <div className="text-white text-sm font-medium truncate">{p.name}</div>
                           <div className="text-xs text-gray-500 truncate">{p.desc}</div>
                         </div>
-                        <StatusBadge status={p.status} />
+                        <span className="text-xs px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded border border-green-500/20 flex-shrink-0">Live</span>
                       </Link>
                     ))}
+
+                    {/* Coming soon */}
+                    {soonProducts.length > 0 && (
+                      <>
+                        <div className="text-xs text-gray-600 uppercase tracking-wider px-3 py-2 font-semibold mt-1 border-t border-white/5">
+                          In Entwicklung
+                        </div>
+                        {soonProducts.map((p) => (
+                          <div key={p.path}
+                            className="flex items-center space-x-3 px-3 py-1.5 rounded-lg opacity-50 cursor-default">
+                            <span className="text-gray-600 flex-shrink-0">{p.icon}</span>
+                            <div className="flex-1 min-w-0">
+                              <div className="text-gray-500 text-sm font-medium truncate">{p.name}</div>
+                              <div className="text-xs text-gray-600 truncate">{p.desc}</div>
+                            </div>
+                            <span className="text-xs px-1.5 py-0.5 bg-gray-700/80 text-gray-500 rounded flex-shrink-0">Bald</span>
+                          </div>
+                        ))}
+                      </>
+                    )}
+
                     <div className="border-t border-white/10 mt-2 pt-2">
                       <Link to="/products" onClick={() => setActiveDropdown(null)}
                         className="flex items-center justify-center px-3 py-2 text-xs text-primary-400 hover:text-primary-300 transition-colors">
@@ -159,7 +248,7 @@ const Navbar = () => {
               </button>
 
               {activeDropdown === 'webapps' && (
-                <div className={`${dropdownBase} ${dropdownBg} left-0 w-68 w-64`}>
+                <div className={`${dropdownBase} ${dropdownBg} left-0 w-64`}>
                   <div className="p-2">
                     <div className="text-xs text-gray-500 uppercase tracking-wider px-3 py-2 font-semibold">Spiele & Tools</div>
                     {webApps.map((p) => (
@@ -223,15 +312,31 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-dark-800 border-t border-white/10">
           <div className="px-4 py-4 space-y-1 max-h-[80vh] overflow-y-auto">
-            <div className="text-xs text-gray-500 uppercase tracking-wider px-3 py-2">Produkte</div>
-            {apiProducts.map((p) => (
+            <div className="text-xs text-gray-500 uppercase tracking-wider px-3 py-2 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+              Live Produkte
+            </div>
+            {liveProducts.map((p) => (
               <Link key={p.path} to={p.path} onClick={() => setIsOpen(false)}
                 className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
                 <span className={p.color}>{p.icon}</span>
                 <span className="text-sm">{p.name}</span>
-                <StatusBadge status={p.status} />
+                <span className="text-xs px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded border border-green-500/20 ml-auto">Live</span>
               </Link>
             ))}
+            {soonProducts.length > 0 && (
+              <>
+                <div className="text-xs text-gray-600 uppercase tracking-wider px-3 py-2 mt-2">In Entwicklung</div>
+                {soonProducts.map((p) => (
+                  <div key={p.path}
+                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-600 opacity-50 cursor-default">
+                    <span>{p.icon}</span>
+                    <span className="text-sm">{p.name}</span>
+                    <span className="text-xs px-1.5 py-0.5 bg-gray-700/80 text-gray-500 rounded ml-auto">Bald</span>
+                  </div>
+                ))}
+              </>
+            )}
             <div className="text-xs text-gray-500 uppercase tracking-wider px-3 py-2 mt-3">Web Apps</div>
             {webApps.map((p) => (
               <Link key={p.path} to={p.path} onClick={() => setIsOpen(false)}
