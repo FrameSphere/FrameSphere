@@ -1,383 +1,349 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Sparkles,
-  Target,
-  Users,
-  Zap,
-  Shield,
-  TrendingUp,
-  Heart,
-  Globe,
-  Award,
-  Rocket,
-  Mail,
-  Linkedin,
-  Twitter,
-  Github
+  Code2, Rocket, Heart, Mail, Github, Globe,
+  Zap, Shield, Brain, Sparkles, ArrowRight,
+  MapPin, Coffee, Wrench, Package
 } from 'lucide-react';
 
 const About = () => {
-  // 📝 ANPASSBARE WERTE - Hier kannst du alles ändern
-  const companyInfo = {
-    name: 'FrameSphere',
-    tagline: 'Building the Future of AI Orchestration',
-    founded: '2025',
-    location: 'Mainz, Deutschland',
-    employees: '5-10',
-    description: 'FrameSphere ist ein innovatives Technologie-Startup, das sich auf die Entwicklung von KI-gestützten SaaS-Lösungen spezialisiert hat. Unsere Mission ist es, modernste AI-Orchestrierungstools zu entwickeln, die Unternehmen und Entwicklern helfen, ihre Workflows zu automatisieren und intelligenter zu arbeiten.'
-  };
+  const products = [
+    {
+      emoji: '🔵',
+      name: 'FrameSpell API',
+      desc: 'KI-gestützte Rechtschreibprüfung für Deutsch, Englisch und mehr — als REST API.',
+      color: 'border-blue-500/20 bg-blue-500/5',
+      tag: 'text-blue-400',
+    },
+    {
+      emoji: '🔴',
+      name: 'RateLimit API',
+      desc: 'Rate-Limiting auf Cloudflare Edge — IP-Filter, Analytics, Token Bucket.',
+      color: 'border-red-500/20 bg-red-500/5',
+      tag: 'text-red-400',
+    },
+    {
+      emoji: '🟣',
+      name: 'FrameTrain',
+      desc: 'Desktop-App für lokales KI-Training — HuggingFace, LoRA, DSGVO-konform.',
+      color: 'border-purple-500/20 bg-purple-500/5',
+      tag: 'text-purple-400',
+    },
+    {
+      emoji: '🟡',
+      name: 'KeyScope',
+      desc: 'TF-IDF Keyword-Analyse SaaS — Keywords, Longtails, Meta-Descriptions.',
+      color: 'border-yellow-500/20 bg-yellow-500/5',
+      tag: 'text-yellow-400',
+    },
+    {
+      emoji: '🟢',
+      name: 'SiteControl',
+      desc: 'Website-Management Dashboard — Todos, Blog, Analytics, Changelog.',
+      color: 'border-green-500/20 bg-green-500/5',
+      tag: 'text-green-400',
+    },
+    {
+      emoji: '⚪',
+      name: 'SphereNet & SphereHub',
+      desc: 'AI Agent Chains und digitaler Assistent — in aktiver Entwicklung.',
+      color: 'border-white/10 bg-white/[0.02]',
+      tag: 'text-gray-400',
+    },
+  ];
 
-  const mission = {
-    title: 'Unsere Mission',
-    text: 'Wir glauben daran, dass KI-Technologie für jeden zugänglich sein sollte. Deshalb entwickeln wir intuitive, leistungsstarke Tools, die komplexe AI-Workflows vereinfachen und Entwicklern ermöglichen, innovative Lösungen zu bauen - ohne dabei die Kontrolle zu verlieren.'
-  };
-
-  const vision = {
-    title: 'Unsere Vision',
-    text: 'Wir streben danach, die führende Plattform für AI-Orchestrierung zu werden und eine Welt zu schaffen, in der jedes Unternehmen - unabhängig von seiner Größe - von den Vorteilen künstlicher Intelligenz profitieren kann.'
-  };
+  const techStack = [
+    { label: 'Frontend', items: 'React · Vite · Next.js · Tailwind CSS' },
+    { label: 'Backend', items: 'Cloudflare Workers · Node.js · Python' },
+    { label: 'Datenbank', items: 'Cloudflare D1 · Supabase · SQLite' },
+    { label: 'Infrastructure', items: 'Cloudflare Pages · Vercel · GitHub Actions' },
+    { label: 'ML / AI', items: 'PyTorch · HuggingFace · LoRA · GGUF' },
+    { label: 'Tools', items: 'Tauri · Stripe · JWT · bcrypt' },
+  ];
 
   const values = [
     {
-      icon: <Rocket className="w-8 h-8" />,
-      title: 'Innovation',
-      description: 'Wir pushen kontinuierlich die Grenzen des Möglichen und suchen nach neuen Wegen, AI-Technologie zugänglicher zu machen.'
+      icon: <Code2 className="w-5 h-5" />,
+      title: 'Direkt & ohne Bullshit',
+      desc: 'Keine aufgeblähten Marketing-Texte. Was ich baue, zeige ich so wie es ist — mit echten Features, echten Preisen, echten Einschränkungen.',
     },
     {
-      icon: <Users className="w-8 h-8" />,
-      title: 'Community First',
-      description: 'Unsere Community steht im Mittelpunkt. Wir hören zu, lernen und entwickeln Produkte basierend auf echtem Feedback.'
+      icon: <Shield className="w-5 h-5" />,
+      title: 'Privacy by Design',
+      desc: 'Meine Tools — besonders FrameTrain — sind so gebaut, dass deine Daten auf deinem Gerät bleiben. Keine unnötige Telemetrie, keine Cloud-Pflicht.',
     },
     {
-      icon: <Shield className="w-8 h-8" />,
-      title: 'Transparenz',
-      description: 'Offene Kommunikation, klare Preise und ehrliches Feedback sind die Grundpfeiler unserer Unternehmenskultur.'
+      icon: <Zap className="w-5 h-5" />,
+      title: 'Gebaut auf dem Edge',
+      desc: 'Cloudflare Workers, D1 und Pages sind mein Standard-Stack. Sub-Millisekunden-Latenz, globale Verteilung, keine Server die ich um 3 Uhr nachts neu starten muss.',
     },
     {
-      icon: <Zap className="w-8 h-8" />,
-      title: 'Performance',
-      description: 'Geschwindigkeit und Zuverlässigkeit sind keine optionalen Features - sie sind Standard in allem, was wir bauen.'
-    }
+      icon: <Heart className="w-5 h-5" />,
+      title: 'Faire Preise',
+      desc: 'Ich weiß was es heißt, selbst Entwickler zu sein und Tools zu nutzen. Kein VC-Druck bedeutet keine überzogenen Preise. 1,99€ für FrameTrain — das meine ich ernst.',
+    },
   ];
 
-  const team = [
-    {
-      name: 'Max Müller',
-      role: 'CEO & Founder',
-      bio: 'AI-Enthusiast mit 10+ Jahren Erfahrung in der Softwareentwicklung.',
-      image: '👨‍💼', // Ersetze mit echtem Bild-URL
-      social: {
-        linkedin: '#',
-        twitter: '#',
-        github: '#'
-      }
-    },
-    {
-      name: 'Sarah Schmidt',
-      role: 'CTO',
-      bio: 'Machine Learning Expert und leidenschaftliche Entwicklerin.',
-      image: '👩‍💻',
-      social: {
-        linkedin: '#',
-        twitter: '#',
-        github: '#'
-      }
-    },
-    {
-      name: 'Thomas Weber',
-      role: 'Head of Product',
-      bio: 'UX/UI Designer mit Fokus auf Developer Experience.',
-      image: '👨‍🎨',
-      social: {
-        linkedin: '#',
-        twitter: '#'
-      }
-    },
-    {
-      name: 'Lisa Wagner',
-      role: 'Head of Engineering',
-      bio: 'Full-Stack Entwicklerin mit Passion für sauberen Code.',
-      image: '👩‍🔬',
-      social: {
-        linkedin: '#',
-        github: '#'
-      }
-    }
+  const webApps = [
+    { name: 'Wordify', desc: 'Wortspiel-App' },
+    { name: 'BrawlMystery', desc: 'Brawl Stars Guide' },
+    { name: 'SpinSelector / Glücksrad', desc: 'Party-Tool mit Imposter-Modus' },
+    { name: 'Traitora', desc: 'Persönlichkeitstest' },
+    { name: 'FileFlyr', desc: 'Datei-Konverter' },
+    { name: 'FlagGuess', desc: 'Flaggen-Quiz' },
   ];
 
-  const milestones = [
+  const timeline = [
     {
-      year: '2025 Q4',
-      title: 'Gründung von FrameSphere',
-      description: 'Start mit der Vision, AI-Orchestrierung für alle zugänglich zu machen.'
+      period: 'Frühjahr 2025',
+      title: 'FrameSphere entsteht',
+      desc: 'Die Idee: ein zentrales Portal für alle meine Projekte, APIs und Tools. Gebaut mit React, Vite und Cloudflare.',
     },
     {
-      year: '2025 Q4',
-      title: 'Launch von FrameSpell API',
-      description: 'Unser erstes Produkt geht live mit 1000+ Beta-Usern.'
+      period: 'Sommer 2025',
+      title: 'FrameSpell API live',
+      desc: 'Mein erstes produktives API-Produkt — KI-Rechtschreibprüfung als REST Service auf Cloudflare Workers.',
     },
     {
-      year: '2026 Q1',
-      title: 'CoreChain AI Release',
-      description: 'Revolutionäre KI-Orchestrierung für komplexe Workflows.'
+      period: 'Herbst 2025',
+      title: 'KeyScope & RateLimit API',
+      desc: 'TF-IDF Keyword-Analyse als vollständiges SaaS (KeyScope) und ein Rate-Limiting-Service auf Cloudflare Edge.',
     },
     {
-      year: '2026 Q1',
-      title: 'CoreChain API Release',
-      description: 'API Dienst für Revolutionäre KI-Orchestrierung für komplexe Workflows.'
+      period: 'Winter 2025',
+      title: 'FrameTrain Early Access',
+      desc: 'Desktop-App für lokales KI-Training — Tauri, PyTorch, HuggingFace. Einmalig 1,99€, kein Abo, komplett lokal.',
     },
     {
-      year: '2026 Q2',
-      title: 'SphereNet Release',
-      description: 'Digitale Plattform zur Erstellung von AI Agent Chains.'
+      period: 'Frühjahr 2026',
+      title: 'SiteControl & Manager',
+      desc: 'Internes Dashboard-Tool wird zu SiteControl kommerzialisiert. Alle Projekte über ein zentrales HQ verwaltet.',
     },
     {
-      year: '2026 Q2',
-      title: 'SphereHub Launch',
-      description: 'Digitaler AI Buttler für zu Hause.'
+      period: 'Laufend',
+      title: 'SphereNet & SphereHub',
+      desc: 'AI Agent Chains und intelligenter Desktop-Assistent — in aktiver Entwicklung.',
     },
-    {
-      year: '2026 Q1',
-      title: 'Series A Funding',
-      description: '€2M Investment für weiteres Wachstum und Team-Expansion.'
-    },
-    {
-      year: '2025',
-      title: 'Global Expansion',
-      description: 'Expansion in die USA und Asien geplant.'
-    }
-  ];
-
-  const stats = [
-    { value: '10,000+', label: 'Aktive Nutzer' },
-    { value: '50M+', label: 'API Calls/Monat' },
-    { value: '99.9%', label: 'Uptime SLA' },
-    { value: '24/7', label: 'Support' }
   ];
 
   return (
-    <div className="min-h-screen pt-20 pb-20">
-      {/* Hero Section */}
-      <section className="relative px-4 py-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500 rounded-full filter blur-3xl animate-float"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
-        </div>
+    <div className="min-h-screen pt-20 pb-20 px-4">
+      <div className="max-w-4xl mx-auto">
 
-        <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Über <span className="gradient-text">{companyInfo.name}</span>
+        {/* ── Hero ──────────────────────────────────────────────────────────── */}
+        <div className="text-center mb-20 pt-10">
+          {/* Avatar / Emoji */}
+          <div className="relative w-28 h-28 mx-auto mb-8">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/40 to-purple-500/30 rounded-full blur-2xl" />
+            <div className="relative w-28 h-28 rounded-full bg-gradient-to-br from-primary-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center text-5xl">
+              👨‍💻
+            </div>
+          </div>
+
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
+            Hi, ich bin <span className="gradient-text">Karol</span>
           </h1>
-          <p className="text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            {companyInfo.tagline}
-          </p>
-          <p className="text-lg text-gray-400 max-w-4xl mx-auto">
-            {companyInfo.description}
+
+          <div className="flex items-center justify-center gap-2 text-gray-400 text-sm mb-6">
+            <MapPin className="w-4 h-4" />
+            <span>Mainz, Deutschland</span>
+          </div>
+
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed mb-8">
+            Ich bin ein <strong className="text-white">Solo-Entwickler</strong> und baue FrameSphere —
+            ein wachsendes Portfolio aus APIs, SaaS-Tools, Desktop-Apps und Web-Projekten.
+            Kein Team, kein VC, kein Investor. Nur ich, mein Mac und Cloudflare.
           </p>
 
-          {/* Quick Facts */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-            <div className="card">
-              <div className="text-sm text-gray-400 mb-1">Gegründet</div>
-              <div className="text-2xl font-bold text-white">{companyInfo.founded}</div>
-            </div>
-            <div className="card">
-              <div className="text-sm text-gray-400 mb-1">Standort</div>
-              <div className="text-2xl font-bold text-white">{companyInfo.location}</div>
-            </div>
-            <div className="card">
-              <div className="text-sm text-gray-400 mb-1">Team-Größe</div>
-              <div className="text-2xl font-bold text-white">{companyInfo.employees}</div>
-            </div>
-            <div className="card">
-              <div className="text-sm text-gray-400 mb-1">Produkte</div>
-              <div className="text-2xl font-bold text-white">5+</div>
-            </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 glass-effect rounded-xl text-sm text-gray-400 hover:text-white transition-colors">
+              <Github className="w-4 h-4" /> GitHub
+            </a>
+            <Link to="/contact"
+              className="inline-flex items-center gap-2 px-4 py-2 glass-effect rounded-xl text-sm text-gray-400 hover:text-white transition-colors">
+              <Mail className="w-4 h-4" /> Kontakt
+            </Link>
+            <Link to="/products"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-500/10 border border-primary-500/30 rounded-xl text-sm text-primary-400 hover:text-primary-300 transition-colors">
+              <Package className="w-4 h-4" /> Alle Produkte
+            </Link>
           </div>
         </div>
-      </section>
 
-      {/* Mission & Vision */}
-      <section className="px-4 py-20 bg-gradient-to-b from-dark-900 to-dark-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="card">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-purple-500 rounded-lg flex items-center justify-center mb-6">
-                <Target className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="text-3xl font-bold text-white mb-4">{mission.title}</h2>
-              <p className="text-gray-400 leading-relaxed">
-                {mission.text}
-              </p>
-            </div>
-
-            <div className="card">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-6">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="text-3xl font-bold text-white mb-4">{vision.title}</h2>
-              <p className="text-gray-400 leading-relaxed">
-                {vision.text}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="px-4 py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">Unsere Werte</h2>
-            <p className="text-xl text-gray-400">
-              Was uns antreibt und leitet
+        {/* ── Was ist FrameSphere ───────────────────────────────────────────── */}
+        <div className="card mb-8 bg-gradient-to-br from-primary-500/10 to-purple-500/5 border-primary-500/20">
+          <h2 className="text-2xl font-bold text-white mb-4">Was ist FrameSphere?</h2>
+          <div className="text-gray-300 space-y-3 leading-relaxed text-sm">
+            <p>
+              FrameSphere ist mein persönliches Produktportfolio — eine Sammlung aus APIs, SaaS-Produkten,
+              Desktop-Apps und Web-Tools, die ich nebenberuflich und vollständig solo entwickle und betreibe.
+              Der Name steht für das, was alle Projekte verbindet: eine gemeinsame Plattform (Sphere) und
+              ein konsistentes Fundament (Frame) aus Code, Design und Infrastruktur.
+            </p>
+            <p>
+              Ich baue Dinge, die ich selbst brauche oder interessant finde — und stelle sie dann als
+              Produkte zur Verfügung. Manche kosten etwas, manche sind kostenlos. Alle sind so gebaut,
+              dass sie ohne riesige Infrastruktur, ohne Team und ohne monatliche Cloud-Rechnungen laufen.
             </p>
           </div>
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, index) => (
-              <div key={index} className="card text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-purple-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4">
-                  {value.icon}
+        {/* ── Produkte ─────────────────────────────────────────────────────── */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-white mb-2">Aktuelle Produkte</h2>
+          <p className="text-gray-500 text-sm mb-6">APIs, SaaS-Tools und Desktop-Apps — alle solo entwickelt.</p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {products.map((p, i) => (
+              <div key={i} className={`rounded-xl p-4 border ${p.color}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xl">{p.emoji}</span>
+                  <span className={`font-bold text-sm ${p.tag}`}>{p.name}</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">
-                  {value.title}
-                </h3>
-                <p className="text-gray-400 text-sm">
-                  {value.description}
-                </p>
+                <p className="text-gray-400 text-sm leading-relaxed">{p.desc}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Stats Section */}
-      <section className="px-4 py-20 bg-gradient-to-b from-dark-900 to-dark-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">In Zahlen</h2>
-            <p className="text-xl text-gray-400">
-              Unser Wachstum spricht für sich
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <div key={index} className="card text-center">
-                <div className="text-4xl font-bold gradient-text mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-400">{stat.label}</div>
+        {/* ── Web-Apps ─────────────────────────────────────────────────────── */}
+        <div className="card mb-12">
+          <h2 className="text-xl font-bold text-white mb-1 flex items-center gap-2">
+            <Globe className="w-5 h-5 text-primary-400" /> Web-Apps
+          </h2>
+          <p className="text-gray-500 text-sm mb-4">
+            Neben den API-Produkten betreibe ich mehrere eigenständige Web-Apps:
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {webApps.map((app, i) => (
+              <div key={i} className="px-3 py-1.5 glass-effect rounded-lg text-sm">
+                <span className="text-white font-medium">{app.name}</span>
+                <span className="text-gray-600 ml-1.5 text-xs">{app.desc}</span>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Timeline */}
-      <section className="px-4 py-20">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">Unsere Journey</h2>
-            <p className="text-xl text-gray-400">
-              Von der Idee zur führenden AI-Plattform
-            </p>
+        {/* ── Tech Stack ───────────────────────────────────────────────────── */}
+        <div className="card mb-12">
+          <h2 className="text-xl font-bold text-white mb-1 flex items-center gap-2">
+            <Wrench className="w-5 h-5 text-blue-400" /> Tech Stack
+          </h2>
+          <p className="text-gray-500 text-sm mb-4">Was ich täglich nutze:</p>
+          <div className="space-y-2">
+            {techStack.map((item, i) => (
+              <div key={i} className="flex flex-col sm:flex-row gap-1 sm:gap-4 py-2 border-b border-white/[0.05] last:border-0">
+                <span className="text-gray-500 text-xs sm:w-28 flex-shrink-0 uppercase tracking-wider">{item.label}</span>
+                <span className="text-gray-300 text-sm font-mono">{item.items}</span>
+              </div>
+            ))}
           </div>
+        </div>
 
-          <div className="space-y-8">
-            {milestones.map((milestone, index) => (
-              <div key={index} className="flex gap-6">
-                <div className="flex-shrink-0">
-                  <div className="w-20 h-20 bg-gradient-to-br from-primary-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
-                    {milestone.year}
+        {/* ── Meine Werte ──────────────────────────────────────────────────── */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-white mb-6">Wie ich baue</h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {values.map((v, i) => (
+              <div key={i} className="card">
+                <div className="w-9 h-9 bg-primary-500/15 rounded-lg flex items-center justify-center text-primary-400 mb-3">
+                  {v.icon}
+                </div>
+                <h3 className="font-bold text-white mb-1 text-sm">{v.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Timeline ─────────────────────────────────────────────────────── */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-white mb-6">Timeline</h2>
+          <div className="relative">
+            {/* Linie */}
+            <div className="absolute left-3.5 top-0 bottom-0 w-px bg-white/[0.06]" />
+            <div className="space-y-6">
+              {timeline.map((item, i) => (
+                <div key={i} className="flex gap-5 pl-2">
+                  <div className="flex-shrink-0 w-4 h-4 rounded-full bg-gradient-to-br from-primary-500 to-purple-500 mt-1.5 relative z-10" />
+                  <div className="flex-1">
+                    <div className="text-xs text-gray-600 font-mono mb-0.5">{item.period}</div>
+                    <div className="font-semibold text-white text-sm mb-1">{item.title}</div>
+                    <div className="text-gray-400 text-sm leading-relaxed">{item.desc}</div>
                   </div>
                 </div>
-                <div className="card flex-1">
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    {milestone.title}
-                  </h3>
-                  <p className="text-gray-400">
-                    {milestone.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="px-4 py-20 bg-gradient-to-b from-dark-900 to-dark-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">Unser Team</h2>
-            <p className="text-xl text-gray-400">
-              Die Menschen hinter FrameSphere
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {team.map((member, index) => (
-              <div key={index} className="card text-center">
-                <div className="text-6xl mb-4">{member.image}</div>
-                <h3 className="text-xl font-bold text-white mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-primary-400 text-sm font-semibold mb-3">
-                  {member.role}
-                </p>
-                <p className="text-gray-400 text-sm mb-4">
-                  {member.bio}
-                </p>
-                <div className="flex justify-center space-x-3">
-                  {member.social.linkedin && (
-                    <a href={member.social.linkedin} className="text-gray-400 hover:text-primary-400 transition-colors">
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                  )}
-                  {member.social.twitter && (
-                    <a href={member.social.twitter} className="text-gray-400 hover:text-primary-400 transition-colors">
-                      <Twitter className="w-5 h-5" />
-                    </a>
-                  )}
-                  {member.social.github && (
-                    <a href={member.social.github} className="text-gray-400 hover:text-primary-400 transition-colors">
-                      <Github className="w-5 h-5" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="card text-center bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30">
-            <Heart className="w-16 h-16 text-primary-400 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Werde Teil unserer Story
-            </h2>
-            <p className="text-xl text-gray-400 mb-8">
-              Wir suchen talentierte Menschen, die mit uns die Zukunft der AI-Orchestrierung gestalten wollen
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact" className="btn-primary inline-flex items-center justify-center space-x-2">
-                <Mail className="w-5 h-5" />
-                <span>Kontakt aufnehmen</span>
-              </Link>
-              <Link to="/register" className="btn-secondary inline-flex items-center justify-center space-x-2">
-                <Rocket className="w-5 h-5" />
-                <span>Jetzt starten</span>
-              </Link>
+              ))}
             </div>
           </div>
         </div>
-      </section>
+
+        {/* ── Honest Stats ─────────────────────────────────────────────────── */}
+        <div className="card mb-12 bg-gradient-to-br from-white/[0.02] to-transparent">
+          <h2 className="text-xl font-bold text-white mb-1">Ein paar ehrliche Zahlen</h2>
+          <p className="text-gray-600 text-xs mb-5">Keine aufgeplusterten Marketing-Statistiken.</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {[
+              { val: '1', label: 'Person im Team' },
+              { val: '10+', label: 'aktive Projekte' },
+              { val: '6+', label: 'Produkte live' },
+              { val: '100%', label: 'Cloudflare Edge' },
+            ].map(({ val, label }, i) => (
+              <div key={i} className="text-center">
+                <div className="text-3xl font-black gradient-text">{val}</div>
+                <div className="text-gray-500 text-xs mt-0.5">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Solo Dev Philosophie ─────────────────────────────────────────── */}
+        <div className="card mb-12 border-white/[0.06]">
+          <div className="flex items-start gap-3 mb-4">
+            <Coffee className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+            <h2 className="text-xl font-bold text-white">Warum Solo?</h2>
+          </div>
+          <div className="text-gray-400 text-sm leading-relaxed space-y-3">
+            <p>
+              Solo zu entwickeln bedeutet: keine Abstimmungsrunden, keine Kompromisse bei
+              Technologie-Entscheidungen und keine Abhängigkeit von Investoren, die quarterly growth
+              einfordern. Ich kann morgens aufwachen und entscheiden, ein komplett neues Feature zu
+              bauen — und es noch am Abend deployen.
+            </p>
+            <p>
+              Das hat natürlich Grenzen. Support-Zeiten sind nicht 24/7, neue Features dauern länger,
+              und manchmal liegt ein Bug ein paar Tage länger als mir lieb ist. Das ist der ehrliche
+              Trade-off, und ich kommuniziere ihn offen.
+            </p>
+            <p>
+              Was ich dafür biete: Produkte die ich selbst nutze und deshalb wirklich verstehe,
+              faire Preise ohne Investor-Renditedruck, und direkten Kontakt — ich bin immer
+              erreichbar.
+            </p>
+          </div>
+        </div>
+
+        {/* ── CTA ──────────────────────────────────────────────────────────── */}
+        <div className="card text-center bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/20">
+          <Brain className="w-12 h-12 text-primary-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-white mb-2">Frag mich einfach</h2>
+          <p className="text-gray-400 mb-6 max-w-lg mx-auto text-sm leading-relaxed">
+            Ideen, Feature-Requests, Bug-Reports, Kooperationen — oder einfach nur eine Frage
+            zu einem der Produkte. Ich antworte persönlich.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link to="/contact" className="btn-primary inline-flex items-center justify-center gap-2">
+              <Mail className="w-4 h-4" />
+              <span>Kontakt aufnehmen</span>
+            </Link>
+            <Link to="/products" className="btn-secondary inline-flex items-center justify-center gap-2">
+              <Rocket className="w-4 h-4" />
+              <span>Alle Produkte ansehen</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 };
