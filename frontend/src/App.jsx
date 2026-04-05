@@ -61,6 +61,19 @@ import SiteControlQuickstart from './pages/tutorials/SiteControlQuickstart';
 import SiteControlTracking from './pages/tutorials/SiteControlTracking';
 import SiteControlApi from './pages/tutorials/SiteControlApi';
 
+// RateLimit API Tutorials
+import RateLimitQuickstart from './pages/tutorials/RateLimitQuickstart';
+import RateLimitExpress from './pages/tutorials/RateLimitExpress';
+import RateLimitBlacklist from './pages/tutorials/RateLimitBlacklist';
+import RateLimitAnalytics from './pages/tutorials/RateLimitAnalytics';
+import RateLimitApi from './pages/tutorials/RateLimitApi';
+
+// FrameTrain Tutorials
+import FrameTrainQuickstart from './pages/tutorials/FrameTrainQuickstart';
+import FrameTrainLoRA from './pages/tutorials/FrameTrainLoRA';
+import FrameTrainDataset from './pages/tutorials/FrameTrainDataset';
+import FrameTrainExport from './pages/tutorials/FrameTrainExport';
+
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return (
@@ -163,6 +176,19 @@ function App() {
             <Route path="/developers/tutorials/sitecontrol-quickstart" element={<SiteControlQuickstart />} />
             <Route path="/developers/tutorials/sitecontrol-tracking" element={<SiteControlTracking />} />
             <Route path="/developers/tutorials/sitecontrol-api" element={<SiteControlApi />} />
+
+            {/* RateLimit API Tutorials */}
+            <Route path="/developers/tutorials/ratelimit-quickstart" element={<RateLimitQuickstart />} />
+            <Route path="/developers/tutorials/ratelimit-express" element={<RateLimitExpress />} />
+            <Route path="/developers/tutorials/ratelimit-blacklist" element={<RateLimitBlacklist />} />
+            <Route path="/developers/tutorials/ratelimit-analytics" element={<RateLimitAnalytics />} />
+            <Route path="/developers/tutorials/ratelimit-api" element={<RateLimitApi />} />
+
+            {/* FrameTrain Tutorials */}
+            <Route path="/developers/tutorials/frametrain-quickstart" element={<FrameTrainQuickstart />} />
+            <Route path="/developers/tutorials/frametrain-lora" element={<FrameTrainLoRA />} />
+            <Route path="/developers/tutorials/frametrain-dataset" element={<FrameTrainDataset />} />
+            <Route path="/developers/tutorials/frametrain-export" element={<FrameTrainExport />} />
 
             {/* Legal */}
             <Route path="/legal/imprint" element={<PlaceholderPage title="Impressum" />} />
