@@ -46,6 +46,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  /** Called by OAuthCallback after redirect */
+  const loginWithToken = (token, userData) => {
+    localStorage.setItem('token', token);
+    setUser(userData);
+  };
+
   const register = async (userData) => {
     try {
       const response = await api.post('/auth/register', userData);
@@ -64,7 +70,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, loginWithToken, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

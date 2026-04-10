@@ -7,6 +7,7 @@ import rateLimit from 'express-rate-limit';
 
 // Import routes
 import authRoutes from './routes/auth.js';
+import oauthRoutes from './routes/oauth.js';
 import dashboardRoutes from './routes/dashboard.js';
 import apiKeysRoutes from './routes/apiKeys.js';
 import servicesRoutes from './routes/services.js';
@@ -38,30 +39,21 @@ console.log('🔒 CORS Allowed Origins:', allowedOrigins);
 
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps, curl, Postman)
     if (!origin) return callback(null, true);
-    
-    // Check if origin is allowed
     if (allowedOrigins.length === 0) {
-      // If no origins configured, allow all (useful for initial setup)
       console.warn('⚠️  No CORS origins configured - allowing all origins');
       return callback(null, true);
     }
-    
-    // Check exact match or wildcard match for Vercel preview deployments
     const isAllowed = allowedOrigins.some(allowedOrigin => {
       if (allowedOrigin === origin) return true;
-      // Allow all vercel.app subdomains if main domain is allowed
       if (allowedOrigin.includes('vercel.app') && origin.includes('vercel.app')) return true;
       return false;
     });
-    
     if (isAllowed) {
       callback(null, true);
     } else {
       console.warn('❌ CORS blocked origin:', origin);
-      console.warn('   Allowed origins:', allowedOrigins);
-      callback(null, true); // Still allow it but log warning for debugging
+      callback(null, true);
     }
   },
   credentials: true,
@@ -70,7 +62,6 @@ app.use(cors({
   exposedHeaders: ['Content-Range', 'X-Content-Range']
 }));
 
-// Handle OPTIONS preflight requests explicitly
 app.options('*', cors());
 
 // Body parser middleware
@@ -86,7 +77,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
   max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
   message: 'Too many requests from this IP, please try again later.',
   standardHeaders: true,
@@ -107,6 +98,7 @@ app.get('/health', (req, res) => {
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/auth', oauthRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/api-keys', apiKeysRoutes);
 app.use('/api/services', servicesRoutes);
@@ -118,7 +110,6 @@ app.get('/', (req, res) => {
     success: true,
     message: 'FrameSphere API',
     version: '1.0.0',
-    documentation: '/api/docs',
     endpoints: {
       health: '/health',
       auth: '/api/auth',
@@ -146,14 +137,11 @@ app.listen(PORT, () => {
   console.log('================================\n');
 });
 
-// Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
   console.error('❌ Unhandled Promise Rejection:', err);
-  // Close server & exit process
   process.exit(1);
 });
 
-// Handle SIGTERM
 process.on('SIGTERM', () => {
   console.log('👋 SIGTERM received. Shutting down gracefully...');
   process.exit(0);
