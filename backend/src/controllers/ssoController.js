@@ -21,6 +21,15 @@ const CLIENTS = {
       'http://localhost:3000/auth/callback',
     ],
   },
+  'keyword-engine': {
+    name: 'KeyScope',
+    secret: process.env.SSO_KEYWORDENGINE_SECRET,
+    allowedRedirectUris: [
+      'https://keyscope.pages.dev/auth/callback',
+      'http://localhost:5173/auth/callback',
+      'http://localhost:3000/auth/callback',
+    ],
+  },
 };
 
 const getClient = (clientId) => {

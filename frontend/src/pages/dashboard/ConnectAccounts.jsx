@@ -6,11 +6,11 @@ import api from '../../utils/api';
 const RATELIMIT_WORKER_URL = 'https://ratelimit-api.karol-paschek.workers.dev';
 
 const products = [
-  { id: 'framespell',    name: 'FrameSpell API',  description: 'KI-Rechtschreibprüfung',      icon: <Sparkles className="w-7 h-7" />, color: 'from-blue-500 to-cyan-500',    status: 'Live',  connectMode: 'apikey', docsUrl: 'https://framespell.pages.dev/' },
+  { id: 'framespell',    name: 'FrameSpell API',  description: 'KI-Rechtschreibprüfung',       icon: <Sparkles className="w-7 h-7" />, color: 'from-blue-500 to-cyan-500',    status: 'Live',  connectMode: 'apikey', docsUrl: 'https://framespell.pages.dev/' },
   { id: 'ratelimit-api', name: 'RateLimit API',   description: 'API-Anfragen limitieren',      icon: <Shield className="w-7 h-7" />,   color: 'from-green-500 to-emerald-500',status: 'Live',  connectMode: 'sso',    ssoUrl: `${RATELIMIT_WORKER_URL}/auth/oauth/framesphere` },
-  { id: 'frametrain',   name: 'FrameTrain',       description: 'KI-Modelle lokal trainieren',  icon: <Brain className="w-7 h-7" />,    color: 'from-violet-500 to-pink-500',  status: 'Live',  connectMode: 'sso',    ssoUrl: 'https://frame-train.vercel.app/api/auth/framesphere' },
-  { id: 'corechain-api',name: 'CoreChain API',    description: 'KI-Orchestrierung',            icon: <Code className="w-7 h-7" />,     color: 'from-cyan-500 to-blue-500',    status: 'Bald',  connectMode: 'apikey', docsUrl: '/products/corechain-api' },
-  { id: 'keyword-engine',name: 'Keyword Engine',  description: 'SEO Keyword-Analyse',          icon: <Search className="w-7 h-7" />,   color: 'from-yellow-500 to-orange-500',status: 'Bald',  connectMode: 'apikey', docsUrl: '/products/keyword-engine' },
+  { id: 'frametrain',    name: 'FrameTrain',       description: 'KI-Modelle lokal trainieren',  icon: <Brain className="w-7 h-7" />,    color: 'from-violet-500 to-pink-500',  status: 'Live',  connectMode: 'sso',    ssoUrl: 'https://frame-train.vercel.app/api/auth/framesphere' },
+  { id: 'corechain-api', name: 'CoreChain API',    description: 'KI-Orchestrierung',            icon: <Code className="w-7 h-7" />,     color: 'from-cyan-500 to-blue-500',    status: 'Bald',  connectMode: 'apikey', docsUrl: '/products/corechain-api' },
+  { id: 'keyword-engine', name: 'KeyScope',       description: 'SEO Keyword-Analyse',          icon: <Search className="w-7 h-7" />,   color: 'from-blue-500 to-violet-500',  status: 'Live',  connectMode: 'sso',    ssoUrl: 'https://keyscope-worker.karol-paschek.workers.dev/auth/framesphere' },
   { id: 'website-manager',name: 'Website Manager',description: 'Webseiten verwalten',          icon: <Globe className="w-7 h-7" />,    color: 'from-orange-500 to-red-500',   status: 'Bald',  connectMode: 'apikey', docsUrl: '/products/website-manager' },
 ];
 

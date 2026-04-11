@@ -37,6 +37,7 @@ const allowedOrigins = [
   'http://localhost:5001',
   // FrameTrain (product that uses SSO)
   'https://frame-train.vercel.app',
+  'https://keyscope.pages.dev',
 ].filter(Boolean);
 
 console.log('🔒 CORS Allowed Origins:', allowedOrigins);
