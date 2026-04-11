@@ -3,9 +3,11 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Sparkles, Brain, Shield, Code, Search, Globe, ArrowRight, CheckCircle, AlertCircle, Loader, Link2, Key, ChevronRight, Info, ExternalLink, X, Zap } from 'lucide-react';
 import api from '../../utils/api';
 
+const RATELIMIT_WORKER_URL = 'https://ratelimit-api.karol-paschek.workers.dev';
+
 const products = [
   { id: 'framespell',    name: 'FrameSpell API',  description: 'KI-Rechtschreibprüfung',      icon: <Sparkles className="w-7 h-7" />, color: 'from-blue-500 to-cyan-500',    status: 'Live',  connectMode: 'apikey', docsUrl: 'https://framespell.pages.dev/' },
-  { id: 'ratelimit-api', name: 'RateLimit API',   description: 'API-Anfragen limitieren',      icon: <Shield className="w-7 h-7" />,   color: 'from-green-500 to-emerald-500',status: 'Live',  connectMode: 'apikey', docsUrl: 'https://ratelimit-api.pages.dev/' },
+  { id: 'ratelimit-api', name: 'RateLimit API',   description: 'API-Anfragen limitieren',      icon: <Shield className="w-7 h-7" />,   color: 'from-green-500 to-emerald-500',status: 'Live',  connectMode: 'sso',    ssoUrl: `${RATELIMIT_WORKER_URL}/auth/oauth/framesphere` },
   { id: 'frametrain',   name: 'FrameTrain',       description: 'KI-Modelle lokal trainieren',  icon: <Brain className="w-7 h-7" />,    color: 'from-violet-500 to-pink-500',  status: 'Live',  connectMode: 'sso',    ssoUrl: 'https://frame-train.vercel.app/api/auth/framesphere' },
   { id: 'corechain-api',name: 'CoreChain API',    description: 'KI-Orchestrierung',            icon: <Code className="w-7 h-7" />,     color: 'from-cyan-500 to-blue-500',    status: 'Bald',  connectMode: 'apikey', docsUrl: '/products/corechain-api' },
   { id: 'keyword-engine',name: 'Keyword Engine',  description: 'SEO Keyword-Analyse',          icon: <Search className="w-7 h-7" />,   color: 'from-yellow-500 to-orange-500',status: 'Bald',  connectMode: 'apikey', docsUrl: '/products/keyword-engine' },
@@ -16,7 +18,7 @@ const ConnectAccounts = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [step, setStep] = useState(1); // 1 = Produktwahl, 2 = API-Key-Formular
+  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [connectedAccounts, setConnectedAccounts] = useState([]);
   const [ssoConnections, setSsoConnections] = useState([]);
@@ -50,7 +52,6 @@ const ConnectAccounts = () => {
     if (isConnected(product.id))   { setError(`${product.name} ist bereits verbunden.`); return; }
 
     if (product.connectMode === 'sso') {
-      // Direkt zum SSO-Endpoint des Produkts weiterleiten — kein Modal, kein Tab
       window.location.href = product.ssoUrl;
       return;
     }
@@ -68,19 +69,15 @@ const ConnectAccounts = () => {
       if (!connectionForm.accountName.trim()) { setError('Bitte gib einen Account-Namen ein'); setLoading(false); return; }
       if (!connectionForm.apiKey.trim())      { setError('Bitte gib einen API Key ein'); setLoading(false); return; }
       await api.post('/connected-accounts', {
-        productId:   selectedProduct.id,
-        productName: selectedProduct.name,
-        apiKey:      connectionForm.apiKey,
-        accountName: connectionForm.accountName,
+        productId: selectedProduct.id, productName: selectedProduct.name,
+        apiKey: connectionForm.apiKey, accountName: connectionForm.accountName,
       });
       setSuccess(`${selectedProduct.name} erfolgreich verbunden!`);
       await fetchConnectedAccounts();
       setTimeout(() => { setSuccess(''); setStep(1); setSelectedProduct(null); }, 2000);
     } catch (err) {
       setError(err.response?.data?.message || 'Fehler beim Verbinden. Bitte überprüfe deine Zugangsdaten.');
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
   };
 
   const getStatusStyle = (status) => status === 'Live'
@@ -91,7 +88,6 @@ const ConnectAccounts = () => {
     <div className="min-h-screen pt-20 px-4 pb-20">
       <div className="max-w-6xl mx-auto">
 
-        {/* Breadcrumb */}
         <div className="flex items-center space-x-2 mb-6 text-sm">
           <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">Dashboard</Link>
           <ChevronRight className="w-4 h-4 text-gray-600" />
@@ -103,13 +99,10 @@ const ConnectAccounts = () => {
             {step === 1 ? 'Account verbinden' : `${selectedProduct?.name} verbinden`}
           </h1>
           <p className="text-gray-400">
-            {step === 1
-              ? 'Wähle ein Produkt aus und verbinde deinen Account für zentrale Verwaltung.'
-              : 'Gib deinen API Key ein, um die Verbindung herzustellen.'}
+            {step === 1 ? 'Wähle ein Produkt aus und verbinde deinen Account für zentrale Verwaltung.' : 'Gib deinen API Key ein, um die Verbindung herzustellen.'}
           </p>
         </div>
 
-        {/* Info Banner */}
         <div className="card bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30 mb-6">
           <div className="flex items-start space-x-3">
             <Info className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
@@ -127,7 +120,6 @@ const ConnectAccounts = () => {
           </div>
         </div>
 
-        {/* Messages */}
         {error && (
           <div className="card bg-red-500/10 border-red-500/30 mb-5 flex items-start justify-between space-x-3">
             <div className="flex items-start space-x-3">
@@ -144,7 +136,6 @@ const ConnectAccounts = () => {
           </div>
         )}
 
-        {/* ── Step 1: Produktkacheln ── */}
         {step === 1 && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {products.map((product) => {
@@ -152,13 +143,8 @@ const ConnectAccounts = () => {
               const disabled  = product.status === 'Bald';
               const isSSO     = product.connectMode === 'sso';
               return (
-                <button
-                  key={product.id}
-                  onClick={() => handleProductSelect(product)}
-                  className={`card text-left transition-all duration-300 ${
-                    connected || disabled ? 'opacity-60 cursor-not-allowed' : 'hover:scale-[1.03] cursor-pointer'
-                  }`}
-                >
+                <button key={product.id} onClick={() => handleProductSelect(product)}
+                  className={`card text-left transition-all duration-300 ${connected || disabled ? 'opacity-60 cursor-not-allowed' : 'hover:scale-[1.03] cursor-pointer'}`}>
                   <div className="flex items-start justify-between mb-3">
                     <div className={`w-14 h-14 bg-gradient-to-br ${product.color} rounded-xl flex items-center justify-center text-white`}>
                       {product.icon}
@@ -172,24 +158,14 @@ const ConnectAccounts = () => {
                   </div>
                   <h3 className="text-lg font-bold text-white mb-1">{product.name}</h3>
                   <p className="text-gray-400 text-sm mb-4">{product.description}</p>
-
                   {connected ? (
-                    <div className="flex items-center text-green-400 text-sm">
-                      <CheckCircle className="w-4 h-4 mr-2" /><span>Verbunden</span>
-                    </div>
+                    <div className="flex items-center text-green-400 text-sm"><CheckCircle className="w-4 h-4 mr-2" /><span>Verbunden</span></div>
                   ) : disabled ? (
                     <span className="text-gray-500 text-sm">Noch nicht verfügbar</span>
                   ) : isSSO ? (
-                    <div className="flex items-center text-violet-400 text-sm">
-                      <Zap className="w-4 h-4 mr-2" />
-                      <span>Mit FrameSphere SSO verbinden</span>
-                      <ArrowRight className="w-4 h-4 ml-auto" />
-                    </div>
+                    <div className="flex items-center text-violet-400 text-sm"><Zap className="w-4 h-4 mr-2" /><span>Mit FrameSphere SSO verbinden</span><ArrowRight className="w-4 h-4 ml-auto" /></div>
                   ) : (
-                    <div className="flex items-center text-primary-400 text-sm">
-                      <Link2 className="w-4 h-4 mr-2" /><span>Verbinden</span>
-                      <ArrowRight className="w-4 h-4 ml-auto" />
-                    </div>
+                    <div className="flex items-center text-primary-400 text-sm"><Link2 className="w-4 h-4 mr-2" /><span>Verbinden</span><ArrowRight className="w-4 h-4 ml-auto" /></div>
                   )}
                 </button>
               );
@@ -197,7 +173,6 @@ const ConnectAccounts = () => {
           </div>
         )}
 
-        {/* ── Step 2: API-Key Formular (nur für nicht-SSO Produkte) ── */}
         {step === 2 && selectedProduct && (
           <div className="max-w-xl mx-auto">
             <div className="card">
@@ -255,16 +230,13 @@ const ConnectAccounts = () => {
                   </button>
                   <button type="submit" disabled={loading}
                     className="flex-1 btn-primary inline-flex items-center justify-center space-x-2 text-sm disabled:opacity-50">
-                    {loading
-                      ? <><Loader className="w-4 h-4 animate-spin" /><span>Verbinde...</span></>
-                      : <><Link2 className="w-4 h-4" /><span>Verbinden</span></>}
+                    {loading ? <><Loader className="w-4 h-4 animate-spin" /><span>Verbinde...</span></> : <><Link2 className="w-4 h-4" /><span>Verbinden</span></>}
                   </button>
                 </div>
               </form>
             </div>
           </div>
         )}
-
       </div>
     </div>
   );
