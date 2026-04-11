@@ -19,6 +19,10 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Billing from './pages/Billing';
 
+// Legal Pages
+import Privacy from './pages/legal/Privacy';
+import Terms from './pages/legal/Terms';
+
 // API Produkte
 import FrameSpell from './pages/FrameSpell';
 import RateLimitAPI from './pages/RateLimitAPI';
@@ -193,9 +197,9 @@ function App() {
             <Route path="/developers/tutorials/frametrain-export" element={<FrameTrainExport />} />
 
             {/* Legal */}
+            <Route path="/legal/privacy" element={<Privacy />} />
+            <Route path="/legal/terms" element={<Terms />} />
             <Route path="/legal/imprint" element={<PlaceholderPage title="Impressum" />} />
-            <Route path="/legal/privacy" element={<PlaceholderPage title="Datenschutz" />} />
-            <Route path="/legal/terms" element={<PlaceholderPage title="AGB" />} />
             <Route path="/legal/cookies" element={<PlaceholderPage title="Cookies" />} />
             <Route path="/blog" element={<PlaceholderPage title="Blog" />} />
 
