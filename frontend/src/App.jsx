@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import OAuthCallback from './pages/OAuthCallback';
+import SSOAuthorize from './pages/SSOAuthorize';
 import Dashboard from './pages/Dashboard';
 import ConnectAccounts from './pages/dashboard/ConnectAccounts';
 import ManageAccounts from './pages/dashboard/ManageAccounts';
@@ -127,6 +128,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/auth/callback" element={<OAuthCallback />} />
+
+            {/* FrameSphere SSO – für andere Produkte (FrameTrain etc.) */}
+            <Route path="/sso/authorize" element={<SSOAuthorize />} />
 
             {/* Protected */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

@@ -8,6 +8,7 @@ import rateLimit from 'express-rate-limit';
 // Import routes
 import authRoutes from './routes/auth.js';
 import oauthRoutes from './routes/oauth.js';
+import ssoRoutes from './routes/sso.js';
 import dashboardRoutes from './routes/dashboard.js';
 import apiKeysRoutes from './routes/apiKeys.js';
 import servicesRoutes from './routes/services.js';
@@ -26,13 +27,16 @@ const PORT = process.env.PORT || 5000;
 // Security middleware
 app.use(helmet());
 
-// CORS configuration - More permissive for Vercel deployment
+// CORS configuration
 const allowedOrigins = [
   process.env.CORS_ORIGIN,
   process.env.FRONTEND_URL,
   'http://localhost:3000',
   'http://localhost:5173',
-  'http://localhost:3001'
+  'http://localhost:3001',
+  'http://localhost:5001',
+  // FrameTrain (product that uses SSO)
+  'https://frame-train.vercel.app',
 ].filter(Boolean);
 
 console.log('🔒 CORS Allowed Origins:', allowedOrigins);
@@ -99,6 +103,7 @@ app.get('/health', (req, res) => {
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/auth', oauthRoutes);
+app.use('/api/sso', ssoRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/api-keys', apiKeysRoutes);
 app.use('/api/services', servicesRoutes);
@@ -113,6 +118,7 @@ app.get('/', (req, res) => {
     endpoints: {
       health: '/health',
       auth: '/api/auth',
+      sso: '/api/sso',
       dashboard: '/api/dashboard',
       apiKeys: '/api/api-keys',
       services: '/api/services'
