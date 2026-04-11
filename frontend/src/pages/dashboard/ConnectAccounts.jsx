@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Sparkles, Brain, Shield, Code, Network, Search, Globe, ArrowRight, CheckCircle, AlertCircle, Loader, Link2, Key, ChevronRight, Info, ExternalLink, X } from 'lucide-react';
+import { Sparkles, Brain, Shield, Code, Search, Globe, ArrowRight, CheckCircle, AlertCircle, Loader, Link2, Key, ChevronRight, Info, ExternalLink, X, Zap } from 'lucide-react';
 import api from '../../utils/api';
 
-const FRAMETRAIN_URL = 'https://frame-train.vercel.app';
-
 const products = [
-  { id: 'framespell', name: 'FrameSpell API', description: 'KI-Rechtschreibprüfung', icon: <Sparkles className="w-7 h-7" />, color: 'from-blue-500 to-cyan-500', status: 'Live', connectMode: 'apikey', docsUrl: 'https://framespell.pages.dev/' },
-  { id: 'ratelimit-api', name: 'RateLimit API', description: 'API-Anfragen limitieren', icon: <Shield className="w-7 h-7" />, color: 'from-green-500 to-emerald-500', status: 'Live', connectMode: 'apikey', docsUrl: 'https://ratelimit-api.pages.dev/' },
-  { id: 'frametrain', name: 'FrameTrain', description: 'KI-Modelle lokal trainieren', icon: <Brain className="w-7 h-7" />, color: 'from-violet-500 to-pink-500', status: 'Live', connectMode: 'sso', docsUrl: FRAMETRAIN_URL },
-  { id: 'corechain-api', name: 'CoreChain API', description: 'KI-Orchestrierung', icon: <Code className="w-7 h-7" />, color: 'from-cyan-500 to-blue-500', status: 'Bald', connectMode: 'apikey', docsUrl: '/products/corechain-api' },
-  { id: 'keyword-engine', name: 'Keyword Engine', description: 'SEO Keyword-Analyse', icon: <Search className="w-7 h-7" />, color: 'from-yellow-500 to-orange-500', status: 'Bald', connectMode: 'apikey', docsUrl: '/products/keyword-engine' },
-  { id: 'website-manager', name: 'Website Manager', description: 'Webseiten verwalten', icon: <Globe className="w-7 h-7" />, color: 'from-orange-500 to-red-500', status: 'Bald', connectMode: 'apikey', docsUrl: '/products/website-manager' },
+  { id: 'framespell',    name: 'FrameSpell API',  description: 'KI-Rechtschreibprüfung',      icon: <Sparkles className="w-7 h-7" />, color: 'from-blue-500 to-cyan-500',    status: 'Live',  connectMode: 'apikey', docsUrl: 'https://framespell.pages.dev/' },
+  { id: 'ratelimit-api', name: 'RateLimit API',   description: 'API-Anfragen limitieren',      icon: <Shield className="w-7 h-7" />,   color: 'from-green-500 to-emerald-500',status: 'Live',  connectMode: 'apikey', docsUrl: 'https://ratelimit-api.pages.dev/' },
+  { id: 'frametrain',   name: 'FrameTrain',       description: 'KI-Modelle lokal trainieren',  icon: <Brain className="w-7 h-7" />,    color: 'from-violet-500 to-pink-500',  status: 'Live',  connectMode: 'sso',    ssoUrl: 'https://frame-train.vercel.app/api/auth/framesphere' },
+  { id: 'corechain-api',name: 'CoreChain API',    description: 'KI-Orchestrierung',            icon: <Code className="w-7 h-7" />,     color: 'from-cyan-500 to-blue-500',    status: 'Bald',  connectMode: 'apikey', docsUrl: '/products/corechain-api' },
+  { id: 'keyword-engine',name: 'Keyword Engine',  description: 'SEO Keyword-Analyse',          icon: <Search className="w-7 h-7" />,   color: 'from-yellow-500 to-orange-500',status: 'Bald',  connectMode: 'apikey', docsUrl: '/products/keyword-engine' },
+  { id: 'website-manager',name: 'Website Manager',description: 'Webseiten verwalten',          icon: <Globe className="w-7 h-7" />,    color: 'from-orange-500 to-red-500',   status: 'Bald',  connectMode: 'apikey', docsUrl: '/products/website-manager' },
 ];
 
 const ConnectAccounts = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(1); // 1 = Produktwahl, 2 = API-Key-Formular
   const [loading, setLoading] = useState(false);
   const [connectedAccounts, setConnectedAccounts] = useState([]);
   const [ssoConnections, setSsoConnections] = useState([]);
@@ -29,60 +27,37 @@ const ConnectAccounts = () => {
   useEffect(() => {
     fetchConnectedAccounts();
     fetchSsoConnections();
-
-    // Handle SSO success/error callbacks (e.g. returned from FrameTrain)
-    const ssoSuccess = searchParams.get('sso_success');
-    const ssoError = searchParams.get('sso_error');
-    if (ssoSuccess) setSuccess(`${decodeURIComponent(ssoSuccess)} wurde erfolgreich verbunden!`);
-    if (ssoError) setError(`Verbindung fehlgeschlagen: ${decodeURIComponent(ssoError)}`);
+    const ssoErr = searchParams.get('sso_error');
+    if (ssoErr) setError(`Verbindung fehlgeschlagen: ${decodeURIComponent(ssoErr)}`);
   }, []);
 
   const fetchConnectedAccounts = async () => {
-    try {
-      const response = await api.get('/connected-accounts');
-      setConnectedAccounts(response.data || []);
-    } catch {}
+    try { const r = await api.get('/connected-accounts'); setConnectedAccounts(r.data || []); } catch {}
   };
-
   const fetchSsoConnections = async () => {
-    try {
-      const response = await api.get('/sso/connections');
-      setSsoConnections(response.data?.connections || []);
-    } catch {}
+    try { const r = await api.get('/sso/connections'); setSsoConnections(r.data?.connections || []); } catch {}
   };
 
   const isConnected = (productId) => {
-    const apiKeyConnected = connectedAccounts.some(acc => acc.service_name === productId && acc.status === 'active');
-    const ssoConnected = ssoConnections.some(conn => conn.product === productId);
-    return apiKeyConnected || ssoConnected;
+    const viaApiKey = connectedAccounts.some(a => a.service_name === productId && a.status === 'active');
+    const viaSSO    = ssoConnections.some(c => c.product === productId);
+    return viaApiKey || viaSSO;
   };
 
   const handleProductSelect = (product) => {
     setError('');
-    if (product.status === 'Bald') {
-      setError(`${product.name} ist noch nicht verfügbar.`);
-      return;
-    }
-    if (isConnected(product.id)) {
-      setError(`${product.name} ist bereits verbunden.`);
-      return;
-    }
+    if (product.status === 'Bald') { setError(`${product.name} ist noch nicht verfügbar.`); return; }
+    if (isConnected(product.id))   { setError(`${product.name} ist bereits verbunden.`); return; }
+
     if (product.connectMode === 'sso') {
-      setSelectedProduct(product);
-      setStep('sso');
+      // Direkt zum SSO-Endpoint des Produkts weiterleiten — kein Modal, kein Tab
+      window.location.href = product.ssoUrl;
       return;
     }
+
     setSelectedProduct(product);
     setStep(2);
     setConnectionForm({ apiKey: '', accountName: `Mein ${product.name} Account` });
-  };
-
-  // SSO: redirect user to FrameTrain login which will SSO back to FrameSphere
-  const handleSSOConnect = (product) => {
-    // FrameTrain's login page – clicking "Mit FrameSphere anmelden" will trigger SSO
-    window.open(`${FRAMETRAIN_URL}/login`, '_blank', 'noopener,noreferrer');
-    setSuccess('FrameTrain wurde in einem neuen Tab geöffnet. Melde dich dort mit "Mit FrameSphere anmelden" an.');
-    setStep(1);
   };
 
   const handleConnect = async (e) => {
@@ -91,16 +66,16 @@ const ConnectAccounts = () => {
     setError('');
     try {
       if (!connectionForm.accountName.trim()) { setError('Bitte gib einen Account-Namen ein'); setLoading(false); return; }
-      if (!connectionForm.apiKey.trim()) { setError('Bitte gib einen API Key ein'); setLoading(false); return; }
+      if (!connectionForm.apiKey.trim())      { setError('Bitte gib einen API Key ein'); setLoading(false); return; }
       await api.post('/connected-accounts', {
-        productId: selectedProduct.id,
+        productId:   selectedProduct.id,
         productName: selectedProduct.name,
-        apiKey: connectionForm.apiKey,
+        apiKey:      connectionForm.apiKey,
         accountName: connectionForm.accountName,
       });
       setSuccess(`${selectedProduct.name} erfolgreich verbunden!`);
       await fetchConnectedAccounts();
-      setTimeout(() => { setSuccess(''); setStep(1); }, 2000);
+      setTimeout(() => { setSuccess(''); setStep(1); setSelectedProduct(null); }, 2000);
     } catch (err) {
       setError(err.response?.data?.message || 'Fehler beim Verbinden. Bitte überprüfe deine Zugangsdaten.');
     } finally {
@@ -120,15 +95,17 @@ const ConnectAccounts = () => {
         <div className="flex items-center space-x-2 mb-6 text-sm">
           <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">Dashboard</Link>
           <ChevronRight className="w-4 h-4 text-gray-600" />
-          <span className="text-white">Account verbinden</span>
+          <span className="text-white">{step === 1 ? 'Account verbinden' : `${selectedProduct?.name} verbinden`}</span>
         </div>
 
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">
-            {step === 1 ? 'Account verbinden' : step === 'sso' ? `${selectedProduct?.name} verbinden` : `${selectedProduct?.name} verbinden`}
+            {step === 1 ? 'Account verbinden' : `${selectedProduct?.name} verbinden`}
           </h1>
           <p className="text-gray-400">
-            {step === 1 ? 'Wähle ein Produkt aus und verbinde deinen Account für zentrale Verwaltung.' : 'Stelle die Verbindung zu deinem Account her.'}
+            {step === 1
+              ? 'Wähle ein Produkt aus und verbinde deinen Account für zentrale Verwaltung.'
+              : 'Gib deinen API Key ein, um die Verbindung herzustellen.'}
           </p>
         </div>
 
@@ -138,11 +115,9 @@ const ConnectAccounts = () => {
             <Info className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
             <div>
               <h3 className="text-white font-semibold mb-1">Warum verbinden?</h3>
-              <p className="text-gray-400 text-sm">
-                Verbinde deine Produkt-Accounts einmalig und verwalte API Keys, Statistiken und Einstellungen zentral über das Dashboard.
-              </p>
+              <p className="text-gray-400 text-sm">Verbinde deine Produkt-Accounts einmalig und verwalte alles zentral über FrameSphere.</p>
               <div className="flex flex-wrap gap-3 mt-2">
-                {['Zentrale Verwaltung', 'Einmaliges Login (SSO)', 'Nutzungsstatistiken', 'Verschlüsselt gespeichert'].map((item) => (
+                {['Zentrale Verwaltung', 'Einmaliges Login (SSO)', 'Nutzungsstatistiken', 'Verschlüsselt gespeichert'].map(item => (
                   <span key={item} className="flex items-center text-xs text-green-400">
                     <CheckCircle className="w-3.5 h-3.5 mr-1" />{item}
                   </span>
@@ -169,16 +144,21 @@ const ConnectAccounts = () => {
           </div>
         )}
 
-        {/* Step 1: Produkt wählen */}
+        {/* ── Step 1: Produktkacheln ── */}
         {step === 1 && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {products.map((product) => {
               const connected = isConnected(product.id);
-              const disabled = product.status === 'Bald';
-              const isSSO = product.connectMode === 'sso';
+              const disabled  = product.status === 'Bald';
+              const isSSO     = product.connectMode === 'sso';
               return (
-                <button key={product.id} onClick={() => handleProductSelect(product)}
-                  className={`card text-left transition-all duration-300 ${connected || disabled ? 'opacity-60 cursor-not-allowed' : 'hover:scale-[1.03] cursor-pointer'}`}>
+                <button
+                  key={product.id}
+                  onClick={() => handleProductSelect(product)}
+                  className={`card text-left transition-all duration-300 ${
+                    connected || disabled ? 'opacity-60 cursor-not-allowed' : 'hover:scale-[1.03] cursor-pointer'
+                  }`}
+                >
                   <div className="flex items-start justify-between mb-3">
                     <div className={`w-14 h-14 bg-gradient-to-br ${product.color} rounded-xl flex items-center justify-center text-white`}>
                       {product.icon}
@@ -192,6 +172,7 @@ const ConnectAccounts = () => {
                   </div>
                   <h3 className="text-lg font-bold text-white mb-1">{product.name}</h3>
                   <p className="text-gray-400 text-sm mb-4">{product.description}</p>
+
                   {connected ? (
                     <div className="flex items-center text-green-400 text-sm">
                       <CheckCircle className="w-4 h-4 mr-2" /><span>Verbunden</span>
@@ -200,7 +181,8 @@ const ConnectAccounts = () => {
                     <span className="text-gray-500 text-sm">Noch nicht verfügbar</span>
                   ) : isSSO ? (
                     <div className="flex items-center text-violet-400 text-sm">
-                      <Link2 className="w-4 h-4 mr-2" /><span>Mit FrameSphere SSO verbinden</span>
+                      <Zap className="w-4 h-4 mr-2" />
+                      <span>Mit FrameSphere SSO verbinden</span>
                       <ArrowRight className="w-4 h-4 ml-auto" />
                     </div>
                   ) : (
@@ -215,49 +197,7 @@ const ConnectAccounts = () => {
           </div>
         )}
 
-        {/* SSO Connect Modal */}
-        {step === 'sso' && selectedProduct && (
-          <div className="max-w-xl mx-auto">
-            <div className="card border-violet-500/20">
-              <div className="flex items-center space-x-4 mb-6 pb-6 border-b border-white/10">
-                <div className={`w-14 h-14 bg-gradient-to-br ${selectedProduct.color} rounded-xl flex items-center justify-center text-white flex-shrink-0`}>
-                  {selectedProduct.icon}
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white">{selectedProduct.name}</h3>
-                  <p className="text-gray-400 text-sm">SSO-Verbindung über FrameSphere</p>
-                </div>
-                <button onClick={() => { setStep(1); setError(''); }} className="text-gray-400 hover:text-white text-sm transition-colors">← Zurück</button>
-              </div>
-
-              <div className="mb-6 p-4 rounded-lg bg-violet-500/5 border border-violet-500/20">
-                <h4 className="text-white font-semibold text-sm mb-3 flex items-center gap-2">
-                  <span className="w-5 h-5 rounded bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-[10px] font-black text-white">FS</span>
-                  So funktioniert die SSO-Verbindung
-                </h4>
-                <ol className="space-y-2 text-sm text-gray-400">
-                  <li className="flex gap-2"><span className="text-violet-400 font-bold">1.</span> FrameTrain wird in einem neuen Tab geöffnet</li>
-                  <li className="flex gap-2"><span className="text-violet-400 font-bold">2.</span> Klicke dort auf <span className="text-white">"Mit FrameSphere anmelden"</span></li>
-                  <li className="flex gap-2"><span className="text-violet-400 font-bold">3.</span> Du wirst zurück zu FrameSphere weitergeleitet</li>
-                  <li className="flex gap-2"><span className="text-violet-400 font-bold">4.</span> Bestätige den Zugriff – fertig!</li>
-                </ol>
-                <p className="text-xs text-gray-600 mt-3">
-                  Du musst nur bei FrameSphere eingeloggt sein. Die Verbindung wird automatisch gespeichert.
-                </p>
-              </div>
-
-              <button
-                onClick={() => handleSSOConnect(selectedProduct)}
-                className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold transition-all shadow-lg shadow-violet-500/20"
-              >
-                <ExternalLink className="w-4 h-4" />
-                FrameTrain öffnen & verbinden
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Step 2: API Key Formular (für nicht-SSO Produkte) */}
+        {/* ── Step 2: API-Key Formular (nur für nicht-SSO Produkte) ── */}
         {step === 2 && selectedProduct && (
           <div className="max-w-xl mx-auto">
             <div className="card">
@@ -294,16 +234,16 @@ const ConnectAccounts = () => {
                 <div>
                   <label className="block text-sm font-semibold text-white mb-2">Account-Name</label>
                   <input type="text" value={connectionForm.accountName}
-                    onChange={(e) => setConnectionForm({ ...connectionForm, accountName: e.target.value })}
+                    onChange={e => setConnectionForm({ ...connectionForm, accountName: e.target.value })}
                     className="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors"
-                    placeholder="z.B. Mein FrameSpell Account" required />
+                    placeholder={`z.B. Mein ${selectedProduct.name} Account`} required />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-white mb-2 flex items-center">
                     <Key className="w-4 h-4 mr-2 text-primary-400" />API Key
                   </label>
                   <input type="password" value={connectionForm.apiKey}
-                    onChange={(e) => setConnectionForm({ ...connectionForm, apiKey: e.target.value })}
+                    onChange={e => setConnectionForm({ ...connectionForm, apiKey: e.target.value })}
                     className="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors font-mono"
                     placeholder="sk_••••••••••••••••" required />
                   <p className="text-xs text-gray-500 mt-1">Dein API Key wird verschlüsselt gespeichert.</p>
@@ -315,13 +255,16 @@ const ConnectAccounts = () => {
                   </button>
                   <button type="submit" disabled={loading}
                     className="flex-1 btn-primary inline-flex items-center justify-center space-x-2 text-sm disabled:opacity-50">
-                    {loading ? <><Loader className="w-4 h-4 animate-spin" /><span>Verbinde...</span></> : <><Link2 className="w-4 h-4" /><span>Verbinden</span></>}
+                    {loading
+                      ? <><Loader className="w-4 h-4 animate-spin" /><span>Verbinde...</span></>
+                      : <><Link2 className="w-4 h-4" /><span>Verbinden</span></>}
                   </button>
                 </div>
               </form>
             </div>
           </div>
         )}
+
       </div>
     </div>
   );
