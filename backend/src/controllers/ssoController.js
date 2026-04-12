@@ -30,6 +30,14 @@ const CLIENTS = {
       'http://localhost:3000/auth/callback',
     ],
   },
+  'framespell': {
+    name: 'FrameSpell',
+    secret: process.env.SSO_FRAMESPELL_SECRET,
+    allowedRedirectUris: [
+      'https://rechtschreibe-api.karol-paschek.workers.dev/oauth/framesphere/callback',
+      'http://localhost:8787/oauth/framesphere/callback',
+    ],
+  },
 };
 
 const getClient = (clientId) => {
@@ -111,9 +119,9 @@ export const token = async (req, res) => {
   if (codeResult.rows.length === 0) return res.status(400).json({ success: false, message: 'Ungültiger Code' });
 
   const ssoCode = codeResult.rows[0];
-  if (ssoCode.used)                        return res.status(400).json({ success: false, message: 'Code bereits verwendet' });
+  if (ssoCode.used)                             return res.status(400).json({ success: false, message: 'Code bereits verwendet' });
   if (new Date(ssoCode.expires_at) < new Date()) return res.status(400).json({ success: false, message: 'Code abgelaufen' });
-  if (ssoCode.client_id !== client_id)     return res.status(400).json({ success: false, message: 'Code gehört nicht zu diesem Client' });
+  if (ssoCode.client_id !== client_id)          return res.status(400).json({ success: false, message: 'Code gehört nicht zu diesem Client' });
 
   await query(`UPDATE sso_codes SET used = TRUE WHERE code = $1`, [code]);
 
