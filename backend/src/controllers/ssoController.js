@@ -38,6 +38,15 @@ const CLIENTS = {
       'http://localhost:8787/oauth/framesphere/callback',
     ],
   },
+  'sitecontrol': {
+    name: 'SiteControl',
+    secret: process.env.SSO_SITECONTROL_SECRET,
+    allowedRedirectUris: [
+      'https://site-control-nine.vercel.app/api/auth/framesphere/callback',
+      'http://localhost:3000/api/auth/framesphere/callback',
+      'http://localhost:3001/api/auth/framesphere/callback',
+    ],
+  },
 };
 
 const getClient = (clientId) => {
