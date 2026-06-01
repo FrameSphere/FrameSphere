@@ -36,7 +36,7 @@ const Privacy = () => {
             <div className="mt-2 p-4 rounded-lg bg-dark-700 border border-white/5 text-sm">
               <p className="text-white font-medium">FrameSphere</p>
               <p>Betrieben als Einzelprojekt</p>
-              <p>Kontakt: <a href="mailto:privacy@framesphere.dev" className="text-primary-400 hover:underline">privacy@framesphere.dev</a></p>
+              <p>Kontakt: <a href="mailto:framesphere@gmx.net" className="text-primary-400 hover:underline">framesphere@gmx.net</a></p>
             </div>
           </Section>
 
@@ -101,7 +101,7 @@ const Privacy = () => {
             </ul>
             <p className="mt-3">
               Zur Ausübung deiner Rechte wende dich an:{' '}
-              <a href="mailto:privacy@framesphere.dev" className="text-primary-400 hover:underline">privacy@framesphere.dev</a>
+              <a href="mailto:framesphere@gmx.net" className="text-primary-400 hover:underline">framesphere@gmx.netv</a>
             </p>
           </Section>
 
