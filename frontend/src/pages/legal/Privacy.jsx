@@ -114,7 +114,7 @@ const Privacy = () => {
           <Section icon={Mail} title="8. Kontakt & Beschwerden">
             <p>
               Bei Fragen oder Beschwerden zum Datenschutz erreichst du uns unter{' '}
-              <a href="mailto:privacy@framesphere.dev" className="text-primary-400 hover:underline">privacy@framesphere.dev</a>.
+              <a href="mailto:framesphere@gmx.net" className="text-primary-400 hover:underline">framesphere@gmx.net</a>.
             </p>
             <p>
               Du hast außerdem das Recht, Beschwerde bei der zuständigen Datenschutzbehörde einzulegen (in Deutschland: der jeweilige Landesbeauftragte für Datenschutz).
