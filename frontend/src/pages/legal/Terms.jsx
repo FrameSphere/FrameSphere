@@ -106,7 +106,7 @@ const Terms = () => {
           <Section icon={Mail} title="8. Kontakt">
             <p>
               Bei Fragen zu diesen Nutzungsbedingungen erreichst du uns unter:{' '}
-              <a href="mailto:legal@framesphere.dev" className="text-primary-400 hover:underline">legal@framesphere.dev</a>
+              <a href="mailto:framesphere@gmx.net" className="text-primary-400 hover:underline">framesphere@gmx.net</a>
             </p>
           </Section>
 
