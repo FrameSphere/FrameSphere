@@ -258,7 +258,7 @@ const Contact = () => {
       <section className="px-4 pb-10">
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
           {contactMethods.map((m, i) => (
-            <a key={i} href={m.href} className="card group hover:scale-[1.03] transition-all duration-300">
+            <a key={i} href={m.href} className="card group card-interactive">
               <div className={`w-14 h-14 bg-gradient-to-br ${m.color} rounded-xl flex items-center justify-center text-white mb-4`}>{m.icon}</div>
               <h3 className="text-lg font-bold text-white mb-1">{m.title}</h3>
               <div className="text-primary-400 font-semibold text-sm mb-1">{m.value}</div>

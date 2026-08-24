@@ -98,7 +98,7 @@ const Pricing = () => {
         cta: 'Kostenlos starten',
       },
       {
-        name: 'Pro', price: '€19', period: 'pro Monat', badge: '⭐ Empfohlen', highlighted: true,
+        name: 'Pro', price: '€19', period: 'pro Monat', badge: 'Empfohlen', highlighted: true,
         features: ['Unbegrenzte Websites', 'Alles aus Free', 'Blog-Verwaltung (mehrsprachig)', 'Changelog-System', 'Support-Ticket-System', 'Vollständige Analytics', 'AdSense & GSC-Widgets', 'Bis zu 5 Teammitglieder', 'Prioritäts-Support'],
         note: '14 Tage kostenlos testen',
         cta: '14 Tage gratis testen',

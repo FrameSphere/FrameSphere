@@ -9,42 +9,36 @@ import {
 const About = () => {
   const products = [
     {
-      emoji: '🔵',
       name: 'FrameSpell API',
       desc: 'KI-gestützte Rechtschreibprüfung für Deutsch, Englisch und mehr — als REST API.',
       color: 'border-blue-500/20 bg-blue-500/5',
       tag: 'text-blue-400',
     },
     {
-      emoji: '🔴',
       name: 'RateLimit API',
       desc: 'Rate-Limiting auf Cloudflare Edge — IP-Filter, Analytics, Token Bucket.',
       color: 'border-red-500/20 bg-red-500/5',
       tag: 'text-red-400',
     },
     {
-      emoji: '🟣',
       name: 'FrameTrain',
       desc: 'Desktop-App für lokales KI-Training — HuggingFace, LoRA, DSGVO-konform.',
       color: 'border-purple-500/20 bg-purple-500/5',
       tag: 'text-purple-400',
     },
     {
-      emoji: '🟡',
       name: 'KeyScope',
       desc: 'TF-IDF Keyword-Analyse SaaS — Keywords, Longtails, Meta-Descriptions.',
       color: 'border-yellow-500/20 bg-yellow-500/5',
       tag: 'text-yellow-400',
     },
     {
-      emoji: '🟢',
       name: 'SiteControl',
       desc: 'Website-Management Dashboard — Todos, Blog, Analytics, Changelog.',
       color: 'border-green-500/20 bg-green-500/5',
       tag: 'text-green-400',
     },
     {
-      emoji: '⚪',
       name: 'SphereNet & SphereHub',
       desc: 'AI Agent Chains und digitaler Assistent — in aktiver Entwicklung.',
       color: 'border-white/10 bg-white/[0.02]',
@@ -135,8 +129,8 @@ const About = () => {
           {/* Avatar / Emoji */}
           <div className="relative w-28 h-28 mx-auto mb-8">
             <div className="absolute inset-0 bg-gradient-to-br from-primary-500/40 to-purple-500/30 rounded-full blur-2xl" />
-            <div className="relative w-28 h-28 rounded-full bg-gradient-to-br from-primary-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center text-5xl">
-              👨‍💻
+            <div className="relative w-28 h-28 rounded-full bg-gradient-to-br from-primary-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center text-primary-200">
+              <Code2 className="w-12 h-12" />
             </div>
           </div>
 
@@ -197,7 +191,7 @@ const About = () => {
             {products.map((p, i) => (
               <div key={i} className={`rounded-xl p-4 border ${p.color}`}>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xl">{p.emoji}</span>
+                  <span className={`w-2.5 h-2.5 rounded-full bg-current flex-shrink-0 ${p.tag}`} />
                   <span className={`font-bold text-sm ${p.tag}`}>{p.name}</span>
                 </div>
                 <p className="text-gray-400 text-sm leading-relaxed">{p.desc}</p>

@@ -315,7 +315,7 @@ const { keywords, longtailKeywords, metaDescription } = await response.json();`;
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {features.map((f, i) => (
-              <div key={i} className="card hover:border-white/20 hover:scale-[1.02] transition-all duration-300 group">
+              <div key={i} className="card hover:border-white/20 card-interactive group">
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${f.color}`}>
                   {f.icon}
                 </div>
@@ -438,7 +438,7 @@ const { keywords, longtailKeywords, metaDescription } = await response.json();`;
 
           <div className="grid md:grid-cols-2 gap-6">
             {plans.map((plan, i) => (
-              <div key={i} className={`card relative flex flex-col transition-all duration-300 hover:scale-[1.02] ${plan.highlight ? 'border-blue-500/50 shadow-lg shadow-blue-500/10' : ''}`}>
+              <div key={i} className={`card relative flex flex-col card-interactive ${plan.highlight ? 'border-blue-500/50 shadow-lg shadow-blue-500/10' : ''}`}>
                 {plan.badge && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span className="bg-gradient-to-r from-blue-500 to-violet-500 text-white px-4 py-1 rounded-full text-xs font-semibold">{plan.badge}</span>

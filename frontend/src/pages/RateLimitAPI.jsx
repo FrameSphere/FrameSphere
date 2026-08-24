@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import {
   Shield, CheckCircle, ArrowRight, Zap, Globe, Code, BarChart3,
   Lock, ExternalLink, Copy, Check, Terminal, AlertCircle, Key,
-  ChevronDown, ChevronUp, BookOpen, Database, Layers, Server
+  ChevronDown, ChevronUp, BookOpen, Database, Layers, Server,
+  Bot, Scale, Wallet, Ban
 } from 'lucide-react';
 
 import { RateLimitIcon } from '../components/ProductIcons';
@@ -185,32 +186,32 @@ const RateLimitAPI = () => {
 
   const useCases = [
     {
-      icon: '🤖',
+      icon: <Bot className="w-5 h-5" />,
       title: 'API-Missbrauch verhindern',
       desc: 'Verhindere, dass einzelne Clients deine API durch massenhafte Anfragen überlasten oder automatisierte Bots deine Ressourcen ausschöpfen.',
     },
     {
-      icon: '💥',
+      icon: <Zap className="w-5 h-5" />,
       title: 'DDoS-Schutz',
       desc: 'Automatische Erkennung und Blockierung von DDoS-ähnlichen Anfragemengen — auf Cloudflare Edge, bevor sie dein Backend erreichen.',
     },
     {
-      icon: '⚖️',
+      icon: <Scale className="w-5 h-5" />,
       title: 'Fair Use sicherstellen',
       desc: 'Garantiere, dass alle Nutzer gleichmäßig Zugriff auf deine API haben. Kein einzelner Client kann andere verdrängen.',
     },
     {
-      icon: '💰',
+      icon: <Wallet className="w-5 h-5" />,
       title: 'Kosten kontrollieren',
       desc: 'Verhindere unerwartete Cloud-Kosten durch fehlerhafte Clients, Retry-Loops oder Bot-Traffic, der dein Backend teuer macht.',
     },
     {
-      icon: '🔐',
+      icon: <Lock className="w-5 h-5" />,
       title: 'Endpoint-spezifische Limits',
       desc: 'Setze unterschiedliche Rate Limits pro Endpoint: z.B. 1000/h für GET, aber nur 10/min für teure POST-Operationen.',
     },
     {
-      icon: '🌍',
+      icon: <Globe className="w-5 h-5" />,
       title: 'Globale APIs absichern',
       desc: 'Cloudflare Workers laufen an 300+ Standorten — Rate-Limit-Checks erfolgen am nächstgelegenen Edge-Node, nicht in deinem Rechenzentrum.',
     },
@@ -391,7 +392,7 @@ const RateLimitAPI = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {useCases.map((uc, i) => (
               <div key={i} className="card">
-                <div className="text-3xl mb-3">{uc.icon}</div>
+                <div className="w-10 h-10 bg-green-500/15 rounded-lg flex items-center justify-center text-green-400 mb-3">{uc.icon}</div>
                 <h3 className="font-bold text-white mb-2">{uc.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{uc.desc}</p>
               </div>
@@ -437,7 +438,7 @@ const RateLimitAPI = () => {
             {[
               {
                 type: 'IP Blacklist',
-                icon: '🚫',
+                icon: <Ban className="w-5 h-5 text-red-400" />,
                 color: 'border-red-500/20 bg-red-500/5',
                 badge: 'ip_blacklist',
                 badgeColor: 'bg-red-500/20 text-red-300',
@@ -446,7 +447,7 @@ const RateLimitAPI = () => {
               },
               {
                 type: 'IP Whitelist',
-                icon: '✅',
+                icon: <CheckCircle className="w-5 h-5 text-green-400" />,
                 color: 'border-green-500/20 bg-green-500/5',
                 badge: 'ip_whitelist',
                 badgeColor: 'bg-green-500/20 text-green-300',
@@ -455,7 +456,7 @@ const RateLimitAPI = () => {
               },
               {
                 type: 'User-Agent Filter',
-                icon: '🤖',
+                icon: <Bot className="w-5 h-5 text-yellow-400" />,
                 color: 'border-yellow-500/20 bg-yellow-500/5',
                 badge: 'user_agent',
                 badgeColor: 'bg-yellow-500/20 text-yellow-300',
@@ -465,7 +466,7 @@ const RateLimitAPI = () => {
             ].map((rule, i) => (
               <div key={i} className={`rounded-xl p-5 border ${rule.color}`}>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-xl">{rule.icon}</span>
+                  {rule.icon}
                   <span className={`text-xs px-2 py-0.5 rounded font-mono font-bold ${rule.badgeColor}`}>{rule.badge}</span>
                 </div>
                 <h3 className="font-bold text-white mb-2">{rule.type}</h3>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, CheckCircle, Lock, Zap, FileText, ArrowRight } from 'lucide-react';
+import { ExternalLink, CheckCircle, Lock, Zap, FileText, ArrowRight, FolderOpen, Settings, Download } from 'lucide-react';
 
 /* ─── FileFlyr SVG Icon ───────────────────────────────────────────────────── */
 import { FileFlyrIcon } from '../../components/ProductIcons';
@@ -136,13 +136,13 @@ const FileFlyr = () => {
           <h2 className="text-2xl font-bold text-white mb-8 text-center">In 3 Schritten fertig</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { n: '01', emoji: '📂', title: 'Datei auswählen',       desc: 'Datei per Drag & Drop reinziehen oder über den Datei-Dialog auswählen. Alle gängigen Formate unterstützt.' },
-              { n: '02', emoji: '⚙️', title: 'Einstellungen wählen',  desc: 'Qualität, Zielgröße oder weitere Parameter anpassen — je nach Konverter individuell konfigurierbar.' },
-              { n: '03', emoji: '⬇️', title: 'Sofort herunterladen',  desc: 'Die konvertierte Datei steht sofort zum Download bereit. Alles passiert lokal, kein Warten.' },
+              { n: '01', icon: <FolderOpen className="w-6 h-6" />, title: 'Datei auswählen',       desc: 'Datei per Drag & Drop reinziehen oder über den Datei-Dialog auswählen. Alle gängigen Formate unterstützt.' },
+              { n: '02', icon: <Settings className="w-6 h-6" />, title: 'Einstellungen wählen',  desc: 'Qualität, Zielgröße oder weitere Parameter anpassen — je nach Konverter individuell konfigurierbar.' },
+              { n: '03', icon: <Download className="w-6 h-6" />, title: 'Sofort herunterladen',  desc: 'Die konvertierte Datei steht sofort zum Download bereit. Alles passiert lokal, kein Warten.' },
             ].map((s, i) => (
               <div key={i} className="text-center">
                 <div className="text-5xl font-black text-cyan-500/15 mb-2">{s.n}</div>
-                <div className="text-3xl mb-3">{s.emoji}</div>
+                <div className="w-12 h-12 mx-auto rounded-xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center mb-3">{s.icon}</div>
                 <h3 className="font-bold text-white mb-2 text-sm">{s.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
               </div>

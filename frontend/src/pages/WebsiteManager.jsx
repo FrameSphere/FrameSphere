@@ -5,6 +5,7 @@ import {
   ChevronDown, ChevronUp, Globe, CheckSquare,
   Bell, FileText, Layers, LifeBuoy, BarChart2,
   DollarSign, Search, Users, Star, Zap, Lock,
+  Building2, Rocket, PenLine, Code,
 } from 'lucide-react';
 import { SiteControlIcon } from '../components/ProductIcons';
 
@@ -106,7 +107,7 @@ const DashboardMock = () => (
               { name: 'Portfolio',  url: 'max.dev',   ok: false, color: '#f59e0b' },
             ].map(s => (
               <div key={s.name} className="flex items-center gap-2 text-[11px]">
-                <div className="w-4 h-4 rounded flex items-center justify-center" style={{ background: s.color + '22', border: `1px solid ${s.color}44` }}>🌐</div>
+                <div className="w-4 h-4 rounded flex items-center justify-center" style={{ background: s.color + '22', border: `1px solid ${s.color}44` }}><Globe className="w-2.5 h-2.5" style={{ color: s.color }} /></div>
                 <span className="text-gray-300 font-medium flex-1">{s.name}</span>
                 <span className="text-gray-600 font-mono">{s.url}</span>
                 <div className="w-2 h-2 rounded-full" style={{ background: s.ok ? '#22c55e' : '#f59e0b' }} />
@@ -120,12 +121,12 @@ const DashboardMock = () => (
           <div className="text-[10px] text-gray-600 uppercase tracking-wider mb-2 font-bold">Aktivitäten</div>
           <div className="space-y-1">
             {[
-              { icon: '✍️', text: 'Blog-Post "SEO Guide 2025" veröffentlicht', time: '2m' },
-              { icon: '🎫', text: 'Neues Support-Ticket #47 von Max M.', time: '18m' },
-              { icon: '📋', text: 'Changelog v2.3.1 erstellt', time: '1h' },
+              { icon: <PenLine className="w-3 h-3 text-indigo-400" />, text: 'Blog-Post "SEO Guide 2025" veröffentlicht', time: '2m' },
+              { icon: <LifeBuoy className="w-3 h-3 text-emerald-400" />, text: 'Neues Support-Ticket #47 von Max M.', time: '18m' },
+              { icon: <Layers className="w-3 h-3 text-violet-400" />, text: 'Changelog v2.3.1 erstellt', time: '1h' },
             ].map((a, i) => (
               <div key={i} className="flex items-center gap-2 text-[11px]">
-                <span>{a.icon}</span>
+                <span className="flex-shrink-0">{a.icon}</span>
                 <span className="text-gray-400 flex-1 truncate">{a.text}</span>
                 <span className="text-gray-600">{a.time}</span>
               </div>
@@ -187,7 +188,7 @@ const SiteControlPage = () => {
       name: 'Pro',
       price: '€19',
       period: 'pro Monat',
-      badge: '⭐ Empfohlen',
+      badge: 'Empfohlen',
       highlight: true,
       features: ['Unbegrenzte Websites', 'Alles aus Free', 'Blog-Verwaltung (mehrsprachig)', 'Changelog-System', 'Support-Ticket-System', 'Vollständige Analytics', 'AdSense & GSC-Widgets', 'Bis zu 5 Teammitglieder', 'Prioritäts-Support'],
       missing: [],
@@ -197,10 +198,10 @@ const SiteControlPage = () => {
   ];
 
   const useCases = [
-    { icon: '🧑‍💻', title: 'Indie Developer & Freelancer', desc: 'Verwalte alle deine Kundenprojekte, Blog-Posts und Changelogs von einem Dashboard — kein Tool-Chaos mehr.' },
-    { icon: '🏢', title: 'Agenturen', desc: 'Zentrales Management für alle Kunden-Websites. Blog, Changelog und Support-Tickets für jeden Client separat.' },
-    { icon: '🚀', title: 'SaaS-Gründer', desc: 'Blog + Changelog + Support in einem Tool. Kommuniziere Updates, verwalte Tickets, verfolge Analytics.' },
-    { icon: '📝', title: 'Content Creator', desc: 'Plane und veröffentliche mehrsprachige Inhalte über alle deine Websites, ohne zwischen CMS-Instanzen zu wechseln.' },
+    { icon: <Code className="w-5 h-5" />, title: 'Indie Developer & Freelancer', desc: 'Verwalte alle deine Kundenprojekte, Blog-Posts und Changelogs von einem Dashboard — kein Tool-Chaos mehr.' },
+    { icon: <Building2 className="w-5 h-5" />, title: 'Agenturen', desc: 'Zentrales Management für alle Kunden-Websites. Blog, Changelog und Support-Tickets für jeden Client separat.' },
+    { icon: <Rocket className="w-5 h-5" />, title: 'SaaS-Gründer', desc: 'Blog + Changelog + Support in einem Tool. Kommuniziere Updates, verwalte Tickets, verfolge Analytics.' },
+    { icon: <PenLine className="w-5 h-5" />, title: 'Content Creator', desc: 'Plane und veröffentliche mehrsprachige Inhalte über alle deine Websites, ohne zwischen CMS-Instanzen zu wechseln.' },
   ];
 
   const faqs = [
@@ -322,7 +323,7 @@ const SiteControlPage = () => {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {features.map((f, i) => (
-              <div key={i} className="card hover:border-white/20 hover:scale-[1.02] transition-all duration-300 group relative">
+              <div key={i} className="card hover:border-white/20 card-interactive group relative">
                 {!f.free && (
                   <div className="absolute top-4 right-4 text-[10px] font-bold px-2 py-0.5 rounded bg-violet-500/15 border border-violet-500/25 text-violet-400">PRO</div>
                 )}
@@ -359,8 +360,8 @@ const SiteControlPage = () => {
           </div>
           <div className="grid md:grid-cols-2 gap-5">
             {useCases.map((uc, i) => (
-              <div key={i} className="card hover:border-indigo-500/30 hover:scale-[1.02] transition-all duration-300 flex gap-4">
-                <div className="text-3xl flex-shrink-0">{uc.icon}</div>
+              <div key={i} className="card card-interactive flex gap-4">
+                <div className="w-10 h-10 bg-indigo-500/15 rounded-lg flex items-center justify-center text-indigo-400 flex-shrink-0">{uc.icon}</div>
                 <div>
                   <h3 className="font-bold text-white mb-2">{uc.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed">{uc.desc}</p>
@@ -384,7 +385,7 @@ const SiteControlPage = () => {
           </div>
           <div className="grid md:grid-cols-3 gap-5">
             {testimonials.map((t, i) => (
-              <div key={i} className="card hover:scale-[1.02] transition-all duration-300"
+              <div key={i} className="card card-interactive"
                 style={{ transform: `translateY(${parallax * (i % 2 === 0 ? -0.02 : 0.02)}px)` }}>
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, j) => <Star key={j} className="w-3.5 h-3.5 text-yellow-400 fill-current" />)}
@@ -424,7 +425,7 @@ const SiteControlPage = () => {
 
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             {plans.map((plan, i) => (
-              <div key={i} className={`card relative flex flex-col transition-all duration-300 hover:scale-[1.02] ${plan.highlight ? 'shadow-xl' : ''}`}
+              <div key={i} className={`card relative flex flex-col card-interactive ${plan.highlight ? 'shadow-xl' : ''}`}
                 style={plan.highlight ? { borderColor: 'rgba(91,106,246,0.5)', boxShadow: '0 20px 60px rgba(91,106,246,0.15)' } : {}}>
                 {plan.badge && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">

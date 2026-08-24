@@ -104,7 +104,7 @@ const DeveloperHub = () => {
         {/* Nav Sections */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {sections.map((s, i) => (
-            <Link key={i} to={s.path} className="card group hover:scale-[1.03] transition-all duration-300 flex flex-col">
+            <Link key={i} to={s.path} className="card group card-interactive flex flex-col">
               <div className={`w-14 h-14 bg-gradient-to-br ${s.color} rounded-xl flex items-center justify-center text-white mb-4`}>{s.icon}</div>
               <h3 className="text-xl font-bold text-white mb-2">{s.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed flex-1 mb-4">{s.desc}</p>

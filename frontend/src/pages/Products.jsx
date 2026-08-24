@@ -138,7 +138,7 @@ const Products = () => {
 
           <div className="space-y-6">
             {liveProducts.map((product) => (
-              <div key={product.id} className="card hover:scale-[1.005] transition-all duration-300">
+              <div key={product.id} className="card card-interactive">
                 <div className="grid md:grid-cols-3 gap-8">
 
                   {/* Col 1: Icon + Name + Desc + CTAs */}
@@ -212,7 +212,7 @@ const Products = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {comingProducts.map((product) => (
               <Link key={product.id} to={product.link}
-                className="card group hover:scale-[1.03] transition-all duration-300">
+                className="card group card-interactive">
                 <div className={`w-14 h-14 bg-gradient-to-br ${product.color} rounded-xl flex items-center justify-center mb-4 opacity-80 group-hover:opacity-100 transition-opacity`}>
                   {product.icon}
                 </div>

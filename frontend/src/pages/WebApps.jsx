@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, ArrowRight } from 'lucide-react';
+import { ExternalLink, ArrowRight, Gamepad2, Wrench, FlaskConical, Sparkles } from 'lucide-react';
 
 /* ─── Inline SVG Icons ────────────────────────────────────────────────────── */
 import {
@@ -138,7 +138,7 @@ const WebApps = () => {
             const Icon = app.icon;
             return (
               <div key={app.id}
-                className={`card flex flex-col group transition-all duration-300 hover:scale-[1.02] ${app.borderColor}`}>
+                className={`card flex flex-col group card-interactive ${app.borderColor}`}>
 
                 {/* Top row: Icon + external link */}
                 <div className="flex items-start justify-between mb-5">
@@ -190,12 +190,12 @@ const WebApps = () => {
         {/* ── Separator / Kategorie-Hinweis ────────────────────────────────── */}
         <div className="grid md:grid-cols-3 gap-5 mb-16">
           {[
-            { emoji: '🎮', label: 'Tägliche Spiele',   desc: 'Wordify, FlagGuess, BrawlMystery — täglich neue Herausforderungen' },
-            { emoji: '🛠️', label: 'Nützliche Tools',   desc: 'FileFlyr, SpinSelector — kostenlose Browser-Tools ohne Anmeldung' },
-            { emoji: '🧪', label: 'Psychologie & Tests', desc: 'Traitora — wissenschaftlich fundierter adaptiver Persönlichkeitstest' },
+            { icon: <Gamepad2 className="w-5 h-5" />, label: 'Tägliche Spiele',   desc: 'Wordify, FlagGuess, BrawlMystery — täglich neue Herausforderungen' },
+            { icon: <Wrench className="w-5 h-5" />, label: 'Nützliche Tools',   desc: 'FileFlyr, SpinSelector — kostenlose Browser-Tools ohne Anmeldung' },
+            { icon: <FlaskConical className="w-5 h-5" />, label: 'Psychologie & Tests', desc: 'Traitora — wissenschaftlich fundierter adaptiver Persönlichkeitstest' },
           ].map((item, i) => (
             <div key={i} className="glass-effect rounded-xl p-5 flex items-start gap-4">
-              <span className="text-3xl flex-shrink-0">{item.emoji}</span>
+              <span className="w-10 h-10 bg-primary-500/15 rounded-lg flex items-center justify-center text-primary-400 flex-shrink-0">{item.icon}</span>
               <div>
                 <div className="font-bold text-white mb-1">{item.label}</div>
                 <div className="text-gray-500 text-sm leading-relaxed">{item.desc}</div>
@@ -206,7 +206,7 @@ const WebApps = () => {
 
         {/* ── CTA Banner ───────────────────────────────────────────────────── */}
         <div className="card bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30 text-center py-12">
-          <div className="text-4xl mb-4">🚀</div>
+          <Sparkles className="w-10 h-10 text-primary-400 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-white mb-3">Weitere Apps in Entwicklung</h2>
           <p className="text-gray-400 max-w-xl mx-auto mb-8">
             Das FrameSphere-Ökosystem wächst. Neben Web-Apps entstehen leistungsstarke
