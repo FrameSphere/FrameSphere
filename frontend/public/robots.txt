@@ -9,6 +9,8 @@ Disallow: /register
 Disallow: /dashboard
 Disallow: /dashboard/
 Disallow: /billing
+Disallow: /auth/callback
+Disallow: /sso/authorize
 
 # Sitemap
 Sitemap: https://frame-sphere.vercel.app/sitemap.xml

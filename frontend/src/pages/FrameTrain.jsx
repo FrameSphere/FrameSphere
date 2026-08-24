@@ -180,17 +180,17 @@ const FrameTrain = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="https://frame-train.vercel.app/register" target="_blank" rel="noopener noreferrer"
+            <a href="https://frame-train.com/register" target="_blank" rel="noopener noreferrer"
               className="btn-primary inline-flex items-center justify-center space-x-2">
               <Sparkles className="w-5 h-5" />
               <span>Jetzt starten — 1,99€</span>
             </a>
-            <a href="https://frame-train.vercel.app/download" target="_blank" rel="noopener noreferrer"
+            <a href="https://frame-train.com/download" target="_blank" rel="noopener noreferrer"
               className="btn-secondary inline-flex items-center justify-center space-x-2">
               <Download className="w-5 h-5" />
               <span>App herunterladen</span>
             </a>
-            <a href="https://frame-train.vercel.app/" target="_blank" rel="noopener noreferrer"
+            <a href="https://frame-train.com/" target="_blank" rel="noopener noreferrer"
               className="btn-secondary inline-flex items-center justify-center space-x-2">
               <ExternalLink className="w-5 h-5" />
               <span>Website</span>
@@ -321,7 +321,7 @@ const FrameTrain = () => {
                   </div>
                 ))}
               </div>
-              <a href="https://frame-train.vercel.app/docs/ai-training-guide" target="_blank" rel="noopener noreferrer"
+              <a href="https://frame-train.com/docs/ai-training-guide" target="_blank" rel="noopener noreferrer"
                 className="btn-primary inline-flex items-center space-x-2">
                 <Sparkles className="w-4 h-4" />
                 <span>Zum Training Coach</span>
@@ -332,7 +332,7 @@ const FrameTrain = () => {
             <div className="lg:w-72 flex-shrink-0">
               <div className="space-y-2">
                 {coachChapters.map((ch) => (
-                  <a key={ch.n} href={`https://frame-train.vercel.app/docs/ai-training-guide`} target="_blank" rel="noopener noreferrer"
+                  <a key={ch.n} href={`https://frame-train.com/docs/ai-training-guide`} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-3 px-4 py-2.5 glass-effect rounded-xl hover:border-violet-400/30 hover:bg-violet-500/5 transition-all group">
                     <span className="text-gray-600 text-xs font-mono">{ch.n}</span>
                     <span className="text-base">{ch.emoji}</span>
@@ -391,7 +391,7 @@ const FrameTrain = () => {
                   </li>
                 ))}
               </ul>
-              <a href="https://frame-train.vercel.app/register" target="_blank" rel="noopener noreferrer"
+              <a href="https://frame-train.com/register" target="_blank" rel="noopener noreferrer"
                 className="btn-primary w-full block text-center py-3">
                 Jetzt für 1,99€ starten
               </a>
@@ -408,10 +408,10 @@ const FrameTrain = () => {
           </h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: '🚀', title: 'Quick Start', desc: 'Erstes Modell in 5 Minuten', href: 'https://frame-train.vercel.app/docs' },
-              { icon: '🔧', title: 'LoRA Fine-Tuning', desc: 'Große Modelle mit wenig VRAM', href: 'https://frame-train.vercel.app/guides/lora-finetuning' },
-              { icon: '📦', title: 'Datasets', desc: 'Formate und Best Practices', href: 'https://frame-train.vercel.app/docs' },
-              { icon: '⚡', title: 'Performance', desc: 'Training für Geschwindigkeit optimieren', href: 'https://frame-train.vercel.app/docs' },
+              { icon: '🚀', title: 'Quick Start', desc: 'Erstes Modell in 5 Minuten', href: 'https://frame-train.com/docs' },
+              { icon: '🔧', title: 'LoRA Fine-Tuning', desc: 'Große Modelle mit wenig VRAM', href: 'https://frame-train.com/guides/lora-finetuning' },
+              { icon: '📦', title: 'Datasets', desc: 'Formate und Best Practices', href: 'https://frame-train.com/docs' },
+              { icon: '⚡', title: 'Performance', desc: 'Training für Geschwindigkeit optimieren', href: 'https://frame-train.com/docs' },
             ].map((doc, i) => (
               <a key={i} href={doc.href} target="_blank" rel="noopener noreferrer"
                 className="glass-effect rounded-xl p-4 hover:bg-white/10 hover:border-primary-500/50 transition-all group">
@@ -451,15 +451,15 @@ const FrameTrain = () => {
           <p className="text-gray-400 mb-2 max-w-md mx-auto">FrameTrain ist kostenlos herunterladbar. Einmalig 1,99€ — lebenslanger Zugang, alle Updates inklusive.</p>
           <p className="text-purple-300 font-semibold mb-6 text-sm">Verfügbar für macOS, Windows und Linux.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="https://frame-train.vercel.app/register" target="_blank" rel="noopener noreferrer"
+            <a href="https://frame-train.com/register" target="_blank" rel="noopener noreferrer"
               className="btn-primary inline-flex items-center justify-center space-x-2">
               <Sparkles className="w-5 h-5" />
               <span>Jetzt starten — 1,99€</span>
             </a>
-            <a href="https://frame-train.vercel.app/" target="_blank" rel="noopener noreferrer"
+            <a href="https://frame-train.com/" target="_blank" rel="noopener noreferrer"
               className="btn-secondary inline-flex items-center justify-center space-x-2">
               <ExternalLink className="w-5 h-5" />
-              <span>frame-train.vercel.app</span>
+              <span>frame-train.com</span>
             </a>
           </div>
         </div>

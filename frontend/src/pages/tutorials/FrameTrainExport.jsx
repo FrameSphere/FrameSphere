@@ -33,7 +33,7 @@ function InfoBox({ icon = '💡', color = 'blue', children }) {
   return <div className={`card text-sm text-gray-400 my-4 ${colors[color]}`}>{icon} {children}</div>;
 }
 
-const FT = 'https://frame-train.vercel.app';
+const FT = 'https://frame-train.com';
 
 export default function FrameTrainExport() {
   return (
@@ -276,7 +276,7 @@ def predict(req: Request):
           <a href={`${FT}`} target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
             <ExternalLink className="w-3 h-3 text-pink-400" />
-            <span className="text-pink-400">frame-train.vercel.app</span> — App herunterladen
+            <span className="text-pink-400">frame-train.com</span> — App herunterladen
           </a>
         </div>
       </div>

@@ -66,7 +66,7 @@ const Home = () => {
       description: 'Desktop-App zum lokalen Trainieren und Verbessern eigener KI-Modelle. 100% offline, keine Cloud-Abhängigkeit, volle Datenkontrolle. Für macOS, Windows & Linux.',
       Icon: FrameTrainIcon,
       link: '/products/frametrain',
-      externalLink: 'https://frame-train.vercel.app/',
+      externalLink: 'https://frame-train.com/',
       stat: '100% lokal & privat',
     },
     {

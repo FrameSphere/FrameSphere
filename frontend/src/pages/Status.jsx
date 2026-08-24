@@ -13,7 +13,7 @@ const SERVICES = [
   { name: 'KeyScope',           url: 'https://keyscope.pages.dev/',                                          displayUrl: 'keyscope.pages.dev',                           category: 'APIs' },
   { name: 'KeyScope Worker',    url: 'https://keyscope-worker.karol-paschek.workers.dev/health',             displayUrl: 'keyscope-worker.karol-paschek.workers.dev',    category: 'APIs' },
   // Apps
-  { name: 'FrameTrain',         url: 'https://frame-train.vercel.app/',                                      displayUrl: 'frame-train.vercel.app',                       category: 'Apps' },
+  { name: 'FrameTrain',         url: 'https://frame-train.com/',                                      displayUrl: 'frame-train.com',                       category: 'Apps' },
   { name: 'SiteControl',        url: 'https://app.sitecontrol.app/',                                         displayUrl: 'app.sitecontrol.app',                          category: 'Apps' },
   // Web Apps
   { name: 'Wordify',            url: 'https://wordify.pages.dev/',                                           displayUrl: 'wordify.pages.dev',                            category: 'Web Apps' },

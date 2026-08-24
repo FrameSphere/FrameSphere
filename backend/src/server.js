@@ -36,7 +36,7 @@ const allowedOrigins = [
   'http://localhost:3001',
   'http://localhost:5001',
   // FrameTrain (product that uses SSO)
-  'https://frame-train.vercel.app',
+  'https://frame-train.com',
   'https://keyscope.pages.dev',
 ].filter(Boolean);
 

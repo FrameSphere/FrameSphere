@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# graphify – lokaler, regenerierbarer Wissensgraph-Index
+graphify-out/
+
+# lokale Prozess-PIDs
+.backend.pid
+.frontend.pid

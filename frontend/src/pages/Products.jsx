@@ -39,7 +39,7 @@ const Products = () => {
       tagline: 'KI-Modelle lokal trainieren',
       description: 'Desktop-Applikation zum Trainieren, Verbessern und Verwalten eigener KI-Modelle — vollständig lokal auf deinem Rechner. Keine Cloud, keine Datenübertragung, 100% Datenkontrolle.',
       Icon: FrameTrainIcon,
-      externalUrl: 'https://frame-train.vercel.app/',
+      externalUrl: 'https://frame-train.com/',
       link: '/products/frametrain',
       features: ['100% lokale Ausführung', 'HuggingFace-Integration', 'LoRA & QLoRA Fine-Tuning', 'GPU-Beschleunigung (CUDA + Metal)', 'DSGVO-konform by Design', 'macOS, Windows & Linux'],
       useCases: ['ML-Entwickler & Forscher', 'Datenschutzkritische Projekte', 'LLM Fine-Tuning', 'Offline-Training'],

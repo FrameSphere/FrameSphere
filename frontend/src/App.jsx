@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import Seo from './components/Seo';
 
 // Core Pages
 import Home from './pages/Home';
@@ -120,6 +121,7 @@ function App() {
     <Router>
       <AuthProvider>
         <ScrollToTop />
+        <Seo />
         <div className="min-h-screen bg-dark-900">
           <Navbar />
           <Routes>

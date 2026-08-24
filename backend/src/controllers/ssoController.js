@@ -7,7 +7,7 @@ const CLIENTS = {
     name: 'FrameTrain',
     secret: process.env.SSO_FRAMETRAIN_SECRET,
     allowedRedirectUris: [
-      'https://frame-train.vercel.app/api/auth/framesphere/callback',
+      'https://frame-train.com/api/auth/framesphere/callback',
       'http://localhost:5001/api/auth/framesphere/callback',
       'http://localhost:3000/api/auth/framesphere/callback',
     ],

@@ -33,7 +33,7 @@ function InfoBox({ icon = '💡', color = 'purple', children }) {
   return <div className={`card text-sm text-gray-400 my-4 ${colors[color]}`}>{icon} {children}</div>;
 }
 
-const FT = 'https://frame-train.vercel.app';
+const FT = 'https://frame-train.com';
 
 export default function FrameTrainLoRA() {
   return (

@@ -61,7 +61,7 @@ function PlatformCard({ icon, name, file, cmd }) {
   );
 }
 
-const FT = 'https://frame-train.vercel.app';
+const FT = 'https://frame-train.com';
 
 export default function FrameTrainQuickstart() {
   return (
@@ -88,7 +88,7 @@ export default function FrameTrainQuickstart() {
           <span className="text-xs px-2 py-1 rounded bg-white/5 text-gray-400 font-mono">~30 Min</span>
           <a href={FT} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-xs text-purple-400 hover:text-purple-300 transition-colors">
-            <ExternalLink className="w-3 h-3" /> frame-train.vercel.app
+            <ExternalLink className="w-3 h-3" /> frame-train.com
           </a>
         </div>
       </div>
@@ -117,7 +117,7 @@ export default function FrameTrainQuickstart() {
         <p className="text-gray-400 text-sm leading-relaxed mb-2">
           Gehe zu{' '}
           <a href={`${FT}/register`} target="_blank" rel="noopener noreferrer"
-            className="text-purple-400 hover:underline">frame-train.vercel.app/register</a>{' '}
+            className="text-purple-400 hover:underline">frame-train.com/register</a>{' '}
           und erstelle einen Account. Zahle einmalig <strong className="text-white">1,99€</strong> via Stripe.
           Nach der Zahlung erhältst du deinen API-Key der den Download freischaltet.
         </p>
@@ -131,7 +131,7 @@ export default function FrameTrainQuickstart() {
         <p className="text-gray-400 text-sm leading-relaxed mb-3">
           Gehe zu{' '}
           <a href={`${FT}/download`} target="_blank" rel="noopener noreferrer"
-            className="text-purple-400 hover:underline">frame-train.vercel.app/download</a>{' '}
+            className="text-purple-400 hover:underline">frame-train.com/download</a>{' '}
           und lade die Datei für dein Betriebssystem herunter:
         </p>
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
@@ -167,7 +167,7 @@ chmod +x FrameTrain.2_*.AppImage
         <p className="text-gray-400 text-sm leading-relaxed mb-2">
           Beim ersten Start fordert FrameTrain deinen API Key. Du findest ihn im Web-Dashboard unter{' '}
           <a href={`${FT}/dashboard`} target="_blank" rel="noopener noreferrer"
-            className="text-purple-400 hover:underline">frame-train.vercel.app/dashboard</a>.
+            className="text-purple-400 hover:underline">frame-train.com/dashboard</a>.
         </p>
         <p className="text-gray-400 text-sm leading-relaxed">
           Der Key hat das Format <code className="font-mono text-purple-300">ft_xxxxxxxxxxxxxxxx</code>.
