@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import {
   Brain, CheckCircle, ArrowRight, Lock, Download, Cpu, Database,
   Shield, ExternalLink, Zap, BarChart3, Package, Sparkles,
-  ChevronDown, ChevronUp, BookOpen, Code, Globe, Star
+  ChevronDown, ChevronUp, BookOpen, Code, Star,
+  Wallet, WifiOff, Unlock, Rocket, Gauge
 } from 'lucide-react';
 import { FrameTrainIcon } from '../components/ProductIcons';
 
@@ -150,9 +151,9 @@ const FrameTrain = () => {
             <span className="px-3 py-1 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-full text-xs font-semibold flex items-center gap-1">
               <Star className="w-3 h-3 fill-current" /> Early Access
             </span>
-            <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">🍎 macOS</span>
-            <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">🪟 Windows</span>
-            <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">🐧 Linux</span>
+            <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">macOS</span>
+            <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">Windows</span>
+            <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">Linux</span>
           </div>
 
           {/* Beschreibung */}
@@ -255,15 +256,15 @@ const FrameTrain = () => {
           <p className="text-gray-400 text-center mb-10">Die Vorteile von lokalem ML-Training gegenüber Cloud-Services</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { icon: '💰', title: 'Keine laufenden Kosten', desc: 'Cloud-GPU-Instanzen kosten €0,50–€10+/Stunde. FrameTrain: einmalig 1,99€, unbegrenzt trainieren.' },
-              { icon: '🔒', title: 'Maximale Datensicherheit', desc: 'Sensible Daten verlassen niemals deinen Rechner. DSGVO-Konformität ohne Aufwand.' },
-              { icon: '⚡', title: 'Volle GPU-Kontrolle', desc: 'Keine geteilten Ressourcen, kein Throttling. 100 % deiner GPU-Kapazität ohne künstliche Limits.' },
-              { icon: '📡', title: 'Offline-Betrieb', desc: 'Kein Internet nötig. Trainiere in abgesicherten Netzwerken oder auf Reisen.' },
-              { icon: '🔓', title: 'Kein Vendor Lock-in', desc: 'Keine Abhängigkeit von AWS, Google oder Microsoft. Deine Modelle, deine Infrastruktur.' },
-              { icon: '🚀', title: 'Schnellere Iteration', desc: 'Kein Upload, kein Instanz-Start. Experimente starten in Sekunden.' },
+              { icon: <Wallet className="w-5 h-5" />, title: 'Keine laufenden Kosten', desc: 'Cloud-GPU-Instanzen kosten €0,50–€10+/Stunde. FrameTrain: einmalig 1,99€, unbegrenzt trainieren.' },
+              { icon: <Lock className="w-5 h-5" />, title: 'Maximale Datensicherheit', desc: 'Sensible Daten verlassen niemals deinen Rechner. DSGVO-Konformität ohne Aufwand.' },
+              { icon: <Cpu className="w-5 h-5" />, title: 'Volle GPU-Kontrolle', desc: 'Keine geteilten Ressourcen, kein Throttling. 100 % deiner GPU-Kapazität ohne künstliche Limits.' },
+              { icon: <WifiOff className="w-5 h-5" />, title: 'Offline-Betrieb', desc: 'Kein Internet nötig. Trainiere in abgesicherten Netzwerken oder auf Reisen.' },
+              { icon: <Unlock className="w-5 h-5" />, title: 'Kein Vendor Lock-in', desc: 'Keine Abhängigkeit von AWS, Google oder Microsoft. Deine Modelle, deine Infrastruktur.' },
+              { icon: <Zap className="w-5 h-5" />, title: 'Schnellere Iteration', desc: 'Kein Upload, kein Instanz-Start. Experimente starten in Sekunden.' },
             ].map((item, i) => (
               <div key={i} className="card">
-                <div className="text-3xl mb-3">{item.icon}</div>
+                <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center text-purple-400 mb-3">{item.icon}</div>
                 <h3 className="font-bold text-white mb-2">{item.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
               </div>
@@ -274,7 +275,7 @@ const FrameTrain = () => {
         {/* ── Use Cases ─────────────────────────────────────────────────────── */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-white text-center mb-4">Typische Anwendungsfälle</h2>
-          <p className="text-gray-400 text-center mb-10">FrameTrain wird von Entwicklern, Forschern und Unternehmen weltweit eingesetzt</p>
+          <p className="text-gray-400 text-center mb-10">Wofür FrameTrain gebaut ist — von NLP über Klassifikation bis zu Forschungsprojekten</p>
           <div className="grid md:grid-cols-2 gap-5">
             {useCases.map((uc, i) => (
               <div key={i} className="card">
@@ -302,21 +303,22 @@ const FrameTrain = () => {
                 Kostenlose Ressource
               </div>
               <h2 className="text-3xl font-bold text-white mb-3">
-                KI-Training Coach ✨
+                KI-Training Coach
               </h2>
               <p className="text-gray-400 mb-5 leading-relaxed">
                 Neu zu ML? Kämpfst du mit Overfitting, Loss-Spikes oder LoRA-Konfiguration? Der kostenlose Guide erklärt alles — von Grundlagen bis zu fortgeschrittenen Techniken.
               </p>
               <div className="grid sm:grid-cols-2 gap-2 mb-6">
                 {[
-                  '🧠 ML-Grundlagen & Transformer',
-                  '📈 Loss-Kurven lesen & verstehen',
-                  '🩺 Overfitting & Underfitting fixen',
-                  '🔧 LoRA & QLoRA im Detail',
-                  '⚙️ Hyperparameter-Coaching',
-                  '📦 Dataset-Mastery',
+                  'ML-Grundlagen & Transformer',
+                  'Loss-Kurven lesen & verstehen',
+                  'Overfitting & Underfitting fixen',
+                  'LoRA & QLoRA im Detail',
+                  'Hyperparameter-Coaching',
+                  'Dataset-Mastery',
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-sm text-gray-300">
+                    <CheckCircle className="w-4 h-4 text-violet-400 flex-shrink-0" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -335,7 +337,6 @@ const FrameTrain = () => {
                   <a key={ch.n} href={`https://frame-train.com/docs/ai-training-guide`} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-3 px-4 py-2.5 glass-effect rounded-xl hover:border-violet-400/30 hover:bg-violet-500/5 transition-all group">
                     <span className="text-gray-600 text-xs font-mono">{ch.n}</span>
-                    <span className="text-base">{ch.emoji}</span>
                     <div className="flex-1 min-w-0">
                       <div className="text-gray-300 text-sm font-medium group-hover:text-white transition-colors truncate">{ch.title}</div>
                       <div className="text-gray-600 text-xs truncate">{ch.desc}</div>
@@ -408,14 +409,14 @@ const FrameTrain = () => {
           </h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: '🚀', title: 'Quick Start', desc: 'Erstes Modell in 5 Minuten', href: 'https://frame-train.com/docs' },
-              { icon: '🔧', title: 'LoRA Fine-Tuning', desc: 'Große Modelle mit wenig VRAM', href: 'https://frame-train.com/guides/lora-finetuning' },
-              { icon: '📦', title: 'Datasets', desc: 'Formate und Best Practices', href: 'https://frame-train.com/docs' },
-              { icon: '⚡', title: 'Performance', desc: 'Training für Geschwindigkeit optimieren', href: 'https://frame-train.com/docs' },
+              { icon: <Rocket className="w-5 h-5" />, title: 'Quick Start', desc: 'Erstes Modell in 5 Minuten', href: 'https://frame-train.com/docs' },
+              { icon: <Code className="w-5 h-5" />, title: 'LoRA Fine-Tuning', desc: 'Große Modelle mit wenig VRAM', href: 'https://frame-train.com/guides/lora-finetuning' },
+              { icon: <Database className="w-5 h-5" />, title: 'Datasets', desc: 'Formate und Best Practices', href: 'https://frame-train.com/docs' },
+              { icon: <Gauge className="w-5 h-5" />, title: 'Performance', desc: 'Training für Geschwindigkeit optimieren', href: 'https://frame-train.com/docs' },
             ].map((doc, i) => (
               <a key={i} href={doc.href} target="_blank" rel="noopener noreferrer"
-                className="glass-effect rounded-xl p-4 hover:bg-white/10 hover:border-primary-500/50 transition-all group">
-                <div className="text-2xl mb-2">{doc.icon}</div>
+                className="card card-interactive group">
+                <div className="w-10 h-10 bg-blue-500/15 rounded-lg flex items-center justify-center text-blue-400 mb-2">{doc.icon}</div>
                 <div className="font-bold text-white text-sm mb-1">{doc.title}</div>
                 <div className="text-gray-500 text-xs">{doc.desc}</div>
               </a>

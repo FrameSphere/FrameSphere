@@ -14,7 +14,7 @@ import {
 /* ── Reusable product card ──────────────────────────────────── */
 function ProductCard({ p }) {
   return (
-    <div className="card flex flex-col group hover:scale-[1.03] transition-all duration-300">
+    <div className="card card-interactive flex flex-col group">
       <div className="mb-5 flex-shrink-0">
         <p.Icon size={56} />
       </div>
@@ -122,15 +122,16 @@ const Home = () => {
 
       {/* ── HERO ────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-24 px-4 overflow-hidden">
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500 rounded-full filter blur-3xl animate-float" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute inset-0 opacity-[0.12] pointer-events-none">
+          <div className="absolute -top-20 left-1/4 w-[32rem] h-[32rem] bg-primary-500 rounded-full filter blur-3xl" />
+          <div className="absolute -bottom-32 right-1/4 w-[28rem] h-[28rem] bg-purple-500 rounded-full filter blur-3xl" />
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <div className="inline-block mb-6">
-            <span className="glass-effect px-4 py-2 rounded-full text-sm text-primary-400 border border-primary-500/30">
-              🚀 5 Live-Produkte · 6 Web-Apps · mehr in Entwicklung
+            <span className="inline-flex items-center gap-2 glass-effect px-4 py-2 rounded-full text-sm text-primary-400 border border-primary-500/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
+              5 Live-Produkte · 6 Web-Apps · mehr in Entwicklung
             </span>
           </div>
 
@@ -213,7 +214,7 @@ const Home = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
             {webApps.map((app, i) => (
-              <div key={i} className="card flex items-start space-x-4 group hover:scale-[1.02] transition-all duration-300">
+              <div key={i} className="card card-interactive flex items-start space-x-4 group">
                 <div className="flex-shrink-0 rounded-xl overflow-hidden">
                   <app.Icon size={44} />
                 </div>
@@ -280,7 +281,7 @@ const Home = () => {
             </div>
 
             <div className="card">
-              <div className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">🔧 Als nächstes kommt</div>
+              <div className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Als nächstes kommt</div>
               <div className="space-y-3 mb-6">
                 {comingProducts.map((p, i) => (
                   <div key={i} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/5 transition-colors">
