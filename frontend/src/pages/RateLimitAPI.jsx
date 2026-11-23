@@ -173,7 +173,7 @@ const RateLimitAPI = () => {
   };
 
   const features = [
-    { icon: <Zap className="w-5 h-5" />, title: 'Cloudflare Edge', desc: 'Läuft auf Cloudflare Workers — sub-Millisekunden-Latenz an 300+ PoPs weltweit.' },
+    { icon: <Zap className="w-5 h-5" />, title: 'Cloudflare Edge', desc: 'Läuft als Cloudflare Worker mit D1-Datenbank – keine eigene Redis-Infrastruktur nötig.' },
     { icon: <Shield className="w-5 h-5" />, title: 'Token Bucket Algorithmus', desc: 'Bewährtes Verfahren für faires Rate-Limiting mit Burst-Toleranz.' },
     { icon: <Lock className="w-5 h-5" />, title: 'IP-Blacklist & Whitelist', desc: 'Einzelne IPs blockieren oder dauerhaft freigeben — live im Dashboard konfigurierbar.' },
     { icon: <Server className="w-5 h-5" />, title: 'User-Agent-Filter', desc: 'Bekannte Bot-User-Agents automatisch blockieren oder selektiv erlauben.' },
@@ -213,7 +213,7 @@ const RateLimitAPI = () => {
     {
       icon: <Globe className="w-5 h-5" />,
       title: 'Globale APIs absichern',
-      desc: 'Cloudflare Workers laufen an 300+ Standorten — Rate-Limit-Checks erfolgen am nächstgelegenen Edge-Node, nicht in deinem Rechenzentrum.',
+      desc: 'Der Check läuft als Cloudflare Worker, nicht in deinem Rechenzentrum. Du brauchst weder Redis noch einen eigenen Zähler-Service.',
     },
   ];
 
@@ -240,7 +240,6 @@ const RateLimitAPI = () => {
 
           {/* Icon mit Glow */}
           <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 to-purple-500/30 rounded-full blur-2xl" />
             <div className="relative w-24 h-24 rounded-full flex items-center justify-center overflow-hidden">
               <RateLimitIcon size={96} />
             </div>
@@ -253,7 +252,7 @@ const RateLimitAPI = () => {
 
           {/* Status + Tags */}
           <div className="flex items-center justify-center gap-2 mb-8 flex-wrap">
-            <span className="px-3 py-1 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full text-xs font-semibold">● Live</span>
+            <span className="px-3 py-1 border border-white/15 text-bone-300 rounded-full text-xs font-semibold">◐ In Entwicklung</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">Token Bucket</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">Cloudflare Edge</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">IP-Filter</span>
@@ -267,8 +266,8 @@ const RateLimitAPI = () => {
           {/* Stats-Strip */}
           <div className="inline-flex flex-wrap justify-center divide-x divide-white/10 glass-effect rounded-2xl mb-10 overflow-hidden">
             {[
-              { val: '< 1 ms', label: 'Edge-Latenz' },
-              { val: '300+', label: 'CF PoPs' },
+              { val: '2', label: 'Algorithmen' },
+              { val: '5', label: 'Filtertypen' },
               { val: 'D1', label: 'Datenbank' },
               { val: 'JWT', label: 'Auth' },
             ].map((s, i) => (

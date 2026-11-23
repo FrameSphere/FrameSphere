@@ -23,19 +23,19 @@ const FlagGuess = () => {
       label: '🟢 Einfach',
       color: 'border-green-500/20 bg-green-500/5',
       attempts: '8',
-      desc: 'Top 20 bekannteste Flaggen der Welt — ideal für Einsteiger und Schüler.',
+      desc: '8 Versuche und hohe Farbtoleranz – die Flagge färbt sich großzügig ein.',
     },
     {
       label: '🟡 Mittel',
       color: 'border-yellow-500/20 bg-yellow-500/5',
       attempts: '5',
-      desc: 'Alle 195 Länder sind möglich — solides Geografie-Wissen gefragt.',
+      desc: '5 Versuche, mittlere Farbtoleranz – solides Geografie-Wissen gefragt.',
     },
     {
       label: '🔴 Schwer',
       color: 'border-red-500/20 bg-red-500/5',
       attempts: '3',
-      desc: 'Exotische Inselstaaten, verwechslungsähnliche Flaggen — nur für echte Experten.',
+      desc: '3 Versuche, geringe Farbtoleranz – nur für echte Experten.',
     },
   ];
 
@@ -45,12 +45,12 @@ const FlagGuess = () => {
     { flag: '🌍', name: 'Afrika',     count: '54 Länder' },
     { flag: '🌎', name: 'Amerikas',   count: '35 Länder' },
     { flag: '🌊', name: 'Ozeanien',   count: '14 Länder' },
-    { flag: '🌐', name: 'Alle',       count: '195+ Länder' },
+    { flag: '🌐', name: 'Alle',       count: '199 Flaggen' },
   ];
 
   const features = [
     { title: 'Täglich neue Challenge',         desc: 'Jeden Tag eine neue Flagge — für alle Spieler weltweit synchronisiert.' },
-    { title: '195+ Länderflaggen',             desc: 'Von Albanien bis Zimbabwe — alle anerkannten Staaten und Territorien.' },
+    { title: '199 Flaggen',             desc: 'Alle Staaten plus Gebiete wie Taiwan, Hongkong, Macau und Kosovo.' },
     { title: '3 Schwierigkeitsstufen',         desc: 'Einfach (8 Versuche), Mittel (5), Schwer (3) — für jeden das richtige Level.' },
     { title: 'Flaggen-Bibliothek',             desc: 'Lerne alle Flaggen kennen — browse und merke dir neue Länder.' },
     { title: 'Timer & Statistiken',            desc: 'Stoppe deine Zeit und verfolge deinen Fortschritt langfristig.' },
@@ -62,8 +62,8 @@ const FlagGuess = () => {
   const faqs = [
     { q: 'Wie viele Versuche habe ich?',
       a: 'Das hängt vom gewählten Schwierigkeitsgrad ab: Einfach = 8 Versuche, Mittel = 5 Versuche, Schwer = 3 Versuche.' },
-    { q: 'Werden alle 195 Länder abgefragt?',
-      a: 'Im Modus "Mittel" und "Schwer" ja. Im Modus "Einfach" sind es die 20 bekanntesten Länder weltweit.' },
+    { q: 'Wie viele Flaggen gibt es?',
+      a: '199 – alle Staaten plus einige Gebiete wie Taiwan, Hongkong, Macau und Kosovo. Die Schwierigkeit ändert die Zahl der Versuche und wie genau die Farben stimmen müssen.' },
     { q: 'Kann ich die Flaggen-Bibliothek nutzen, um zu lernen?',
       a: 'Ja. Die Bibliothek zeigt alle Flaggen mit dem zugehörigen Ländernamen — ideal zum Lernen vor dem Spielen.' },
     { q: 'Gibt es ein tägliches Wort wie bei Wordle?',
@@ -83,7 +83,6 @@ const FlagGuess = () => {
           </div>
 
           <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 to-indigo-500/30 rounded-2xl blur-2xl" />
             <div className="relative w-24 h-24 rounded-xl flex items-center justify-center overflow-hidden bg-dark-900 border border-white/10">
               <FlagGuessIcon size={80} />
             </div>
@@ -92,14 +91,14 @@ const FlagGuess = () => {
           <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tight mb-4">FlagGuess</h1>
 
           <div className="flex items-center justify-center gap-2 flex-wrap mb-8">
-            <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">195+ Flaggen</span>
+            <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">199 Flaggen</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">3 Schwierigkeitsstufen</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">Täglich</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">Kostenlos</span>
           </div>
 
           <p className="text-lg text-gray-400 max-w-lg mx-auto mb-10 leading-relaxed">
-            Sieh dir eine Flagge an und errate das Land — täglich eine neue Herausforderung, 195+ Länder, 3 Schwierigkeitsstufen.
+            Sieh dir eine Flagge an und errate das Land — täglich eine neue Herausforderung, 199 Flaggen, 3 Schwierigkeitsstufen.
           </p>
 
           <a href="https://flaggues.pages.dev/" target="_blank" rel="noopener noreferrer"
@@ -146,7 +145,7 @@ const FlagGuess = () => {
             <Globe className="w-6 h-6 text-blue-400" />
             Flaggen nach Kontinent
           </h2>
-          <p className="text-gray-500 text-sm mb-6">195+ Länder aus allen Kontinenten — von bekannt bis exotisch</p>
+          <p className="text-gray-500 text-sm mb-6">199 Flaggen aus allen Kontinenten — von bekannt bis exotisch</p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {continents.map((c, i) => (
               <a key={i} href="https://flaggues.pages.dev/" target="_blank" rel="noopener noreferrer"
@@ -233,7 +232,7 @@ const FlagGuess = () => {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-white mb-3">Werde zum Flaggen-Experten</h2>
-          <p className="text-gray-400 mb-6 max-w-sm mx-auto">Täglich eine neue Flagge, 195+ Länder, 3 Schwierigkeitsstufen. Kostenlos, ohne Anmeldung.</p>
+          <p className="text-gray-400 mb-6 max-w-sm mx-auto">Täglich eine neue Flagge, 199 Flaggen, 3 Schwierigkeitsstufen. Kostenlos, ohne Anmeldung.</p>
           <a href="https://flaggues.pages.dev/" target="_blank" rel="noopener noreferrer"
             className="btn-primary inline-flex items-center space-x-2">
             <ExternalLink className="w-5 h-5" />

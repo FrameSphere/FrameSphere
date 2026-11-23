@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: 'Was ist der Unterschied zu Google Colab oder AWS SageMaker?',
-    a: 'FrameTrain läuft vollständig lokal. Es entstehen keine Cloud-Kosten, deine Daten werden nicht hochgeladen und du bist nicht auf Internet angewiesen. 1,99€ einmalig statt monatlicher Cloud-Rechnungen.',
+    a: 'FrameTrain läuft vollständig lokal. Es entstehen keine Cloud-Kosten, deine Daten werden nicht hochgeladen und du bist nicht auf Internet angewiesen. Ein fester Monatspreis statt GPU-Stunden in der Cloud.',
   },
   {
     q: 'Brauche ich Programmierkenntnisse?',
@@ -31,8 +31,8 @@ const faqs = [
     a: 'Ja, LoRA (Low-Rank Adaptation) ist vollständig integriert. LoRA-Rank, Alpha und Target-Module sind direkt in der App konfigurierbar — ermöglicht Fine-Tuning auch auf GPUs mit wenig VRAM.',
   },
   {
-    q: 'Warum kostet FrameTrain nur 1,99€?',
-    a: 'FrameTrain befindet sich aktuell in der Early-Access-Phase. Der Preis ist bewusst niedrig gehalten, damit möglichst viele Entwickler und Forscher Zugang bekommen. Mit zukünftigen Feature-Updates wird der Preis steigen.',
+    q: 'Warum kostet FrameTrain nur 4,99 €?',
+    a: 'FrameTrain befindet sich aktuell in der Early-Access-Phase. Der Preis ist bewusst niedrig gehalten, damit möglichst viele Entwickler und Forscher Zugang bekommen. Nach den ersten 100 Nutzern steigt er auf 9,99 € im Monat – wer vorher startet, behält seinen Preis.',
   },
   {
     q: 'Läuft FrameTrain auf Apple M1/M2/M3/M4?',
@@ -115,7 +115,7 @@ const FrameTrain = () => {
     { label: 'Fine-Tuning-Methoden', val: 'LoRA, QLoRA, Full Fine-Tuning' },
     { label: 'Precision', val: 'FP32, FP16, BF16 (Mixed Precision)' },
     { label: 'Weitere Features', val: 'Gradient Checkpointing, Warmup, Weight Decay' },
-    { label: 'Preis', val: '1,99€ einmalig — lebenslanger Zugang' },
+    { label: 'Preis', val: '4,99 €/Monat oder 39,99 €/Jahr' },
   ];
 
   return (
@@ -134,7 +134,6 @@ const FrameTrain = () => {
 
           {/* Icon mit Glow */}
           <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/40 to-pink-500/30 rounded-3xl blur-2xl" />
             <div className="relative w-24 h-24 rounded-2xl flex items-center justify-center overflow-hidden">
               <FrameTrainIcon size={96} />
             </div>
@@ -164,8 +163,8 @@ const FrameTrain = () => {
           {/* Preis-Highlight */}
           <div className="inline-flex items-center gap-4 mb-10 px-6 py-3 glass-effect rounded-2xl border border-purple-500/30">
             <div className="text-left">
-              <div className="text-2xl font-black text-white">1,99€</div>
-              <div className="text-xs text-gray-400">Einmalige Zahlung</div>
+              <div className="text-2xl font-black text-white">4,99 €</div>
+              <div className="text-xs text-gray-400">pro Monat · jederzeit kündbar</div>
             </div>
             <div className="h-8 w-px bg-white/10" />
             <div className="text-left">
@@ -184,7 +183,7 @@ const FrameTrain = () => {
             <a href="https://frame-train.com/register" target="_blank" rel="noopener noreferrer"
               className="btn-primary inline-flex items-center justify-center space-x-2">
               <Sparkles className="w-5 h-5" />
-              <span>Jetzt starten — 1,99€</span>
+              <span>Jetzt starten — 4,99 €/Monat</span>
             </a>
             <a href="https://frame-train.com/download" target="_blank" rel="noopener noreferrer"
               className="btn-secondary inline-flex items-center justify-center space-x-2">
@@ -234,7 +233,7 @@ const FrameTrain = () => {
           <h2 className="text-2xl font-bold text-white mb-8 text-center">So funktioniert es</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { n: '01', icon: <Download className="w-7 h-7" />, title: 'Registrieren & Herunterladen', desc: 'Account erstellen, einmalig 1,99€ bezahlen, Desktop-App herunterladen und installieren.' },
+              { n: '01', icon: <Download className="w-7 h-7" />, title: 'Registrieren & Herunterladen', desc: 'Account erstellen, Plan wählen (4,99 €/Monat oder 39,99 €/Jahr), Desktop-App herunterladen und installieren.' },
               { n: '02', icon: <Database className="w-7 h-7" />, title: 'Modell & Daten importieren', desc: 'Wähle ein Modell von HuggingFace oder lokal — lade deinen Datensatz als CSV, JSON oder JSONL.' },
               { n: '03', icon: <Zap className="w-7 h-7" />, title: 'Trainieren & Exportieren', desc: 'Parameter konfigurieren, Training starten, Metriken live verfolgen, Modell exportieren.' },
             ].map((step) => (
@@ -256,7 +255,7 @@ const FrameTrain = () => {
           <p className="text-gray-400 text-center mb-10">Die Vorteile von lokalem ML-Training gegenüber Cloud-Services</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { icon: <Wallet className="w-5 h-5" />, title: 'Keine laufenden Kosten', desc: 'Cloud-GPU-Instanzen kosten €0,50–€10+/Stunde. FrameTrain: einmalig 1,99€, unbegrenzt trainieren.' },
+              { icon: <Wallet className="w-5 h-5" />, title: 'Keine laufenden Kosten', desc: 'Cloud-GPU-Instanzen kosten €0,50–€10+/Stunde. FrameTrain: 4,99 € im Monat, trainiert auf deiner eigenen Hardware.' },
               { icon: <Lock className="w-5 h-5" />, title: 'Maximale Datensicherheit', desc: 'Sensible Daten verlassen niemals deinen Rechner. DSGVO-Konformität ohne Aufwand.' },
               { icon: <Cpu className="w-5 h-5" />, title: 'Volle GPU-Kontrolle', desc: 'Keine geteilten Ressourcen, kein Throttling. 100 % deiner GPU-Kapazität ohne künstliche Limits.' },
               { icon: <WifiOff className="w-5 h-5" />, title: 'Offline-Betrieb', desc: 'Kein Internet nötig. Trainiere in abgesicherten Netzwerken oder auf Reisen.' },
@@ -365,20 +364,20 @@ const FrameTrain = () => {
         {/* ── Preise ────────────────────────────────────────────────────────── */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-white text-center mb-4">Preis</h2>
-          <p className="text-gray-400 text-center mb-10">Einmalige Zahlung. Lebenslanger Zugang. Keine Abos.</p>
+          <p className="text-gray-400 text-center mb-10">Early-Access-Preis. Monatlich kündbar. Jährlich 33 % günstiger.</p>
           <div className="max-w-md mx-auto">
             <div className="card border-purple-500/50 relative overflow-hidden">
               <div className="absolute top-0 right-0 px-4 py-1 bg-gradient-to-l from-purple-500 to-pink-500 text-white text-xs font-semibold">
                 Early Access
               </div>
               <div className="text-center mb-6">
-                <div className="text-6xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-1">1,99€</div>
-                <div className="text-gray-400 text-sm">Einmalige Zahlung • Alle Updates inklusive</div>
+                <div className="text-6xl font-black text-signal-500 mb-1">4,99 €</div>
+                <div className="text-gray-400 text-sm">pro Monat • oder 39,99 € im Jahr (= 3,33 €/Monat)</div>
               </div>
               <ul className="space-y-3 mb-8">
                 {[
                   'Voller Zugang zur Desktop-App',
-                  'Unbegrenzte Modelle & Trainings',
+                  '21 Trainings-Plugins',
                   'Alle zukünftigen Updates',
                   'GPU-Beschleunigung (CUDA + Metal)',
                   'HuggingFace-Integration',
@@ -394,9 +393,9 @@ const FrameTrain = () => {
               </ul>
               <a href="https://frame-train.com/register" target="_blank" rel="noopener noreferrer"
                 className="btn-primary w-full block text-center py-3">
-                Jetzt für 1,99€ starten
+                Jetzt für 4,99 €/Monat starten
               </a>
-              <p className="text-xs text-gray-500 text-center mt-3">Preis steigt mit zukünftigen Feature-Updates. Early Access sichern.</p>
+              <p className="text-xs text-gray-500 text-center mt-3">Nach den ersten 100 Nutzern steigt der Preis auf 9,99 €/Monat. Wer vorher startet, behält seinen Preis.</p>
             </div>
           </div>
         </div>
@@ -449,13 +448,13 @@ const FrameTrain = () => {
             <FrameTrainIcon size={56} />
           </div>
           <h2 className="text-2xl font-bold text-white mb-3">KI-Modelle lokal trainieren</h2>
-          <p className="text-gray-400 mb-2 max-w-md mx-auto">FrameTrain ist kostenlos herunterladbar. Einmalig 1,99€ — lebenslanger Zugang, alle Updates inklusive.</p>
+          <p className="text-gray-400 mb-2 max-w-md mx-auto">4,99 € im Monat oder 39,99 € im Jahr — alle Updates inklusive, jederzeit kündbar.</p>
           <p className="text-purple-300 font-semibold mb-6 text-sm">Verfügbar für macOS, Windows und Linux.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a href="https://frame-train.com/register" target="_blank" rel="noopener noreferrer"
               className="btn-primary inline-flex items-center justify-center space-x-2">
               <Sparkles className="w-5 h-5" />
-              <span>Jetzt starten — 1,99€</span>
+              <span>Jetzt starten — 4,99 €/Monat</span>
             </a>
             <a href="https://frame-train.com/" target="_blank" rel="noopener noreferrer"
               className="btn-secondary inline-flex items-center justify-center space-x-2">

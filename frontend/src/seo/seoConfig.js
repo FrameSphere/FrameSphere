@@ -57,7 +57,7 @@ export const ROUTES = {
   '/products/frametrain': {
     title: 'FrameTrain – KI-Modelle lokal trainieren | FrameSphere',
     description:
-      'FrameTrain ist eine Desktop-App für lokales KI-Training & Fine-Tuning: HuggingFace, LoRA & QLoRA, GPU-Support (CUDA/Metal), 100 % privat. Einmalig 1,99€.',
+      'FrameTrain ist eine Desktop-App für lokales KI-Training & Fine-Tuning: HuggingFace, LoRA & QLoRA, GPU-Support (CUDA/Metal), 100 % privat. Ab 4,99 € im Monat.',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
@@ -67,7 +67,7 @@ export const ROUTES = {
       operatingSystem: 'macOS, Windows, Linux',
       description:
         'Desktop-App für lokales Machine-Learning-Training und Fine-Tuning mit HuggingFace-Integration, LoRA/QLoRA und GPU-Support.',
-      offers: { '@type': 'Offer', price: '1.99', priceCurrency: 'EUR' },
+      offers: { '@type': 'Offer', price: '4.99', priceCurrency: 'EUR', description: 'Early-Access-Preis pro Monat (jährlich 39,99 €)' },
       publisher: { '@type': 'Organization', name: SITE.name, url: SITE.baseUrl },
     },
   },

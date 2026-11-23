@@ -7,3 +7,6 @@ graphify-out/
 # lokale Prozess-PIDs
 .backend.pid
 .frontend.pid
+
+# Recherche-Notizen (lokal)
+.research/

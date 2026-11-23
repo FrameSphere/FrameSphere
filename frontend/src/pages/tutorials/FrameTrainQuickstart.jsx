@@ -118,12 +118,12 @@ export default function FrameTrainQuickstart() {
           Gehe zu{' '}
           <a href={`${FT}/register`} target="_blank" rel="noopener noreferrer"
             className="text-purple-400 hover:underline">frame-train.com/register</a>{' '}
-          und erstelle einen Account. Zahle einmalig <strong className="text-white">1,99€</strong> via Stripe.
+          und erstelle einen Account. Wähle einen Plan: <strong className="text-white">4,99 €/Monat</strong> oder <strong className="text-white">39,99 €/Jahr</strong>, bezahlt via Stripe.
           Nach der Zahlung erhältst du deinen API-Key der den Download freischaltet.
         </p>
         <InfoBox icon="💡" color="purple">
-          <strong className="text-white">Early Access:</strong> 1,99€ sind der günstigste Einstiegspreis.
-          Mit zukünftigen Feature-Updates steigt der Preis. Lebenslanger Zugang inklusive aller Updates.
+          <strong className="text-white">Early Access:</strong> Nach den ersten 100 Nutzern steigt der Preis auf 9,99 €/Monat.
+          Wer vorher startet, behält seinen Preis dauerhaft.
         </InfoBox>
       </Step>
 

@@ -74,7 +74,7 @@ const About = () => {
     {
       icon: <Heart className="w-5 h-5" />,
       title: 'Faire Preise',
-      desc: 'Ich weiß was es heißt, selbst Entwickler zu sein und Tools zu nutzen. Kein VC-Druck bedeutet keine überzogenen Preise. 1,99€ für FrameTrain — das meine ich ernst.',
+      desc: 'Ich weiß was es heißt, selbst Entwickler zu sein und Tools zu nutzen. Kein VC-Druck bedeutet keine überzogenen Preise. 4,99 € im Monat für FrameTrain — das meine ich ernst.',
     },
   ];
 
@@ -106,7 +106,7 @@ const About = () => {
     {
       period: 'Winter 2025',
       title: 'FrameTrain Early Access',
-      desc: 'Desktop-App für lokales KI-Training — Tauri, PyTorch, HuggingFace. Einmalig 1,99€, kein Abo, komplett lokal.',
+      desc: 'Desktop-App für lokales KI-Training — Tauri, PyTorch, HuggingFace. Ab 4,99 € im Monat, jederzeit kündbar, komplett lokal.',
     },
     {
       period: 'Frühjahr 2026',
@@ -128,7 +128,6 @@ const About = () => {
         <div className="text-center mb-20 pt-10">
           {/* Avatar / Emoji */}
           <div className="relative w-28 h-28 mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/40 to-purple-500/30 rounded-full blur-2xl" />
             <div className="relative w-28 h-28 rounded-full bg-gradient-to-br from-primary-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center text-primary-200">
               <Code2 className="w-12 h-12" />
             </div>

@@ -1,19 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <defs>
-    <linearGradient id="fs-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0ea5e9"/>
-      <stop offset="100%" stop-color="#9333ea"/>
-    </linearGradient>
-  </defs>
-  <!-- Hintergrund identisch zum Navbar-Icon: rounded-lg Gradient primary-500 → purple-600 -->
-  <rect width="32" height="32" rx="7" fill="url(#fs-bg)"/>
-  <!-- FS — etwas größer, mit leichtem letter-spacing damit es luftiger/länger wirkt, nicht gequetscht -->
-  <text
-    x="16" y="22"
-    font-family="Arial Black, Arial, sans-serif"
-    font-size="13"
-    font-weight="800"
-    fill="white"
-    text-anchor="middle"
-    letter-spacing="1">FS</text>
+  <rect width="32" height="32" rx="7" fill="#0B0B0C"/>
+  <path d="M8 13V8h5M24 13V8h-5M8 19v5h5M24 19v5h-5" stroke="#F2EFE8" stroke-width="2" stroke-linecap="square"/>
+  <circle cx="16" cy="16" r="4.5" fill="#FF4D2E"/>
 </svg>

@@ -58,7 +58,6 @@ const Wordify = () => {
           </div>
 
           <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 bg-emerald-500/30 rounded-2xl blur-2xl" />
             <div className="relative w-24 h-24 rounded-2xl flex items-center justify-center overflow-hidden">
               <WordifyIcon size={96} />
             </div>

@@ -13,11 +13,11 @@ const Products = () => {
       id: 'framespell',
       name: 'FrameSpell API',
       tagline: 'KI-Rechtschreibprüfung für Entwickler',
-      description: 'Leistungsstarke KI-Rechtschreibprüfung API auf Basis des MT5-Modells. Echtzeit-Korrektur mit REST API, JSON Response. Unterstützt Deutsch, Englisch, Spanisch und Französisch.',
+      description: 'Leistungsstarke KI-Rechtschreibprüfung API auf Basis des MT5-Modells. Echtzeit-Korrektur mit REST API, JSON Response. Live für Deutsch, weitere Sprachen in Arbeit.',
       Icon: FrameSpellIcon,
       externalUrl: 'https://framespell.pages.dev/',
       link: '/products/framespell',
-      features: ['MT5 Machine Learning Modell', 'REST API & JSON Response', '99.2% Genauigkeit', 'Unter 1000ms Antwortzeit', 'DE, EN, ES, FR', '20 kostenlose Anfragen/Min'],
+      features: ['MT5 Machine Learning Modell', 'REST API & JSON Response', 'Beam Search (4 Beams)', 'Latenz pro Antwort', 'Deutsch (live)', '20 kostenlose Anfragen/Min'],
       useCases: ['CMS & Blog-Systeme', 'E-Mail Clients', 'Chat-Anwendungen', 'Text-Editoren'],
       pricing: 'Kostenlos bis 20 Req/Min · Pro ab €29/Mo',
     },
@@ -43,7 +43,7 @@ const Products = () => {
       link: '/products/frametrain',
       features: ['100% lokale Ausführung', 'HuggingFace-Integration', 'LoRA & QLoRA Fine-Tuning', 'GPU-Beschleunigung (CUDA + Metal)', 'DSGVO-konform by Design', 'macOS, Windows & Linux'],
       useCases: ['ML-Entwickler & Forscher', 'Datenschutzkritische Projekte', 'LLM Fine-Tuning', 'Offline-Training'],
-      pricing: '€1,99 einmalig · Early Access',
+      pricing: '€4,99/Monat · Early Access',
     },
     {
       id: 'keyscope',
@@ -65,7 +65,7 @@ const Products = () => {
       Icon: SiteControlIcon,
       externalUrl: 'https://app.sitecontrol.app/',
       link: '/products/website-manager',
-      features: ['Multi-Site Dashboard & KPIs', 'Blog-CMS (mehrsprachig)', 'Changelog-System', 'Support-Ticket-Management', 'Analytics ohne externes Tool', 'AdSense & Google Search Console'],
+      features: ['Multi-Site Dashboard & KPIs', 'Blog-CMS (mehrsprachig)', 'Changelog-System', 'Support-Ticket-Management', 'Analytics ohne externes Tool', 'Einbindbares Tracking-Skript'],
       useCases: ['Indie Developer & Freelancer', 'Web-Agenturen', 'SaaS-Gründer', 'Content Creator'],
       pricing: 'Kostenlos bis 3 Sites · Pro €19/Mo',
     },
@@ -100,7 +100,7 @@ const Products = () => {
       icon: <Network className="w-10 h-10 text-white" />,
       color: 'from-indigo-500 to-blue-500',
       link: '/products/spherenet',
-      features: ['1000+ KI-Modelle', 'Community Chains', 'Model Marketplace', 'API Key Management'],
+      features: ['Agenten registrieren', 'Chains verketten', 'Ein Endpunkt pro Chain', 'API-Keys pro Agent'],
     },
   ];
 
@@ -119,25 +119,25 @@ const Products = () => {
           </p>
           <div className="flex items-center justify-center gap-6 mt-6 flex-wrap">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-green-400 text-sm font-semibold">5 Live-Produkte</span>
+              <div className="w-2 h-2 bg-green-400 rounded-full" />
+              <span className="text-green-400 text-sm font-semibold">FrameTrain live</span>
             </div>
             <div className="text-gray-600">·</div>
             <span className="text-gray-400 text-sm">6 Web Apps</span>
             <div className="text-gray-600">·</div>
-            <span className="text-gray-400 text-sm">3 in Entwicklung</span>
+            <span className="text-gray-400 text-sm">7 in Entwicklung</span>
           </div>
         </div>
 
         {/* ── LIVE PRODUKTE ─────────────────────────────────────────────── */}
         <div className="mb-16">
           <div className="flex items-center space-x-3 mb-8">
-            <div className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse" />
-            <h2 className="text-2xl font-bold text-white">Live — Jetzt nutzbar</h2>
+            <div className="w-2.5 h-2.5 bg-green-400 rounded-full" />
+            <h2 className="text-2xl font-bold text-white">Desktop-App & APIs</h2>
           </div>
 
           <div className="space-y-6">
-            {liveProducts.map((product) => (
+            {[...liveProducts].sort((a, b) => (b.id === 'frametrain') - (a.id === 'frametrain')).map((product) => (
               <div key={product.id} className="card card-interactive">
                 <div className="grid md:grid-cols-3 gap-8">
 
@@ -148,7 +148,11 @@ const Products = () => {
                     </div>
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <h3 className="text-xl font-bold text-white">{product.name}</h3>
-                      <span className="px-2 py-0.5 rounded text-xs border bg-green-500/20 text-green-400 border-green-500/30">Live</span>
+                      {product.id === 'frametrain' ? (
+                        <span className="px-2 py-0.5 rounded text-xs border bg-green-500/20 text-green-400 border-green-500/30">Live</span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded text-xs border border-white/15 text-bone-300">In Entwicklung</span>
+                      )}
                     </div>
                     <p className="text-primary-400 font-semibold text-sm mb-3">{product.tagline}</p>
                     <p className="text-gray-400 text-sm mb-5 leading-relaxed">{product.description}</p>
@@ -206,7 +210,7 @@ const Products = () => {
         <div>
           <div className="flex items-center space-x-3 mb-8">
             <Clock className="w-5 h-5 text-yellow-400" />
-            <h2 className="text-2xl font-bold text-white">In Entwicklung — Bald verfügbar</h2>
+            <h2 className="text-2xl font-bold text-white">Früher Stand</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
