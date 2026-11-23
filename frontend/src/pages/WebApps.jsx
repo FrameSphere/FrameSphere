@@ -28,7 +28,7 @@ const webApps = [
     id: 'flagguess',
     name: 'FlagGuess',
     tagline: 'Flaggen-Quiz',
-    description: '195+ Länderflaggen erraten — 3 Schwierigkeitsstufen, Flaggen-Bibliothek, täglich neue Challenge.',
+    description: '199 Länderflaggen erraten — 3 Schwierigkeitsstufen, Flaggen-Bibliothek, täglich neue Challenge.',
     icon: FlagGuessIcon,
     accent: 'from-blue-500 to-indigo-600',
     accentLight: 'bg-blue-500/15',
@@ -36,7 +36,7 @@ const webApps = [
     borderColor: 'hover:border-blue-500/50',
     path: '/webapps/flagguess',
     externalUrl: 'https://flaggues.pages.dev/',
-    tags: ['Quiz', 'Geografie', '195+ Flaggen', 'Täglich'],
+    tags: ['Quiz', 'Geografie', '199 Flaggen', 'Täglich'],
   },
   {
     id: 'brawlmystery',
@@ -70,7 +70,7 @@ const webApps = [
     id: 'traitora',
     name: 'Traitora',
     tagline: 'Adaptiver Persönlichkeitstest',
-    description: 'Wissenschaftlicher IRT-Test — präziser als MBTI, 15–30 Fragen, 8 Traits, 4 Sprachen.',
+    description: 'Adaptiver Test nach IRT-2PL — 10–40 Fragen aus 99 Items, 4 Sprachen.',
     icon: TraitoraIcon,
     accent: 'from-violet-500 to-purple-700',
     accentLight: 'bg-violet-500/15',
@@ -83,7 +83,7 @@ const webApps = [
   {
     id: 'fileflyr',
     name: 'FileFlyr',
-    tagline: '40+ Dateikonverter',
+    tagline: '38 Dateikonverter',
     description: 'Bilder, PDFs, Audio konvertieren — 100% im Browser, kein Upload, kein Tracking, kein Abo.',
     icon: FileFlyrIcon,
     accent: 'from-cyan-500 to-blue-600',
@@ -92,7 +92,7 @@ const webApps = [
     borderColor: 'hover:border-cyan-500/50',
     path: '/webapps/fileflyr',
     externalUrl: 'https://fileflyr.pages.dev/',
-    tags: ['Dateikonverter', '40+ Tools', '100% Privat', 'Kostenlos'],
+    tags: ['Dateikonverter', '38 Tools', '100% Privat', 'Kostenlos'],
   },
 ];
 
@@ -177,7 +177,7 @@ const WebApps = () => {
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                   <a href={app.externalUrl} target="_blank" rel="noopener noreferrer"
-                    className={`btn-primary px-4 py-2.5 text-sm inline-flex items-center gap-1.5 bg-gradient-to-r ${app.accent}`}>
+                    className={`btn-primary px-4 py-2.5 text-sm inline-flex items-center gap-1.5`}>
                     <ExternalLink className="w-4 h-4" />
                     <span>Öffnen</span>
                   </a>
@@ -192,7 +192,7 @@ const WebApps = () => {
           {[
             { icon: <Gamepad2 className="w-5 h-5" />, label: 'Tägliche Spiele',   desc: 'Wordify, FlagGuess, BrawlMystery — täglich neue Herausforderungen' },
             { icon: <Wrench className="w-5 h-5" />, label: 'Nützliche Tools',   desc: 'FileFlyr, SpinSelector — kostenlose Browser-Tools ohne Anmeldung' },
-            { icon: <FlaskConical className="w-5 h-5" />, label: 'Psychologie & Tests', desc: 'Traitora — wissenschaftlich fundierter adaptiver Persönlichkeitstest' },
+            { icon: <FlaskConical className="w-5 h-5" />, label: 'Psychologie & Tests', desc: 'Traitora — adaptiver Persönlichkeitstest nach IRT-2PL' },
           ].map((item, i) => (
             <div key={i} className="glass-effect rounded-xl p-5 flex items-start gap-4">
               <span className="w-10 h-10 bg-primary-500/15 rounded-lg flex items-center justify-center text-primary-400 flex-shrink-0">{item.icon}</span>

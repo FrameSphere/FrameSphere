@@ -2,97 +2,203 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * FrameSphere — Ink / Bone / Signal
+ * Grundsätze und Quellen: siehe /DESIGN.md
+ */
+
 @layer base {
   :root {
-    /* Stärkere Custom-Easings – die CSS-Defaults sind zu schwach */
+    --ink: #0b0b0c;
+    --bone: #f2efe8;
+    --signal: #ff4d2e;
+    --line: rgb(242 239 232 / 0.09);
+    --line-strong: rgb(242 239 232 / 0.18);
+
+    /* Kräftige Custom-Easings – die CSS-Defaults wirken träge */
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    @apply bg-dark-900 text-gray-100 antialiased;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    @apply bg-ink text-bone-200 antialiased font-sans;
+    font-feature-settings: 'ss01', 'cv11';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Sichtbarer, konsistenter Fokus-Ring für Tastatur-Navigation */
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-bone-100;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  h1 {
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Tabellarische Ziffern überall dort, wo Zahlen verglichen werden */
+  .tabular,
+  table,
+  code,
+  pre {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: var(--ink);
+  }
+
   :focus-visible {
-    outline: 2px solid theme('colors.primary.400');
-    outline-offset: 2px;
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
     border-radius: 4px;
+  }
+
+  code,
+  pre,
+  kbd {
+    @apply font-mono;
   }
 }
 
 @layer components {
+  /* Früher Verlauf – jetzt das Signal: EIN hervorgehobenes Element pro Ansicht */
   .gradient-text {
-    /* Zweistufiger Verlauf statt Regenbogen – ruhiger, hochwertiger */
-    @apply bg-gradient-to-r from-primary-300 to-purple-400 bg-clip-text text-transparent;
+    @apply text-signal-500;
   }
 
+  /* Früher Glas + Blur – jetzt eine ruhige, opake Fläche mit Haarlinie */
   .glass-effect {
-    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+    @apply bg-dark-800 border border-white/[0.08];
   }
 
-  /* ── Buttons: schnelles Feedback, Press-State, exakte Transitions ── */
+  /* ── Buttons ─────────────────────────────────────────────────────
+     Primär: Signal-Fläche mit Ink-Text (Kontrast 5.9:1 statt 3.3:1 bei Weiß).
+     Höhe ≥ 44px → großzügiges Ziel nach Fitts' Law. */
   .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg shadow-lg;
-    transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out),
-      background-color 180ms var(--ease-out);
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px]
+      bg-signal-500 text-ink font-semibold rounded-lg;
+    transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out);
   }
   .btn-primary:hover {
-    @apply from-primary-600 to-primary-700 shadow-primary-500/40;
+    @apply bg-signal-400;
   }
   .btn-primary:active {
     transform: scale(0.97);
   }
 
   .btn-secondary {
-    @apply px-6 py-3 glass-effect text-white font-semibold rounded-lg;
-    transition: transform 180ms var(--ease-out), background-color 180ms var(--ease-out),
-      border-color 180ms var(--ease-out);
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px]
+      bg-transparent text-bone-100 font-semibold rounded-lg border border-white/15;
+    transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out),
+      border-color 160ms var(--ease-out);
   }
   .btn-secondary:hover {
-    @apply bg-white/10 border-white/20;
+    @apply bg-white/[0.04] border-white/30;
   }
   .btn-secondary:active {
     transform: scale(0.97);
   }
 
-  /* ── Card: dezenter Lift statt Ganzflächen-Scale ── */
-  .card {
-    @apply glass-effect rounded-xl p-6;
-    transition: transform 200ms var(--ease-out), background-color 200ms var(--ease-out),
-      border-color 200ms var(--ease-out);
+  /* Invertierter Button für helle (bone) Flächen */
+  .btn-ink {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px]
+      bg-ink text-bone-100 font-semibold rounded-lg;
+    transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out);
   }
-  .card:hover {
-    @apply bg-white/[0.07] border-white/20;
+  .btn-ink:hover {
+    @apply bg-dark-700;
+  }
+  .btn-ink:active {
+    transform: scale(0.97);
   }
 
-  /* Interaktive Cards (Links/Buttons) heben sich beim Hover leicht an */
+  /* ── Card: opake Fläche, Haarlinie, kein Glow ── */
+  .card {
+    @apply bg-dark-800 border border-white/[0.07] rounded-xl p-6;
+    transition: transform 220ms var(--ease-out), border-color 220ms var(--ease-out),
+      background-color 220ms var(--ease-out);
+  }
+  .card:hover {
+    @apply border-white/[0.14];
+  }
   .card-interactive:hover {
     transform: translateY(-2px);
   }
   .card-interactive:active {
     transform: translateY(0) scale(0.99);
   }
+
+  /* Kleines Mono-Label über Überschriften (ersetzt bunte Uppercase-Eyebrows) */
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em] text-bone-400;
+  }
+  .eyebrow-signal {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em] text-signal-500;
+  }
+
+  .hairline {
+    border-color: var(--line);
+  }
+
+  .kbd {
+    @apply inline-flex items-center justify-center min-w-[1.5rem] h-6 px-1.5 rounded
+      border border-white/15 bg-white/[0.03] font-mono text-[11px] text-bone-400;
+  }
+
+  /* Feines Punktraster – technischer Hintergrund statt Farbblobs */
+  .dot-grid {
+    background-image: radial-gradient(rgb(242 239 232 / 0.09) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Lesemaß 60–75 Zeichen (Bringhurst / Dyson & Haselgrove) */
+  .measure {
+    max-width: 65ch;
+  }
 }
 
-/* Scrollbar Styling */
+/* Analoges Korn über der ganzen Seite – bricht die sterile Digitalfläche */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-dark-800;
+  background: var(--ink);
 }
 ::-webkit-scrollbar-thumb {
   @apply bg-dark-500 rounded-full;
+  border: 2px solid var(--ink);
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary-600;
+  background: var(--signal);
 }
 
 /* Reduced Motion: Bewegung raus, Opacity/Farbe bleibt */

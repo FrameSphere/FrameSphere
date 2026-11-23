@@ -164,15 +164,10 @@ const SiteControlPage = () => {
     { icon: <Layers className="w-5 h-5" />,      color: 'bg-violet-500/20 text-violet-400',  title: 'Changelog-System',     free: false, desc: 'Versionierte Einträge mit Feature, Fix und Breaking-Change-Tags. Automatisch publizierbar.' },
     { icon: <LifeBuoy className="w-5 h-5" />,    color: 'bg-violet-500/20 text-violet-400',  title: 'Support-Tickets',      free: false, desc: 'Kundennachrichten empfangen, beantworten und verwalten — direkt im Dashboard.' },
     { icon: <BarChart2 className="w-5 h-5" />,   color: 'bg-violet-500/20 text-violet-400',  title: 'Analytics',            free: false, desc: 'Pageviews, Geräte-Split, Referrer und Fehler-Logs. Kein externes Tool nötig.' },
-    { icon: <DollarSign className="w-5 h-5" />,  color: 'bg-violet-500/20 text-violet-400',  title: 'AdSense-Widget',       free: false, desc: 'Deine Einnahmen der letzten 30 Tage direkt im Dashboard. Mit Sparkline-Chart.' },
-    { icon: <Search className="w-5 h-5" />,      color: 'bg-violet-500/20 text-violet-400',  title: 'Search Console',       free: false, desc: 'Klicks, Impressionen, Top-Keywords und Ø-Position aus Google Search Console.' },
+    { icon: <DollarSign className="w-5 h-5" />,  color: 'bg-violet-500/20 text-violet-400',  title: 'AdSense-Widget (geplant)', free: false, desc: 'Einnahmen der letzten 30 Tage im Dashboard – in Arbeit.' },
+    { icon: <Search className="w-5 h-5" />,      color: 'bg-violet-500/20 text-violet-400',  title: 'Search Console (geplant)', free: false, desc: 'Klicks, Impressionen und Top-Keywords aus der Google Search Console – in Arbeit.' },
   ];
 
-  const testimonials = [
-    { name: 'Markus B.', role: 'Indie Developer', color: '#5b6af6', text: 'Ich verwalte 8 Websites. Früher hatte ich 8 Tabs mit verschiedenen Tools offen — jetzt alles in SiteControl.' },
-    { name: 'Julia K.', role: 'Freelance Webdesignerin', color: '#22c55e', text: 'Das Blog-System spart mir täglich 30 Minuten. Alle Posts für alle Kunden-Seiten an einem Ort.' },
-    { name: 'Thomas R.', role: 'SaaS Gründer', color: '#a78bfa', text: 'Support-Tickets und Changelog in einer App — endlich kein Hin-und-her zwischen verschiedenen Tools.' },
-  ];
 
   const plans = [
     {
@@ -181,7 +176,7 @@ const SiteControlPage = () => {
       period: 'für immer',
       highlight: false,
       features: ['Bis zu 3 Websites', 'Dashboard & KPI-Überblick', 'Todo-Management', 'Benachrichtigungen', 'Basic Analytics', '1 Benutzer'],
-      missing: ['Blog-Verwaltung', 'Changelog-System', 'Support-Tickets', 'AdSense & GSC-Widgets', 'Teammitglieder'],
+      missing: ['Blog-Verwaltung', 'Changelog-System', 'Support-Tickets', ],
       cta: 'Kostenlos starten',
     },
     {
@@ -190,7 +185,7 @@ const SiteControlPage = () => {
       period: 'pro Monat',
       badge: 'Empfohlen',
       highlight: true,
-      features: ['Unbegrenzte Websites', 'Alles aus Free', 'Blog-Verwaltung (mehrsprachig)', 'Changelog-System', 'Support-Ticket-System', 'Vollständige Analytics', 'AdSense & GSC-Widgets', 'Bis zu 5 Teammitglieder', 'Prioritäts-Support'],
+      features: ['Unbegrenzte Websites', 'Alles aus Free', 'Blog-Verwaltung (mehrsprachig)', 'Changelog-System', 'Support-Ticket-System', 'Vollständige Analytics', '14 Tage kostenlos testen'],
       missing: [],
       cta: '14 Tage kostenlos testen',
       note: 'Keine Kreditkarte für Free nötig',
@@ -241,7 +236,7 @@ const SiteControlPage = () => {
                 <div>
                   <div className="text-xs font-bold text-indigo-400 uppercase tracking-widest">SiteControl</div>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="px-2 py-0.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full text-xs font-semibold">Live</span>
+                    <span className="px-3 py-1 border border-white/15 text-bone-300 rounded-full text-xs font-semibold">◐ In Entwicklung</span>
                     <span className="text-xs text-gray-500">Next.js + Supabase</span>
                   </div>
                 </div>
@@ -249,7 +244,7 @@ const SiteControlPage = () => {
 
               {/* Eyebrow */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-xs font-semibold mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
                 Jetzt verfügbar — 14 Tage Pro kostenlos testen
               </div>
 
@@ -372,40 +367,6 @@ const SiteControlPage = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          TESTIMONIALS
-      ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-3">Was Nutzer sagen</h2>
-            <div className="flex items-center justify-center gap-1">
-              {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />)}
-            </div>
-          </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {testimonials.map((t, i) => (
-              <div key={i} className="card card-interactive"
-                style={{ transform: `translateY(${parallax * (i % 2 === 0 ? -0.02 : 0.02)}px)` }}>
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, j) => <Star key={j} className="w-3.5 h-3.5 text-yellow-400 fill-current" />)}
-                </div>
-                <p className="text-gray-300 text-sm leading-relaxed mb-5 italic">"{t.text}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-black text-sm"
-                    style={{ background: t.color + '22', border: `2px solid ${t.color}`, color: t.color }}>
-                    {t.name[0]}
-                  </div>
-                  <div>
-                    <div className="font-bold text-white text-sm">{t.name}</div>
-                    <div className="text-gray-500 text-xs">{t.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
           PREISE
@@ -490,9 +451,9 @@ const SiteControlPage = () => {
                     ['Blog-Verwaltung',    '—',         '✓ Mehrsprachig'],
                     ['Changelog-System',  '—',         '✓'],
                     ['Support-Tickets',   '—',         '✓'],
-                    ['AdSense-Widget',    '—',         '✓'],
-                    ['GSC-Integration',   '—',         '✓'],
-                    ['Teammitglieder',    '1',         'Bis 5'],
+                    ['AdSense-Widget',    '—',         'geplant'],
+                    ['GSC-Integration',   '—',         'geplant'],
+                    ['Teammitglieder',    '1',         'geplant'],
                     ['Support',           'Community', 'Priorität'],
                   ].map(([feat, free, pro], i) => (
                     <tr key={i} className="border-b border-white/5 last:border-0">

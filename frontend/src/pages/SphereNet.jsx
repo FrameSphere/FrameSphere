@@ -31,7 +31,7 @@ const SphereNet = () => (
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {['1000+ KI-Modelle', 'Community Chains', 'Model Marketplace', 'API Key Management', 'Usage Analytics', 'Custom Model Hosting'].map((f, i) => (
+        {['Agenten registrieren', 'Chains verketten', 'Chain per API ausführen', 'API-Keys pro Agent', 'Modell-Versionen', 'Admin & Limits'].map((f, i) => (
           <div key={i} className="flex items-center space-x-3 glass-effect rounded-lg p-4">
             <CheckCircle className="w-5 h-5 text-indigo-400 flex-shrink-0" />
             <span className="text-gray-300">{f} <span className="text-gray-600">— geplant</span></span>

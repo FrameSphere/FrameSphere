@@ -101,7 +101,7 @@ const Privacy = () => {
             </ul>
             <p className="mt-3">
               Zur Ausübung deiner Rechte wende dich an:{' '}
-              <a href="mailto:framesphere@gmx.net" className="text-primary-400 hover:underline">framesphere@gmx.netv</a>
+              <a href="mailto:framesphere@gmx.net" className="text-primary-400 hover:underline">framesphere@gmx.net</a>
             </p>
           </Section>
 

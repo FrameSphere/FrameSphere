@@ -1,189 +1,327 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, X, ArrowRight, Sparkles, Shield, Brain, Zap, Globe, Search, LayoutDashboard } from 'lucide-react';
-import { KeyScopeIcon, SiteControlIcon } from '../components/ProductIcons';
+import { motion } from 'framer-motion';
+import { Check, Minus, ArrowRight, ArrowUpRight } from 'lucide-react';
 
-const products = [
-  { id: 'framespell',    name: 'FrameSpell API',  icon: <Sparkles className="w-4 h-4" /> },
-  { id: 'ratelimit',     name: 'RateLimit API',   icon: <Shield className="w-4 h-4" /> },
-  { id: 'frametrain',   name: 'FrameTrain',       icon: <Brain className="w-4 h-4" /> },
-  { id: 'keyscope',     name: 'KeyScope',         icon: <Search className="w-4 h-4" /> },
-  { id: 'sitecontrol',  name: 'SiteControl',      icon: <LayoutDashboard className="w-4 h-4" /> },
-  { id: 'webapps',      name: 'Web Apps',         icon: <Globe className="w-4 h-4" /> },
+// Preise stammen aus den Konfigurationen der Projekte (Stand Nov 2026):
+// FrameTrain website/messages, RateLimit frontend/src/lib/plans.ts,
+// FrameSpell js/pricing-config.js, KeyScope Pricing.jsx, SiteControl app/page.tsx.
+// Nur FrameTrain und die Web-Apps sind live; alles andere ist "geplant".
+
+const tabs = [
+  { id: 'frametrain', name: 'FrameTrain', live: true },
+  { id: 'webapps', name: 'Web-Apps', live: true },
+  { id: 'framespell', name: 'FrameSpell', live: false },
+  { id: 'ratelimit', name: 'RateLimit', live: false },
+  { id: 'keyscope', name: 'KeyScope', live: false },
+  { id: 'sitecontrol', name: 'SiteControl', live: false },
 ];
 
-const PricingCard = ({ plan }) => (
-  <div className={`card relative flex flex-col ${plan.highlighted ? 'border-primary-500' : ''}`}>
-    {plan.badge && (
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-        <span className="bg-gradient-to-r from-primary-500 to-purple-500 text-white px-4 py-1 rounded-full text-xs font-semibold">{plan.badge}</span>
+const plans = {
+  frametrain: [
+    {
+      name: 'Monatlich',
+      price: '€4,99',
+      period: '/ Monat',
+      features: [
+        'Desktop-App für macOS, Windows, Linux',
+        'LoRA, QLoRA und Full Fine-Tuning',
+        '21 Trainings-Plugins (Text, Bild, Audio, Video …)',
+        'Dataset-Builder mit 7 Projekttypen',
+        'MCP-Server mit 101 Werkzeugen',
+        'Alle Updates inklusive',
+      ],
+      cta: { label: 'Auf frame-train.com starten', href: 'https://frame-train.com/' },
+    },
+    {
+      name: 'Jährlich',
+      price: '€39,99',
+      period: '/ Jahr',
+      sub: '= €3,33 pro Monat, 33 % günstiger',
+      highlight: true,
+      badge: 'Early Access',
+      features: ['Alles aus Monatlich', 'Ein Jahr Ruhe vor der Abrechnung'],
+      cta: { label: 'Auf frame-train.com starten', href: 'https://frame-train.com/' },
+    },
+  ],
+  webapps: [
+    {
+      name: 'Kostenlos',
+      price: '€0',
+      period: 'für immer',
+      sub: 'Ohne Konto, ohne Anmeldung',
+      highlight: true,
+      features: [
+        'Wordify: Worträtsel in 5 Sprachen',
+        'FlagGuess: 199 Flaggen, 3 Stufen',
+        'BrawlMystery: 98 Brawler, 4 Modi',
+        'SpinSelector: Glücksrad in 4 Sprachen',
+        'Traitora: adaptiver Persönlichkeitstest',
+        'FileFlyr: 38 Konverter, kein Upload',
+      ],
+      cta: { label: 'Alle Web-Apps', to: '/webapps' },
+    },
+  ],
+  framespell: [
+    {
+      name: 'Kostenlos',
+      price: '€0',
+      period: '/ Monat',
+      features: ['20 Anfragen pro Minute', '100 Start-Credits', 'Deutsch', 'REST-API mit API-Key'],
+      missing: ['Prioritäts-Support'],
+      note: 'Optional Prepaid-Credits: €0,99 für 100 Anfragen',
+    },
+    {
+      name: 'Professional',
+      price: '€29',
+      period: '/ Monat',
+      sub: 'oder €290 im Jahr',
+      highlight: true,
+      features: ['100 Anfragen pro Minute', '500 Bonus-Credits', 'Prioritäts-Support', '30 Tage Geld-zurück'],
+    },
+    {
+      name: 'Enterprise',
+      price: 'Auf Anfrage',
+      features: ['Unbegrenzte Anfragen', 'SLA', 'Persönlicher Ansprechpartner'],
+    },
+  ],
+  ratelimit: [
+    {
+      name: 'Free',
+      price: '€0',
+      period: '/ Monat',
+      features: ['10.000 Requests pro Monat', '3 API-Keys', '5 Configs pro Key', '10 Filter pro Config', 'Analytics der letzten 24 h'],
+      missing: ['Alerts', 'CSV-Export'],
+    },
+    {
+      name: 'Pro',
+      price: '€4,99',
+      period: '/ Monat',
+      highlight: true,
+      features: [
+        '500.000 Requests pro Monat',
+        '25 API-Keys',
+        'Configs und Filter unbegrenzt',
+        'Analytics der letzten 30 Tage',
+        'Webhook-Alerts (5 pro Key)',
+        'CSV-Export und Sandbox',
+      ],
+    },
+    {
+      name: 'Enterprise',
+      price: 'Auf Anfrage',
+      features: ['Unbegrenzte Requests', 'Analytics der letzten 90 Tage', 'Eigene Regeln', 'SLA'],
+    },
+  ],
+  keyscope: [
+    {
+      name: 'Free',
+      price: '€0',
+      period: '/ Monat',
+      features: ['20 Analysen pro Tag', '3 Themenprofile', 'Training mit bis zu 20 Dokumenten', '5 Sprachen', '11 Templates', 'REST-API'],
+    },
+    {
+      name: 'Pro',
+      price: '€9',
+      period: '/ Monat',
+      sub: 'oder €7,49 pro Monat bei Jahreszahlung',
+      highlight: true,
+      features: ['500 Analysen pro Tag', '50 Themenprofile', 'Training mit bis zu 200 Dokumenten', 'Vollständiger Verlauf', 'Prioritäts-Support'],
+    },
+  ],
+  sitecontrol: [
+    {
+      name: 'Free',
+      price: '€0',
+      period: 'für immer',
+      features: ['Bis zu 3 Websites', 'Dashboard', 'Todos', 'Benachrichtigungen', 'Basic Analytics'],
+      missing: ['Blog, Changelog, Support-Tickets'],
+    },
+    {
+      name: 'Pro',
+      price: '€19',
+      period: '/ Monat',
+      sub: '14 Tage kostenlos testen',
+      highlight: true,
+      features: ['Unbegrenzte Websites', 'Blog-Verwaltung', 'Changelog', 'Support-Tickets', 'Volle Analytics'],
+    },
+  ],
+};
+
+const faqs = [
+  {
+    q: 'Was kann ich heute kaufen?',
+    a: 'FrameTrain. Die sechs Web-Apps sind kostenlos und brauchen kein Konto. FrameSpell, RateLimit, KeyScope und SiteControl sind in Entwicklung; ihre Preise hier sind geplant und können sich bis zum Start ändern.',
+  },
+  {
+    q: 'Bleibt der FrameTrain-Preis so?',
+    a: 'Der Early-Access-Preis steigt nach den ersten 100 Nutzern auf €9,99 im Monat. Wer vorher startet, behält seinen Preis.',
+  },
+  {
+    q: 'Kann ich FrameTrain kündigen?',
+    a: 'Jederzeit, zum Ende des laufenden Zeitraums. Bezahlt wird über Stripe: Karte, SEPA, Apple Pay oder Google Pay.',
+  },
+  {
+    q: 'Gibt es eine kostenlose Testphase?',
+    a: 'Für FrameTrain nicht. Für die geplanten Produkte sind Free-Pläne vorgesehen, SiteControl Pro soll zusätzlich 14 Tage testbar sein.',
+  },
+];
+
+function PlanCard({ plan, live }) {
+  return (
+    <div
+      className={`relative flex flex-col rounded-xl border p-7 ${
+        plan.highlight ? 'border-signal-500/60 bg-dark-800' : 'border-white/[0.08] bg-dark-800/50'
+      }`}
+    >
+      {plan.badge && (
+        <span className="absolute -top-3 left-7 rounded-full bg-signal-500 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-ink">
+          {plan.badge}
+        </span>
+      )}
+      <div className="eyebrow">{plan.name}</div>
+      <div className="mt-4 flex items-baseline gap-2">
+        <span className="tabular font-display text-5xl font-extrabold tracking-[-0.04em] text-bone-50">{plan.price}</span>
+        {plan.period && <span className="text-[14px] text-bone-500">{plan.period}</span>}
       </div>
-    )}
-    <div className="text-center mb-6">
-      <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
-      <div className="flex items-baseline justify-center mb-1">
-        <span className="text-4xl font-bold text-white">{plan.price}</span>
-        {plan.period && <span className="text-gray-400 ml-1 text-sm">{plan.period}</span>}
+      <div className="mt-1 min-h-[20px] text-[13px] text-bone-500">{plan.sub}</div>
+
+      <ul className="mt-6 flex-1 space-y-3 border-t border-white/[0.07] pt-6">
+        {plan.features.map((f) => (
+          <li key={f} className="flex gap-3 text-[14px] text-bone-200">
+            <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-signal-500" />
+            {f}
+          </li>
+        ))}
+        {plan.missing?.map((f) => (
+          <li key={f} className="flex gap-3 text-[14px] text-bone-600">
+            <Minus className="mt-0.5 h-4 w-4 flex-shrink-0" />
+            {f}
+          </li>
+        ))}
+      </ul>
+
+      {plan.note && <p className="mt-6 text-[13px] text-bone-500">{plan.note}</p>}
+
+      <div className="mt-7">
+        {live && plan.cta?.href && (
+          <a href={plan.cta.href} target="_blank" rel="noopener noreferrer" className={`w-full ${plan.highlight ? 'btn-primary' : 'btn-secondary'}`}>
+            {plan.cta.label} <ArrowUpRight className="h-4 w-4" />
+          </a>
+        )}
+        {live && plan.cta?.to && (
+          <Link to={plan.cta.to} className={`w-full ${plan.highlight ? 'btn-primary' : 'btn-secondary'}`}>
+            {plan.cta.label} <ArrowRight className="h-4 w-4" />
+          </Link>
+        )}
+        {!live && (
+          <div className="flex min-h-[44px] items-center justify-center rounded-lg border border-dashed border-white/15 font-mono text-[11px] uppercase tracking-wider text-bone-500">
+            Noch nicht buchbar
+          </div>
+        )}
       </div>
-      {plan.subtitle && <p className="text-xs text-gray-500 mt-1">{plan.subtitle}</p>}
     </div>
-    <ul className="space-y-2.5 mb-6 flex-1">
-      {plan.features.map((f, i) => (
-        <li key={i} className="flex items-start text-gray-300 text-sm">
-          <CheckCircle className="w-4 h-4 text-green-400 mr-2 flex-shrink-0 mt-0.5" />{f}
-        </li>
-      ))}
-      {plan.notIncluded?.map((f, i) => (
-        <li key={i} className="flex items-start text-gray-500 text-sm">
-          <X className="w-4 h-4 text-gray-600 mr-2 flex-shrink-0 mt-0.5" /><span className="line-through">{f}</span>
-        </li>
-      ))}
-    </ul>
-    {plan.note && <div className="text-xs text-gray-500 mb-4 p-2.5 glass-effect rounded-lg">{plan.note}</div>}
-    <Link to={plan.name === 'Enterprise' ? '/contact' : '/register'}
-      className={`block text-center py-3 rounded-lg font-semibold text-sm transition-all ${plan.highlighted ? 'btn-primary' : 'btn-secondary'}`}>
-      {plan.cta}
-    </Link>
-  </div>
-);
+  );
+}
 
 const Pricing = () => {
-  const [selected, setSelected] = useState('framespell');
-
-  const plans = {
-    framespell: [
-      { name: 'Kostenlos', price: '€0', period: '/Monat', highlighted: false, features: ['20 Anfragen/Minute', 'Deutsch-Modell', 'REST API Zugang', 'Community Support'], notIncluded: ['Prioritäts-Support', 'Alle Sprachen'], note: 'Nach 20 Req/Min: €0.009 pro Anfrage', cta: 'Kostenlos starten' },
-      { name: 'Professional', price: '€29', period: '/Monat', badge: 'Empfohlen', highlighted: true, features: ['100 Anfragen/Minute', 'Alle Sprachen (DE, EN, ES, FR)', 'Erweiterte API-Features', 'Prioritäts-Support', 'Nutzungsstatistiken'], note: 'Nach 100 Req/Min: €0.005 pro Anfrage', cta: 'Professional wählen' },
-      { name: 'Enterprise', price: 'Individuell', period: '', highlighted: false, features: ['Unbegrenzte Anfragen', 'Alle Sprachen', 'Custom Modelle', 'Dedizierter Support', 'SLA-Garantie', 'On-Premise Option'], cta: 'Kontakt aufnehmen' },
-    ],
-    ratelimit: [
-      { name: 'Kostenlos', price: '€0', period: '/Monat', highlighted: false, features: ['50 Anfragen/Minute', 'Cloudflare Edge', 'IP-Filtering', 'Basic Analytics'], notIncluded: ['Erweiterte Analytics', 'Custom Rules'], cta: 'Kostenlos starten' },
-      { name: 'Professional', price: '€19', period: '/Monat', badge: 'Beliebt', highlighted: true, features: ['500 Anfragen/Minute', 'Erweiterte Analytics', 'Custom Rate Rules', 'IP Whitelist/Blacklist', 'Echtzeit-Dashboard', 'Prioritäts-Support'], cta: 'Professional wählen' },
-      { name: 'Enterprise', price: 'Individuell', period: '', highlighted: false, features: ['Unbegrenzte Anfragen', 'Custom Deployment', 'SLA-Garantie', 'Dedizierter Support'], cta: 'Kontakt aufnehmen' },
-    ],
-    frametrain: [
-      {
-        name: 'Free Download', price: 'Kostenlos', period: '', highlighted: false,
-        subtitle: 'Einmaliger Download, keine Subscription',
-        features: ['Lokales KI-Training', 'Eigene Trainingsdaten', 'Modell-Export', 'Basis-Modelle', 'macOS, Windows, Linux', 'Community Support'],
-        cta: 'Jetzt herunterladen'
-      },
-      {
-        name: 'Pro', price: '€1,99', period: '/Einmalig', badge: 'Early Access', highlighted: true,
-        features: ['Alles aus Free', 'HuggingFace-Integration', 'LoRA & QLoRA', 'GPU-Beschleunigung', 'Alle Updates inklusive', 'Community Support'],
-        cta: 'Jetzt starten'
-      },
-    ],
-    keyscope: [
-      {
-        name: 'Free', price: '€0', period: '/Monat', highlighted: false,
-        features: ['20 Analysen / Tag', 'Bis zu 10 Keywords + 10 Longtails', '3 Keyword-Profile', '5 Sprachen (DE, EN, FR, ES, IT)', 'Pre-built Templates', 'REST API Zugang', 'Training bis 20 Dokumente'],
-        notIncluded: ['AI Model Mode', 'Vollständiger Verlauf', 'Prioritäts-Support'],
-        note: 'Keine Kreditkarte nötig',
-        cta: 'Kostenlos starten',
-      },
-      {
-        name: 'Pro', price: '€9', period: '/Monat', badge: 'Beliebt', highlighted: true,
-        features: ['500 Analysen / Tag', 'Bis zu 50 Keywords + 50 Longtails', '50 Profile', '5 Sprachen', 'REST API Zugang', 'Training bis 200 Dokumente', 'AI Model Mode (HuggingFace)', 'Vollständiger Verlauf', 'Prioritäts-Support'],
-        note: 'Jährlich: €7,49/Mo (−20%)',
-        cta: 'Pro starten',
-      },
-    ],
-    sitecontrol: [
-      {
-        name: 'Free', price: '€0', period: 'für immer', highlighted: false,
-        features: ['Bis zu 3 Websites', 'Dashboard & KPI-Überblick', 'Todo-Management', 'Benachrichtigungen', 'Basic Analytics', '1 Benutzer'],
-        notIncluded: ['Blog-Verwaltung', 'Changelog-System', 'Support-Tickets', 'AdSense & GSC-Widgets'],
-        note: 'Keine Kreditkarte nötig',
-        cta: 'Kostenlos starten',
-      },
-      {
-        name: 'Pro', price: '€19', period: 'pro Monat', badge: 'Empfohlen', highlighted: true,
-        features: ['Unbegrenzte Websites', 'Alles aus Free', 'Blog-Verwaltung (mehrsprachig)', 'Changelog-System', 'Support-Ticket-System', 'Vollständige Analytics', 'AdSense & GSC-Widgets', 'Bis zu 5 Teammitglieder', 'Prioritäts-Support'],
-        note: '14 Tage kostenlos testen',
-        cta: '14 Tage gratis testen',
-      },
-    ],
-    webapps: [
-      {
-        name: '100% Kostenlos', price: '€0', period: '', highlighted: true,
-        subtitle: 'Alle 6 Web Apps — für immer gratis',
-        features: [
-          'Wordify — Täglich neues Worträtsel',
-          'FlagGuess — Flaggen-Quiz mit 195+ Ländern',
-          'BrawlMystery — Brawl Stars Quiz (4 Modi)',
-          'SpinSelector — Online-Glücksrad',
-          'Traitora — Adaptiver Persönlichkeitstest',
-          'FileFlyr — 40+ Dateikonverter',
-          'Keine Anmeldung erforderlich',
-          'Kein Abo, keine versteckten Kosten',
-        ],
-        cta: 'Alle Web Apps ansehen',
-      },
-    ],
-  };
+  const [selected, setSelected] = useState('frametrain');
+  const tab = tabs.find((t) => t.id === selected);
+  const list = plans[selected];
 
   return (
-    <div className="min-h-screen pt-20 pb-20 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen px-5 pb-10 pt-32 lg:px-8 lg:pt-40">
+      <div className="mx-auto max-w-7xl">
+        <div className="eyebrow mb-6">Preise</div>
+        <h1 className="max-w-4xl font-extrabold" style={{ fontSize: 'clamp(2.6rem, 6.5vw, 5.6rem)' }}>
+          Was es kostet.
+          <br />
+          <span className="text-bone-500">Und was </span>
+          <span className="text-signal-500">schon geht.</span>
+        </h1>
+        <p className="measure mt-8 text-lg leading-relaxed text-bone-400">
+          FrameTrain kannst du heute kaufen, die Web-Apps sind gratis. Für alles andere zeigen wir die Preise, die wir
+          zum Start planen.
+        </p>
 
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-4"><span className="gradient-text">Preise & Pläne</span></h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Transparente Preise für alle FrameSphere-Produkte. Kostenlos starten, fair skalieren.
-          </p>
-        </div>
-
-        {/* Produkt-Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {products.map((p) => (
-            <button key={p.id} onClick={() => setSelected(p.id)}
-              className={`flex items-center space-x-2 px-5 py-2.5 rounded-lg font-medium text-sm transition-all ${selected === p.id ? 'btn-primary' : 'btn-secondary'}`}>
-              {p.icon}<span>{p.name}</span>
+        {/* Tabs */}
+        <div role="tablist" className="mt-14 flex flex-wrap gap-x-1 gap-y-2 border-b border-white/[0.08]">
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              role="tab"
+              aria-selected={selected === t.id}
+              onClick={() => setSelected(t.id)}
+              className={`relative flex h-12 items-center gap-2 px-4 text-[14px] transition-colors ${
+                selected === t.id ? 'text-bone-50' : 'text-bone-500 hover:text-bone-200'
+              }`}
+            >
+              {t.name}
+              <span
+                className={`font-mono text-[9px] uppercase tracking-wider ${t.live ? 'text-signal-500' : 'text-bone-600'}`}
+              >
+                {t.live ? 'live' : 'geplant'}
+              </span>
+              {selected === t.id && (
+                <motion.span layoutId="pricing-tab" className="absolute inset-x-3 -bottom-px h-px bg-signal-500" />
+              )}
             </button>
           ))}
         </div>
 
-        {/* Pricing Cards */}
-        <div className={`grid gap-6 mb-16 ${plans[selected].length === 1 ? 'max-w-md mx-auto' : 'md:grid-cols-3'}`}>
-          {plans[selected].map((plan, i) => <PricingCard key={i} plan={plan} />)}
-        </div>
+        {!tab.live && (
+          <div className="mt-8 flex items-start gap-3 rounded-lg border border-white/[0.08] bg-white/[0.02] px-5 py-4 text-[14px] text-bone-300">
+            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-bone-500" />
+            <span>
+              {tab.name} ist in Entwicklung. Die Preise unten sind geplant und noch nicht buchbar.{' '}
+              <Link to="/contact" className="border-b border-white/20 text-bone-100 hover:border-signal-500 hover:text-signal-500">
+                Zum Start benachrichtigen lassen
+              </Link>
+            </span>
+          </div>
+        )}
+
+        <motion.div
+          key={selected}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+          className={`mt-10 grid gap-5 ${
+            list.length === 1 ? 'max-w-md' : list.length === 2 ? 'md:grid-cols-2 lg:max-w-4xl' : 'md:grid-cols-3'
+          }`}
+        >
+          {list.map((p) => (
+            <PlanCard key={p.name} plan={p} live={tab.live} />
+          ))}
+        </motion.div>
+
+        {selected === 'frametrain' && (
+          <p className="mt-6 text-[13px] text-bone-500">
+            Early-Access-Preis: Nach den ersten 100 Nutzern steigt er auf €9,99 im Monat. Wer vorher startet, behält seinen Preis.
+          </p>
+        )}
 
         {/* FAQ */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-white text-center mb-10">Häufige Fragen</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              { q: 'Brauche ich eine Kreditkarte für den Start?', a: 'Nein. Alle kostenlosen Pläne und Web Apps sind ohne Kreditkarte und ohne Zahlungsdaten nutzbar.' },
-              { q: 'Kann ich jederzeit upgraden oder kündigen?', a: 'Ja. Upgrades werden sofort aktiv, Kündigungen zum Ende des Abrechnungszeitraums.' },
-              { q: 'Wie erhalte ich einen API Key?', a: 'Registriere dich kostenlos, gehe ins Dashboard und erstelle einen neuen API Key für das gewünschte Produkt.' },
-              { q: 'Gibt es Rabatte für Jahresabonnements?', a: 'Ja, bei jährlicher Zahlung gibt es bis zu 20% Rabatt. Kontaktiere uns für Details.' },
-              { q: 'Sind die Web Apps wirklich kostenlos?', a: 'Ja, alle 6 Web Apps (Wordify, FlagGuess, BrawlMystery, SpinSelector, Traitora, FileFlyr) sind und bleiben kostenlos.' },
-              { q: 'Was passiert wenn ich mein Rate Limit überschreite?', a: 'Die API gibt einen 429-Fehlercode zurück. Auf dem kostenlosen Plan wird per-Request abgerechnet, danach.' },
-            ].map((faq, i) => (
-              <div key={i} className="card">
-                <h4 className="font-bold text-white mb-2">{faq.q}</h4>
-                <p className="text-gray-400 text-sm">{faq.a}</p>
+        <section className="mt-28">
+          <div className="eyebrow mb-6">Fragen</div>
+          <div className="divide-y divide-white/[0.08] border-y border-white/[0.08]">
+            {faqs.map((f) => (
+              <div key={f.q} className="grid gap-3 py-8 md:grid-cols-[1fr_1.4fr] md:gap-10">
+                <h3 className="text-xl font-bold">{f.q}</h3>
+                <p className="measure text-[15px] leading-relaxed text-bone-400">{f.a}</p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* CTA */}
-        <div className="card text-center bg-gradient-to-br from-primary-500/10 to-purple-500/10 border-primary-500/30">
-          <Zap className="w-12 h-12 text-primary-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-3">Noch Fragen zu den Preisen?</h2>
-          <p className="text-gray-400 mb-6">Unser Team hilft dir, den richtigen Plan zu finden.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact" className="btn-primary inline-flex items-center justify-center space-x-2">
-              <span>Kontakt aufnehmen</span><ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link to="/register" className="btn-secondary inline-flex items-center justify-center space-x-2">
-              <span>Kostenlos starten</span>
-            </Link>
-          </div>
-        </div>
+        <section className="mt-24 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+          <h2 className="font-extrabold" style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', lineHeight: 1 }}>
+            Noch eine Frage zum Preis?
+          </h2>
+          <Link to="/contact" className="btn-secondary">
+            Schreib uns <ArrowRight className="h-4 w-4" />
+          </Link>
+        </section>
       </div>
     </div>
   );

@@ -80,7 +80,6 @@ const BrawlMystery = () => {
           </div>
 
           <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/50 to-violet-600/30 rounded-2xl blur-2xl" />
             <div className="relative w-24 h-24 rounded-2xl flex items-center justify-center overflow-hidden">
               <BrawlMysteryIcon size={96} />
             </div>

@@ -208,7 +208,7 @@ const { keywords, longtailKeywords, metaDescription } = await response.json();`;
                 <div>
                   <div className="text-xs font-bold text-blue-400 uppercase tracking-widest">KeyScope</div>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="px-2 py-0.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full text-xs font-semibold">Live</span>
+                    <span className="px-3 py-1 border border-white/15 text-bone-300 rounded-full text-xs font-semibold">◐ In Entwicklung</span>
                     <span className="text-xs text-gray-500">keyscope.pages.dev</span>
                   </div>
                 </div>

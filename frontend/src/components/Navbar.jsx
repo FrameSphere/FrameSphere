@@ -1,371 +1,279 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import {
-  Menu, X, LogIn, UserPlus, ChevronDown,
-  Sparkles, Shield, Brain, Network, Home, Code,
-  Search, Globe, Gamepad2, FileText, RotateCcw, Flag, User
-} from 'lucide-react';
-
-const FrameSphereLogoIcon = ({ className = '' }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
-    width="36" height="36" fill="none" className={className}>
-    <defs>
-      <linearGradient id="fslogo-g" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#0ea5e9" />
-        <stop offset="100%" stopColor="#9333ea" />
-      </linearGradient>
-    </defs>
-    <rect width="32" height="32" rx="7" fill="url(#fslogo-g)" />
-    <text x="16" y="22"
-      fontFamily="Arial Black, Arial, sans-serif"
-      fontSize="13" fontWeight="800"
-      fill="white" textAnchor="middle"
-      letterSpacing="1">FS</text>
-  </svg>
-);
-
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, X, ChevronDown, Search, ArrowUpRight } from 'lucide-react';
+import Logo from './Logo';
+import { openPalette } from './CommandPalette';
+import { liveProducts, devProducts, soonProducts, webApps } from '../data/catalog';
 import { useAuth } from '../context/AuthContext';
 
-const apiProducts = [
-  {
-    name: 'FrameSpell API',
-    desc: 'KI-Rechtschreibprüfung',
-    path: '/products/framespell',
-    icon: <Sparkles className="w-4 h-4" />,
-    color: 'text-blue-400',
-    status: 'Live',
-  },
-  {
-    name: 'RateLimit API',
-    desc: 'API-Schutz & Throttling',
-    path: '/products/ratelimit-api',
-    icon: <Shield className="w-4 h-4" />,
-    color: 'text-green-400',
-    status: 'Live',
-  },
-  {
-    name: 'FrameTrain',
-    desc: 'KI-Modelle lokal trainieren',
-    path: '/products/frametrain',
-    icon: <Brain className="w-4 h-4" />,
-    color: 'text-purple-400',
-    status: 'Live',
-  },
-  {
-    name: 'KeyScope',
-    desc: 'TF-IDF Keyword-Analyse & SEO',
-    path: '/products/keyword-engine',
-    icon: <Search className="w-4 h-4" />,
-    color: 'text-yellow-400',
-    status: 'Live',
-  },
-  {
-    name: 'SiteControl',
-    desc: 'Alle Websites. Ein Dashboard.',
-    path: '/products/website-manager',
-    icon: <Globe className="w-4 h-4" />,
-    color: 'text-indigo-400',
-    status: 'Live',
-  },
-  {
-    name: 'CoreChain API',
-    desc: 'KI-Orchestrierung',
-    path: '/products/corechain-api',
-    icon: <Code className="w-4 h-4" />,
-    color: 'text-cyan-400',
-    status: 'Bald',
-  },
-  {
-    name: 'SphereHub',
-    desc: 'Lokaler AI-Butler',
-    path: '/products/spherehub',
-    icon: <Home className="w-4 h-4" />,
-    color: 'text-red-400',
-    status: 'Bald',
-  },
-  {
-    name: 'SphereNet',
-    desc: 'KI-Modell-Netzwerk',
-    path: '/products/spherenet',
-    icon: <Network className="w-4 h-4" />,
-    color: 'text-indigo-400',
-    status: 'Bald',
-  },
+const navLinks = [
+  { name: 'Entwickler', path: '/developers' },
+  { name: 'Preise', path: '/pricing' },
+  { name: 'Über uns', path: '/about' },
 ];
 
-const webApps = [
-  { name: 'Wordify',       desc: 'Tägliches 5-Buchstaben Worträtsel',              path: '/webapps/wordify',       icon: <Gamepad2  className="w-4 h-4" />, color: 'text-emerald-400' },
-  { name: 'FlagGuess',     desc: 'Tägliches Flaggen-Quiz',                          path: '/webapps/flagguess',     icon: <Flag      className="w-4 h-4" />, color: 'text-blue-400'    },
-  { name: 'BrawlMystery',  desc: 'Brawl Stars Ratespiel',                           path: '/webapps/brawlmystery',  icon: <Gamepad2  className="w-4 h-4" />, color: 'text-orange-400'  },
-  { name: 'SpinSelector',  desc: 'Online-Glücksrad & Zufallsentscheider',           path: '/webapps/spinselector',  icon: <RotateCcw className="w-4 h-4" />, color: 'text-pink-400'    },
-  { name: 'Traitora',      desc: 'Adaptiver Persönlichkeitstest',                   path: '/webapps/traitora',      icon: <User      className="w-4 h-4" />, color: 'text-violet-400'  },
-  { name: 'FileFlyr',      desc: '40+ Dateikonverter, 100% privat',                 path: '/webapps/fileflyr',      icon: <FileText  className="w-4 h-4" />, color: 'text-cyan-400'    },
-];
+const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
 
-const StatusBadge = ({ status }) => {
-  if (status === 'Live') return (
-    <span className="text-xs px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded border border-green-500/20 flex-shrink-0">
-      Live
-    </span>
+function Panel({ children, className = '' }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -4 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -4 }}
+      transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
+      className={`absolute left-0 top-full z-[200] mt-3 overflow-hidden rounded-xl border border-white/10 bg-dark-800 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)] ${className}`}
+    >
+      {children}
+    </motion.div>
   );
-  if (status === 'Bald') return (
-    <span className="text-xs px-1.5 py-0.5 bg-gray-700/80 text-gray-500 rounded flex-shrink-0">
-      Bald
-    </span>
-  );
-  return null;
-};
+}
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdown, setDropdown] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuth();
-  const dropdownRef = useRef(null);
-
-  const navLinks = [
-    { name: 'Preise',      path: '/pricing'    },
-    { name: 'Entwickler',  path: '/developers' },
-    { name: 'Über uns',    path: '/about'      },
-  ];
-
-  const isActive         = (path) => location.pathname === path;
-  const isProductsActive = location.pathname.startsWith('/products');
-  const isWebAppsActive  = location.pathname.startsWith('/webapps');
+  const ref = useRef(null);
 
   useEffect(() => {
-    const handler = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setActiveDropdown(null);
-      }
+    setDropdown(null);
+    setMobileOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const onDown = (e) => ref.current && !ref.current.contains(e.target) && setDropdown(null);
+    const onKey = (e) => e.key === 'Escape' && setDropdown(null);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+      window.removeEventListener('scroll', onScroll);
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const toggleDropdown = (name) => setActiveDropdown(prev => prev === name ? null : name);
+  const toggle = (name) => setDropdown((d) => (d === name ? null : name));
+  const section = location.pathname.split('/')[1];
 
-  const dropdownBase = "absolute top-full mt-2 z-[200] rounded-xl shadow-2xl border border-white/10 overflow-hidden";
-  const dropdownBg   = "bg-dark-800";
-
-  /* Split products into Live / Bald for a cleaner dropdown layout */
-  const liveProducts = apiProducts.filter(p => p.status === 'Live');
-  const soonProducts = apiProducts.filter(p => p.status === 'Bald');
+  const trigger = (name, label, activeSection) => (
+    <button
+      onClick={() => toggle(name)}
+      aria-expanded={dropdown === name}
+      className={`flex h-9 items-center gap-1 rounded-md px-3 text-[14px] transition-colors duration-150 ${
+        dropdown === name || section === activeSection ? 'text-bone-100' : 'text-bone-400 hover:text-bone-100'
+      }`}
+    >
+      {label}
+      <ChevronDown
+        className={`h-3.5 w-3.5 transition-transform duration-200 ${dropdown === name ? 'rotate-180' : ''}`}
+      />
+    </button>
+  );
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+        scrolled ? 'border-white/[0.08] bg-ink/90 backdrop-blur-md' : 'border-transparent bg-ink/0'
+      }`}
+    >
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
+        <Link to="/" aria-label="FrameSphere Startseite" className="flex-shrink-0">
+          <Logo />
+        </Link>
 
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group flex-shrink-0">
-            <div className="transform group-hover:scale-110 transition-transform duration-300">
-              <FrameSphereLogoIcon />
-            </div>
-            <span className="text-lg font-bold gradient-text hidden sm:block">FrameSphere</span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-1" ref={dropdownRef}>
-
-            {/* Produkte Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => toggleDropdown('products')}
-                className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
-                  isProductsActive || activeDropdown === 'products'
-                    ? 'bg-primary-500/20 text-primary-400'
-                    : 'text-gray-300 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <span>Produkte</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
-              </button>
-
-              {activeDropdown === 'products' && (
-                <div className={`${dropdownBase} ${dropdownBg} left-0 w-80`}>
-                  <div className="p-2">
-                    {/* Live products */}
-                    <div className="text-xs text-gray-500 uppercase tracking-wider px-3 py-2 font-semibold flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
-                      Live & nutzbar
+        {/* Desktop */}
+        <div className="hidden items-center gap-1 md:flex" ref={ref}>
+          <div className="relative">
+            {trigger('products', 'Produkte', 'products')}
+            <AnimatePresence>
+              {dropdown === 'products' && (
+                <Panel className="w-[560px]">
+                  <div className="grid grid-cols-[1.4fr_1fr]">
+                    <div className="p-3">
+                      <div className="eyebrow px-3 pb-2 pt-1">Live</div>
+                      {liveProducts.map((p) => (
+                        <Link
+                          key={p.id}
+                          to={p.path}
+                          className="group flex items-baseline justify-between gap-3 rounded-lg px-3 py-2.5 hover:bg-white/[0.04]"
+                        >
+                          <span>
+                            <span className="block text-[14px] font-medium text-bone-100">{p.name}</span>
+                            <span className="block text-[13px] text-bone-500">{p.tagline}</span>
+                          </span>
+                          <span className="font-mono text-[10px] uppercase tracking-wider text-bone-600 group-hover:text-signal-500">
+                            {p.kind}
+                          </span>
+                        </Link>
+                      ))}
+                      <div className="eyebrow px-3 pb-2 pt-4">In Entwicklung</div>
+                      {devProducts.map((p) => (
+                        <Link
+                          key={p.id}
+                          to={p.path}
+                          className="group flex items-baseline justify-between gap-3 rounded-lg px-3 py-2 hover:bg-white/[0.04]"
+                        >
+                          <span>
+                            <span className="block text-[14px] text-bone-300">{p.name}</span>
+                            <span className="block text-[13px] text-bone-600">{p.tagline}</span>
+                          </span>
+                          <span className="font-mono text-[10px] uppercase tracking-wider text-bone-700">{p.kind}</span>
+                        </Link>
+                      ))}
                     </div>
-                    {liveProducts.map((p) => (
-                      <Link key={p.path} to={p.path} onClick={() => setActiveDropdown(null)}
-                        className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-white/5 transition-colors group">
-                        <span className={`${p.color} flex-shrink-0`}>{p.icon}</span>
-                        <div className="flex-1 min-w-0">
-                          <div className="text-white text-sm font-medium truncate">{p.name}</div>
-                          <div className="text-xs text-gray-500 truncate">{p.desc}</div>
-                        </div>
-                        <span className="text-xs px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded border border-green-500/20 flex-shrink-0">Live</span>
-                      </Link>
-                    ))}
-
-                    {/* Coming soon */}
-                    {soonProducts.length > 0 && (
-                      <>
-                        <div className="text-xs text-gray-600 uppercase tracking-wider px-3 py-2 font-semibold mt-1 border-t border-white/5">
-                          In Entwicklung
-                        </div>
-                        {soonProducts.map((p) => (
-                          <div key={p.path}
-                            className="flex items-center space-x-3 px-3 py-1.5 rounded-lg opacity-50 cursor-default">
-                            <span className="text-gray-600 flex-shrink-0">{p.icon}</span>
-                            <div className="flex-1 min-w-0">
-                              <div className="text-gray-500 text-sm font-medium truncate">{p.name}</div>
-                              <div className="text-xs text-gray-600 truncate">{p.desc}</div>
-                            </div>
-                            <span className="text-xs px-1.5 py-0.5 bg-gray-700/80 text-gray-500 rounded flex-shrink-0">Bald</span>
-                          </div>
-                        ))}
-                      </>
-                    )}
-
-                    <div className="border-t border-white/10 mt-2 pt-2">
-                      <Link to="/products" onClick={() => setActiveDropdown(null)}
-                        className="flex items-center justify-center px-3 py-2 text-xs text-primary-400 hover:text-primary-300 transition-colors">
-                        Alle Produkte ansehen →
+                    <div className="border-l border-white/[0.07] bg-white/[0.015] p-3">
+                      <div className="eyebrow px-3 pb-2 pt-1">Früher Stand</div>
+                      {soonProducts.map((p) => (
+                        <Link key={p.id} to={p.path} className="block rounded-lg px-3 py-2.5 hover:bg-white/[0.04]">
+                          <span className="block text-[14px] text-bone-300">{p.name}</span>
+                          <span className="block text-[13px] text-bone-600">{p.tagline}</span>
+                        </Link>
+                      ))}
+                      <Link
+                        to="/products"
+                        className="mt-2 flex items-center gap-1 px-3 py-2 text-[13px] text-bone-300 hover:text-signal-500"
+                      >
+                        Alle Produkte <ArrowUpRight className="h-3.5 w-3.5" />
                       </Link>
                     </div>
                   </div>
-                </div>
+                </Panel>
               )}
-            </div>
+            </AnimatePresence>
+          </div>
 
-            {/* Web Apps Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => toggleDropdown('webapps')}
-                className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
-                  isWebAppsActive || activeDropdown === 'webapps'
-                    ? 'bg-primary-500/20 text-primary-400'
-                    : 'text-gray-300 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <span>Web Apps</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'webapps' ? 'rotate-180' : ''}`} />
-              </button>
-
-              {activeDropdown === 'webapps' && (
-                <div className={`${dropdownBase} ${dropdownBg} left-0 w-64`}>
-                  <div className="p-2">
-                    <div className="text-xs text-gray-500 uppercase tracking-wider px-3 py-2 font-semibold">Spiele & Tools</div>
-                    {webApps.map((p) => (
-                      <Link key={p.path} to={p.path} onClick={() => setActiveDropdown(null)}
-                        className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-white/5 transition-colors">
-                        <span className={`${p.color} flex-shrink-0`}>{p.icon}</span>
-                        <div className="min-w-0">
-                          <div className="text-white text-sm font-medium">{p.name}</div>
-                          <div className="text-xs text-gray-500 truncate">{p.desc}</div>
-                        </div>
-                      </Link>
-                    ))}
-                    <div className="border-t border-white/10 mt-2 pt-2">
-                      <Link to="/webapps" onClick={() => setActiveDropdown(null)}
-                        className="flex items-center justify-center px-3 py-2 text-xs text-primary-400 hover:text-primary-300 transition-colors">
-                        Alle Web Apps →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+          <div className="relative">
+            {trigger('webapps', 'Web-Apps', 'webapps')}
+            <AnimatePresence>
+              {dropdown === 'webapps' && (
+                <Panel className="w-[340px] p-3">
+                  <div className="eyebrow px-3 pb-2 pt-1">Gratis im Browser</div>
+                  {webApps.map((a) => (
+                    <Link
+                      key={a.id}
+                      to={a.path}
+                      className="flex items-baseline justify-between gap-3 rounded-lg px-3 py-2 hover:bg-white/[0.04]"
+                    >
+                      <span className="text-[14px] text-bone-100">{a.name}</span>
+                      <span className="truncate text-[12px] text-bone-500">{a.metric}</span>
+                    </Link>
+                  ))}
+                  <Link
+                    to="/webapps"
+                    className="mt-1 flex items-center gap-1 px-3 py-2 text-[13px] text-bone-300 hover:text-signal-500"
+                  >
+                    Alle Web-Apps <ArrowUpRight className="h-3.5 w-3.5" />
+                  </Link>
+                </Panel>
               )}
-            </div>
+            </AnimatePresence>
+          </div>
 
-            {navLinks.map((link) => (
-              <Link key={link.path} to={link.path}
-                className={`px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
-                  isActive(link.path) ? 'bg-primary-500/20 text-primary-400' : 'text-gray-300 hover:text-white hover:bg-white/5'
-                }`}>
-                {link.name}
+          {navLinks.map((l) => (
+            <NavLink
+              key={l.path}
+              to={l.path}
+              className={({ isActive }) =>
+                `flex h-9 items-center rounded-md px-3 text-[14px] transition-colors duration-150 ${
+                  isActive ? 'text-bone-100' : 'text-bone-400 hover:text-bone-100'
+                }`
+              }
+            >
+              {l.name}
+            </NavLink>
+          ))}
+        </div>
+
+        <div className="hidden items-center gap-2 md:flex">
+          <button
+            onClick={openPalette}
+            className="flex h-9 items-center gap-2 rounded-md border border-white/10 pl-3 pr-1.5 text-[13px] text-bone-500 transition-colors hover:border-white/20 hover:text-bone-300"
+            aria-label="Suche öffnen"
+          >
+            <Search className="h-3.5 w-3.5" />
+            <span className="hidden lg:inline">Suchen</span>
+            <span className="kbd">{isMac ? '⌘K' : 'Ctrl K'}</span>
+          </button>
+          {user ? (
+            <>
+              <Link to="/dashboard" className="h-9 px-3 text-[14px] leading-9 text-bone-300 hover:text-bone-100">
+                Dashboard
               </Link>
-            ))}
-          </div>
+              <button onClick={logout} className="h-9 px-3 text-[14px] text-bone-500 hover:text-bone-100">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="h-9 px-3 text-[14px] leading-9 text-bone-300 hover:text-bone-100">
+                Login
+              </Link>
+              <Link to="/register" className="btn-primary !min-h-0 h-9 !px-4 !py-0 text-[14px]">
+                Konto erstellen
+              </Link>
+            </>
+          )}
+        </div>
 
-          {/* Auth */}
-          <div className="hidden md:flex items-center space-x-2">
-            {user ? (
-              <>
-                <Link to="/dashboard" className="px-3 py-2 text-sm text-gray-300 hover:text-white transition-colors">Dashboard</Link>
-                <button onClick={logout} className="px-3 py-2 text-sm text-gray-300 hover:text-white transition-colors">Logout</button>
-              </>
-            ) : (
-              <>
-                <Link to="/login" className="flex items-center space-x-1.5 px-3 py-2 text-sm text-gray-300 hover:text-white transition-colors">
-                  <LogIn className="w-4 h-4" /><span>Login</span>
-                </Link>
-                <Link to="/register" className="flex items-center space-x-1.5 btn-primary py-2 px-4 text-sm">
-                  <UserPlus className="w-4 h-4" /><span>Registrieren</span>
-                </Link>
-              </>
-            )}
-          </div>
-
-          {/* Mobile Toggle */}
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 rounded-lg hover:bg-white/5">
-            {isOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
+        {/* Mobile */}
+        <div className="flex items-center gap-1 md:hidden">
+          <button onClick={openPalette} className="grid h-11 w-11 place-items-center text-bone-300" aria-label="Suche öffnen">
+            <Search className="h-5 w-5" />
+          </button>
+          <button
+            onClick={() => setMobileOpen((o) => !o)}
+            className="grid h-11 w-11 place-items-center text-bone-100"
+            aria-label="Menü"
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-dark-800 border-t border-white/10">
-          <div className="px-4 py-4 space-y-1 max-h-[80vh] overflow-y-auto">
-            <div className="text-xs text-gray-500 uppercase tracking-wider px-3 py-2 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
-              Live Produkte
-            </div>
-            {liveProducts.map((p) => (
-              <Link key={p.path} to={p.path} onClick={() => setIsOpen(false)}
-                className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
-                <span className={p.color}>{p.icon}</span>
-                <span className="text-sm">{p.name}</span>
-                <span className="text-xs px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded border border-green-500/20 ml-auto">Live</span>
+      {mobileOpen && (
+        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-white/[0.08] bg-ink px-5 pb-8 pt-4 md:hidden">
+          <div className="eyebrow mb-2">Produkte</div>
+          {[...liveProducts, ...devProducts].map((p) => (
+            <Link key={p.id} to={p.path} className="flex items-baseline justify-between py-3 text-[17px] text-bone-100">
+              {p.name}
+              <span className={`font-mono text-[10px] uppercase tracking-wider ${p.status === 'live' ? 'text-signal-500' : 'text-bone-600'}`}>
+                {p.status === 'live' ? 'live' : 'in Entwicklung'}
+              </span>
+            </Link>
+          ))}
+          <div className="eyebrow mb-2 mt-6">Web-Apps</div>
+          <div className="grid grid-cols-2">
+            {webApps.map((a) => (
+              <Link key={a.id} to={a.path} className="py-2.5 text-[15px] text-bone-300">
+                {a.name}
               </Link>
             ))}
-            {soonProducts.length > 0 && (
+          </div>
+          <div className="mt-6 border-t border-white/[0.08] pt-4">
+            {navLinks.map((l) => (
+              <Link key={l.path} to={l.path} className="block py-2.5 text-[15px] text-bone-300">
+                {l.name}
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            {user ? (
               <>
-                <div className="text-xs text-gray-600 uppercase tracking-wider px-3 py-2 mt-2">In Entwicklung</div>
-                {soonProducts.map((p) => (
-                  <div key={p.path}
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-600 opacity-50 cursor-default">
-                    <span>{p.icon}</span>
-                    <span className="text-sm">{p.name}</span>
-                    <span className="text-xs px-1.5 py-0.5 bg-gray-700/80 text-gray-500 rounded ml-auto">Bald</span>
-                  </div>
-                ))}
+                <Link to="/dashboard" className="btn-secondary">Dashboard</Link>
+                <button onClick={logout} className="btn-secondary">Logout</button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="btn-secondary">Login</Link>
+                <Link to="/register" className="btn-primary">Konto erstellen</Link>
               </>
             )}
-            <div className="text-xs text-gray-500 uppercase tracking-wider px-3 py-2 mt-3">Web Apps</div>
-            {webApps.map((p) => (
-              <Link key={p.path} to={p.path} onClick={() => setIsOpen(false)}
-                className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
-                <span className={p.color}>{p.icon}</span>
-                <span className="text-sm">{p.name}</span>
-              </Link>
-            ))}
-            <div className="border-t border-white/10 pt-3 mt-3 space-y-1">
-              {navLinks.map((link) => (
-                <Link key={link.path} to={link.path} onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2.5 rounded-lg text-sm text-gray-300 hover:text-white hover:bg-white/5">
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-            <div className="border-t border-white/10 pt-3 mt-3 space-y-2">
-              {user ? (
-                <>
-                  <Link to="/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg">Dashboard</Link>
-                  <button onClick={() => { logout(); setIsOpen(false); }} className="w-full text-left px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg">Logout</button>
-                </>
-              ) : (
-                <>
-                  <Link to="/login" onClick={() => setIsOpen(false)} className="block px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg">Login</Link>
-                  <Link to="/register" onClick={() => setIsOpen(false)} className="block px-3 py-2.5 text-sm bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-center">Registrieren</Link>
-                </>
-              )}
-            </div>
           </div>
         </div>
       )}

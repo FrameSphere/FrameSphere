@@ -51,11 +51,11 @@ const Traitora = () => {
     { q: 'Was ist ein adaptiver Persönlichkeitstest?',
       a: 'Ein adaptiver Test passt sich in Echtzeit an deine Antworten an. Das System analysiert jede Antwort sofort und wählt die nächste Frage so, dass sie den größten Informationsgewinn liefert. Weniger Fragen, mehr Präzision.' },
     { q: 'Was ist Item Response Theory (IRT)?',
-      a: 'IRT ist ein psychometrisches Modell, das beschreibt, wie die Antwort einer Person auf eine Frage mit ihrem zugrunde liegenden Merkmal (Trait) zusammenhängt. Jede Frage hat drei Eigenschaften: Schwierigkeit, Trennschärfe und Pseudozufallsparameter. Traitora nutzt IRT, um nach jeder Antwort dein Profil neu zu berechnen.' },
+      a: 'IRT ist ein psychometrisches Modell, das beschreibt, wie die Antwort einer Person auf eine Frage mit ihrem zugrunde liegenden Merkmal (Trait) zusammenhängt. Traitora nutzt das 2PL-Modell: Jede Frage hat eine Schwierigkeit und eine Trennschärfe. Traitora nutzt IRT, um nach jeder Antwort dein Profil neu zu berechnen.' },
     { q: 'Was unterscheidet Traitora von MBTI?',
-      a: 'MBTI stellt jedem dieselben ~90 Fragen in fester Reihenfolge. Traitora nutzt 15–30 adaptive Fragen und liefert ein ebenso genaues oder genaueres Ergebnis. Zusätzlich ist Traitora komplett kostenlos und misst 8 kontinuierliche Traits statt 4 binäre Typen.' },
+      a: 'Klassische Typentests stellen allen dieselben Fragen in fester Reihenfolge. Traitora wählt jede Frage per Fisher-Information neu und stoppt, sobald der Standardfehler klein genug ist – frühestens nach 10, spätestens nach 40 Fragen. Die Itemparameter sind von Hand gesetzt, nicht empirisch kalibriert: Nimm das Ergebnis als Anregung, nicht als Diagnose.' },
     { q: 'Wie lange dauert der Test?',
-      a: 'Typischerweise 5–10 Minuten. Der Test endet automatisch, wenn der Algorithmus ausreichend präzise Informationen gesammelt hat — oft schon nach 15–20 Fragen.' },
+      a: 'Typischerweise 5–10 Minuten. Der Test endet automatisch, wenn der Algorithmus ausreichend präzise Informationen gesammelt hat — frühestens nach 10, spätestens nach 40 Fragen.' },
     { q: 'Werden meine Antworten gespeichert?',
       a: 'Nein. Traitora speichert keine personenbezogenen Daten. Der Test läuft vollständig im Browser, eine Anmeldung ist nicht nötig.' },
   ];
@@ -73,7 +73,6 @@ const Traitora = () => {
           </div>
 
           <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-violet-500/40 to-pink-500/30 rounded-full blur-2xl" />
             <div className="relative w-24 h-24 rounded-full flex items-center justify-center overflow-hidden">
               <TraitoraIcon size={96} />
             </div>
@@ -89,15 +88,15 @@ const Traitora = () => {
           </div>
 
           <p className="text-lg text-gray-400 max-w-lg mx-auto mb-6 leading-relaxed">
-            Wissenschaftlicher adaptiver Persönlichkeitstest — präziser als MBTI, effizienter als Big Five, kostenlos und ohne Anmeldung.
+            Adaptiver Persönlichkeitstest nach IRT-2PL — jede Frage wird nach deinen bisherigen Antworten gewählt. Kostenlos, ohne Anmeldung, komplett im Browser.
           </p>
 
           {/* Kennzahlen */}
           <div className="inline-flex flex-wrap justify-center divide-x divide-white/10 glass-effect rounded-2xl mb-10 overflow-hidden">
             {[
-              { val: '15–30', label: 'Fragen' },
+              { val: '10–40', label: 'Fragen' },
               { val: '5–10', label: 'Minuten' },
-              { val: '8', label: 'Traits' },
+              { val: '99', label: 'Items im Pool' },
               { val: '4', label: 'Sprachen' },
             ].map((s, i) => (
               <div key={i} className="px-6 py-4 text-center">
@@ -168,7 +167,7 @@ const Traitora = () => {
               </thead>
               <tbody>
                 {[
-                  ['Fragen',      '15–30 (adaptiv)',    '~90',          '~50'],
+                  ['Fragen',      '10–40 (adaptiv)',    '~90',          '~50'],
                   ['Dauer',       '5–10 Min',           '20–30 Min',    '10–15 Min'],
                   ['Adaptiv',     '✅ Ja',               '❌ Nein',       '❌ Nein'],
                   ['Methode',     'IRT (psychometrisch)', 'Typen-Modell', 'Faktor-Analyse'],
@@ -255,7 +254,7 @@ const Traitora = () => {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-white mb-3">Entdecke deine Persönlichkeit</h2>
-          <p className="text-gray-400 mb-6 max-w-sm mx-auto">5–10 Minuten, 15–30 adaptive Fragen, präzises Persönlichkeitsprofil. Kostenlos, ohne Anmeldung.</p>
+          <p className="text-gray-400 mb-6 max-w-sm mx-auto">10–40 adaptive Fragen, Auswertung direkt im Browser. Kostenlos, ohne Anmeldung.</p>
           <a href="https://traitora.pages.dev/" target="_blank" rel="noopener noreferrer"
             className="btn-primary inline-flex items-center space-x-2">
             <ExternalLink className="w-5 h-5" />

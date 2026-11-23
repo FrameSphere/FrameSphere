@@ -60,7 +60,7 @@ const FileFlyr = () => {
     {
       icon: <FileText className="w-6 h-6" />,
       color: 'bg-purple-500/15 text-purple-400',
-      title: '40+ professionelle Tools',
+      title: '38 Tools',
       desc: 'Bilder, PDFs, Audio, Dokumente — über 40 Konverter in einer Anwendung. Komplett kostenlos, ohne Anmeldung, auf allen Geräten.',
     },
   ];
@@ -92,7 +92,6 @@ const FileFlyr = () => {
           </div>
 
           <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/40 to-purple-500/30 rounded-2xl blur-2xl" />
             <div className="relative w-24 h-24 rounded-2xl flex items-center justify-center overflow-hidden">
               <FileFlyrIcon size={96} />
             </div>
@@ -101,7 +100,7 @@ const FileFlyr = () => {
           <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tight mb-4">FileFlyr</h1>
 
           <div className="flex items-center justify-center gap-2 flex-wrap mb-8">
-            <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">40+ Konverter</span>
+            <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">38 Konverter</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">100% Privat</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">Kein Upload</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">Kostenlos</span>
@@ -153,7 +152,7 @@ const FileFlyr = () => {
         {/* ── Konverter-Kategorien ─────────────────────────────────────────── */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-white text-center mb-3">Verfügbare Konverter</h2>
-          <p className="text-gray-500 text-center mb-10">40+ Tools — alle kostenlos, alle lokal, alle ohne Anmeldung</p>
+          <p className="text-gray-500 text-center mb-10">38 Tools — alle kostenlos, alle lokal, alle ohne Anmeldung</p>
           <div className="grid md:grid-cols-2 gap-5">
             {converterCategories.map((cat, i) => (
               <div key={i} className={`card border ${cat.color}`}>

@@ -101,7 +101,7 @@ const faqs = [
   },
   {
     q: 'Wie schnell antwortet die API?',
-    a: 'Typischerweise unter 1000 ms. FrameSpell läuft auf Cloudflare Workers für niedrige Latenz weltweit.',
+    a: 'Jede Antwort enthält die gemessene Bearbeitungszeit im Feld processing_time. Nach längerer Pause kann die erste Anfrage länger dauern, weil das Modell erst geladen wird.',
   },
   {
     q: 'Wie erhalte ich meinen API Key?',
@@ -127,9 +127,9 @@ const FrameSpell = () => {
 
   const features = [
     { icon: <Sparkles className="w-5 h-5" />, title: 'MT5 KI-Modell', desc: 'State-of-the-Art Seq2Seq-Modell für präzise Rechtschreibkorrekturen – auch bei Kontextfehlern.' },
-    { icon: <Zap className="w-5 h-5" />, title: '< 1.000 ms Antwortzeit', desc: 'Echtzeit-fähig. Cloudflare Workers sorgen für niedrige Latenz in ganz Europa.' },
-    { icon: <Globe className="w-5 h-5" />, title: 'Mehrsprachig', desc: 'Deutsch, Englisch, Spanisch, Französisch – erweiterbar auf weitere Sprachen.' },
-    { icon: <Shield className="w-5 h-5" />, title: '99,2 % Genauigkeit', desc: 'Hochpräzise Korrekturen, evaluiert auf deutschen Benchmarks.' },
+    { icon: <Zap className="w-5 h-5" />, title: 'Latenz in jeder Antwort', desc: 'Das Feld processing_time sagt dir pro Request, wie lange die Korrektur gedauert hat.' },
+    { icon: <Globe className="w-5 h-5" />, title: 'Deutsch zuerst', desc: 'Live für deutsche Texte. Englisch, Spanisch und Französisch sind in Arbeit.' },
+    { icon: <Shield className="w-5 h-5" />, title: 'Limits in jeder Antwort', desc: 'rate_limit.limit, used, remaining und resetAt – du siehst immer, wie viel Kontingent übrig ist.' },
     { icon: <Code className="w-5 h-5" />, title: 'REST API / JSON', desc: 'Standardisierte HTTP-Schnittstelle – integrierbar in jedes Backend oder Framework.' },
     { icon: <BarChart3 className="w-5 h-5" />, title: 'Nutzungs-Dashboard', desc: 'Verfolge deine API-Aufrufe, Fehlerquoten und Limits live im Dashboard.' },
     { icon: <Key className="w-5 h-5" />, title: 'API Key Auth', desc: 'Sicherer Zugriff via X-API-Key Header. Keys im Dashboard generierbar.' },
@@ -215,7 +215,6 @@ const FrameSpell = () => {
 
           {/* Icon mit Glow */}
           <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/40 to-purple-500/30 rounded-3xl blur-2xl" />
             <div className="relative w-24 h-24 rounded-2xl flex items-center justify-center overflow-hidden">
               <FrameSpellIcon size={96} />
             </div>
@@ -228,7 +227,7 @@ const FrameSpell = () => {
 
           {/* Status + Tags */}
           <div className="flex items-center justify-center gap-2 mb-8 flex-wrap">
-            <span className="px-3 py-1 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full text-xs font-semibold">● Live</span>
+            <span className="px-3 py-1 border border-white/15 text-bone-300 rounded-full text-xs font-semibold">◐ In Entwicklung</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">MT5 KI-Modell</span>
             <span className="px-3 py-1 glass-effect rounded-full text-xs text-gray-400">REST / JSON</span>
           </div>
@@ -241,9 +240,9 @@ const FrameSpell = () => {
           {/* Stats-Strip */}
           <div className="inline-flex flex-wrap justify-center divide-x divide-white/10 glass-effect rounded-2xl mb-10 overflow-hidden">
             {[
-              { val: '99,2 %', label: 'Genauigkeit' },
-              { val: '< 1 s', label: 'Antwortzeit' },
-              { val: '4', label: 'Sprachen' },
+              { val: 'mT5', label: 'Modell' },
+              { val: '100', label: 'Start-Credits' },
+              { val: 'DE', label: 'Sprache' },
               { val: '20 / min', label: 'Kostenlos' },
             ].map((s, i) => (
               <div key={i} className="px-6 py-4 text-center">
@@ -308,7 +307,7 @@ const FrameSpell = () => {
               <h3 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider text-gray-400">Request Body</h3>
               <div className="bg-dark-900 rounded-lg p-4 font-mono text-sm space-y-2">
                 <div><span className="text-blue-300">"text"</span>: <span className="text-yellow-300">"Helo Welt…"</span> <span className="text-gray-500">// required</span></div>
-                <div><span className="text-blue-300">"language"</span>: <span className="text-yellow-300">"de"</span> <span className="text-gray-500">// de|en|es|fr</span></div>
+                <div><span className="text-blue-300">"language"</span>: <span className="text-yellow-300">"de"</span> <span className="text-gray-500">// optional – aktuell nur de</span></div>
               </div>
             </div>
           </div>

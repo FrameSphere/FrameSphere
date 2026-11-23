@@ -61,7 +61,7 @@ const SpinSelector = () => {
   ];
 
   const features = [
-    { title: 'Bis zu 20 Optionen',          desc: 'Füge bis zu 20 eigene Einträge ins Rad ein — Texte, Namen, Zahlen.' },
+    { title: 'Beliebig viele Optionen',     desc: 'Ab zwei Einträgen drehbar — Texte, Namen, Zahlen. Mischen und Gewinner automatisch entfernen inklusive.' },
     { title: 'Flüssige Dreh-Animation',      desc: 'Realistisch animiertes Glücksrad mit Drehgeräusch und sanftem Auslaufen.' },
     { title: 'Alle Daten lokal',             desc: 'Deine Optionen werden nur in deinem Browser gespeichert — kein Server, keine Daten.' },
     { title: '4 Sprachen',                   desc: 'Vollständig lokalisiert in Deutsch, Englisch, Französisch und Spanisch.' },
@@ -89,7 +89,6 @@ const SpinSelector = () => {
           </div>
 
           <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/40 to-purple-500/30 rounded-full blur-2xl" />
             <div className="relative w-24 h-24 rounded-full flex items-center justify-center overflow-hidden">
               <SpinSelectorIcon size={96} />
             </div>

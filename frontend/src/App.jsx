@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import Seo from './components/Seo';
+import CommandPalette from './components/CommandPalette';
 
 // Core Pages
 import Home from './pages/Home';
@@ -85,7 +86,7 @@ const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary-500" />
+      <div className="animate-spin rounded-full h-16 w-16 border-2 border-white/10 border-t-signal-500" />
     </div>
   );
   return user ? children : <Navigate to="/login" />;
@@ -106,12 +107,12 @@ const PlaceholderPage = ({ title }) => (
 const NotFound = () => (
   <div className="min-h-screen pt-32 px-4">
     <div className="max-w-4xl mx-auto text-center">
-      <div className="card">
-        <h1 className="text-6xl font-bold gradient-text mb-4">404</h1>
-        <p className="text-2xl text-white mb-2">Seite nicht gefunden</p>
-        <p className="text-gray-400 mb-8">Die von dir gesuchte Seite existiert nicht.</p>
-        <a href="/" className="btn-primary inline-block">Zurück zur Startseite</a>
-      </div>
+      <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-500 mb-6">Fehler 404</div>
+      <h1 className="font-extrabold mb-6" style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }}>
+        Hier ist <span className="text-signal-500">nichts.</span>
+      </h1>
+      <p className="text-bone-400 mb-10">Die Seite gibt es nicht (mehr). Vielleicht hilft die Suche: <span className="kbd">⌘K</span></p>
+      <a href="/" className="btn-primary">Zur Startseite</a>
     </div>
   </div>
 );
@@ -122,8 +123,9 @@ function App() {
       <AuthProvider>
         <ScrollToTop />
         <Seo />
-        <div className="min-h-screen bg-dark-900">
+        <div className="grain min-h-screen bg-ink">
           <Navbar />
+          <CommandPalette />
           <Routes>
             {/* Public */}
             <Route path="/" element={<Home />} />
